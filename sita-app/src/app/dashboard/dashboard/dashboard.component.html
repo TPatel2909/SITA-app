@@ -1,0 +1,107 @@
+<app-nav-menu></app-nav-menu>
+
+<div class="dashboard-container">
+  <header>
+    <h1>👋 Welcome, {{currentUser?.firstName || 'John Doe'}}</h1>
+    <p class="subtitle">Your personalized HR dashboard. Stay updated, manage your work life.</p>
+    
+    <div class="quick-actions">
+      <button class="action-btn">Request Time Off</button>
+      <button class="action-btn">Submit Expense</button>
+      <button class="action-btn">Give Feedback</button>
+      <button class="action-btn">Get Goals</button>
+    </div>
+  </header>
+
+  <div class="dashboard-grid">
+    <!-- E-Leave Section -->
+    <div class="dashboard-card">
+      <h2>📅 E-Leave</h2>
+      <div class="card-content">
+        <p>Vacation: 17 days</p>
+        <p>Sick Leave: 5 days</p>
+        <p>Personal: 3 days</p>
+        <button class="action-btn green">Manage Leave</button>
+      </div>
+    </div>
+
+    <!-- Upcoming Reviews Section -->
+    <div class="dashboard-card">
+      <h2>📋 Upcoming Reviews</h2>
+      <div class="card-content">
+        <p>Mid-Year Review: July 15, 2023</p>
+        <p>KPI Feedback: August 1, 2023</p>
+        <button class="action-btn green">View Performance</button>
+      </div>
+    </div>
+
+    <!-- Learning Progress Section -->
+    <div class="dashboard-card">
+      <h2>📚 Learning Progress</h2>
+      <div class="card-content">
+        <p>Current Course: Advanced Leadership</p>
+        <p>Progress: 65% complete</p>
+        <button class="action-btn green">Continue Learning</button>
+      </div>
+    </div>
+
+    <!-- Payroll Section -->
+    <div class="dashboard-card">
+      <h2>💰 Payroll</h2>
+      <div class="card-content">
+        <p>Next Payroll: June 30, 2023</p>
+        <p>Last Payment: $3,500</p>
+        <button class="action-btn green">View Pay Stub</button>
+      </div>
+    </div>
+
+    <!-- E-Recruitment Section -->
+    <div class="dashboard-card">
+      <h2>👥 E-Recruitment</h2>
+      <div class="card-content">
+        <p>Open Positions: 3</p>
+        <p>Recent Candidate Status: Developer</p>
+        <p>Interview Status: 2</p>
+        <button class="action-btn green">View Openings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Announcements Section -->
+  <div class="announcements-section">
+    <h2>📢 Company Announcements</h2>
+    <div class="announcement-card">
+      <div class="announcement">
+        <h3>Quarterly Town Hall</h3>
+        <p class="date">June 25, 2023</p>
+        <p>Join us for our Q2 Town Hall meeting. Important company updates and Q&A session with leadership.</p>
+      </div>
+      <div class="announcement">
+        <h3>New Wellness Program Launch</h3>
+        <p class="date">July 1, 2023</p>
+        <p>We're excited to introduce our new employee wellness program. Stay tuned for details on fitness challenges, mental health resources, and more!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Team Section -->
+  <div class="team-section">
+    <h2>👥 My Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <h3>Team Performance</h3>
+        <p>Overall Rating: 4.2/5</p>
+        <p>Top Performer: Jane Smith</p>
+        <button class="action-btn green">View Details</button>
+      </div>
+      <div class="team-card">
+        <h3>Team Calendar</h3>
+        <p>Next Team Meeting: June 28, 2023</p>
+        <p>Project Deadline: July 15, 2023</p>
+        <button class="action-btn green">Full Calendar</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div> 
