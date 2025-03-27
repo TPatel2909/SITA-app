@@ -1,0 +1,152 @@
+<div class="review-container">
+  <h1>SEPTEMBER REVIEW FORM</h1>
+
+  <div class="purpose-section">
+    <p><strong>Purpose:</strong> To review, summarise and develop the work performance off all employees.</p>
+    <p class="note">(Following completion of this form, a copy must be forwarded to the Section: People Management.)</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-row">
+      <div class="info-cell">
+        <label>NAME:</label>
+        <input type="text">
+      </div>
+      <div class="info-cell">
+        <label>SUPERVISOR/PROJECT LEADER:</label>
+        <input type="text">
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-cell">
+        <label>JOB TITLE:</label>
+        <input type="text">
+      </div>
+      <div class="info-cell">
+        <label>COMPONENT:</label>
+        <input type="text">
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-cell">
+        <label>DATE OF REVIEW:</label>
+        <input type="date">
+      </div>
+      <div class="info-cell">
+        <label>SALARY LEVEL:</label>
+        <input type="text">
+      </div>
+    </div>
+  </div>
+
+  <!-- KRAs Section -->
+  <section class="assessment-section">
+    <h2>A. KEY RESULT AREAS (KRAs)</h2>
+    <p class="subtitle">(Rate all the KRAs included in the performance agreement)</p>
+    
+    <table class="assessment-table">
+      <thead>
+        <tr>
+          <th>KRAs</th>
+          <th>Weighting</th>
+          <th>Own Assessment (1-5)</th>
+          <th>Supervisor's assessment (1-5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kra of kras; let i = index">
+          <td>{{i + 1}}.</td>
+          <td><input type="number"></td>
+          <td><input type="number" min="1" max="5"></td>
+          <td><input type="number" min="1" max="5"></td>
+        </tr>
+        <tr class="total-row">
+          <td>TOTAL</td>
+          <td>100%</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">NOTE: WEIGHTING OF KRAs MUST TOTAL 100%</p>
+  </section>
+
+  <!-- GAFs Section -->
+  <section class="assessment-section">
+    <h2>B. GENERIC ASSESSMENT FACTORS (GAFs):</h2>
+    <p class="subtitle">(Rate the GAFs/CMCs agreed upon in the performance agreement)</p>
+    
+    <table class="assessment-table">
+      <thead>
+        <tr>
+          <th>GAF</th>
+          <th>Weighting</th>
+          <th>Own rating (1-5)</th>
+          <th>Supervisor's rating (1-5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gaf of gafs; let i = index">
+          <td>{{i + 1}}.</td>
+          <td><input type="number"></td>
+          <td><input type="number" min="1" max="5"></td>
+          <td><input type="number" min="1" max="5"></td>
+        </tr>
+        <tr class="total-row">
+          <td>TOTAL</td>
+          <td>100%</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">NOTE: WEIGHTING OF GAF'S MUST TOTAL 100%</p>
+    <p class="calculator-note">(The Excel calculator can be used to calculate a total score, and the ration between KRAs and GAFs is 80%/20%)</p>
+  </section>
+
+  <!-- Developmental Areas -->
+  <section class="text-section">
+    <h2>C. DEVELOPMENTAL AREAS</h2>
+    <p>Specify areas in which the employee was developed as indicated in the Performance Agreement and Personal Development Plan, if not developed, state reasons why and specify dates when will this take place.</p>
+    <textarea rows="4"></textarea>
+  </section>
+
+  <!-- Managing Unsatisfactory Performance -->
+  <section class="text-section">
+    <h2>D. MANAGING UNSATISFACTORY PERFORMANCE</h2>
+    <p>Identify unsatisfactory performance and state actions taken or to be taken by when and by whom.</p>
+    <textarea rows="4"></textarea>
+  </section>
+
+  <!-- Employee Comments -->
+  <section class="text-section">
+    <h2>E. EMPLOYEE'S COMMENTS (CAN INCLUDE OBSTACLES ENCOUNTERED AND OVERCOME) if applicable</h2>
+    <textarea rows="4"></textarea>
+    <div class="signature-row">
+      <div class="signature-field">
+        <label>Signature:</label>
+        <input type="text">
+      </div>
+      <div class="signature-field">
+        <label>DATE:</label>
+        <input type="date">
+      </div>
+    </div>
+  </section>
+
+  <!-- Supervisor Comments -->
+  <section class="text-section">
+    <h2>F.1 SUPERVISOR'S COMMENTS</h2>
+    <textarea rows="4"></textarea>
+    <div class="signature-row">
+      <div class="signature-field">
+        <label>Signature:</label>
+        <input type="text">
+      </div>
+      <div class="signature-field">
+        <label>DATE:</label>
+        <input type="date">
+      </div>
+    </div>
+  </section>
+</div> 

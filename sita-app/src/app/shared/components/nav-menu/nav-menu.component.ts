@@ -2,6 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+interface MenuItem {
+  label: string;
+  subItems: SubItem[];
+}
+
+interface SubItem {
+  label: string;
+  route: string;
+}
+
 @Component({
   selector: 'app-nav-menu',
   standalone: true,
@@ -11,7 +21,7 @@ import { RouterModule } from '@angular/router';
       <div class="nav-items">
         <div *ngFor="let item of menuItems" 
              class="nav-item" 
-             (click)="toggleSidebar(item)"
+             (click)="toggleMenu(item, $event)"
              [class.active]="item === activeMenu">
           <span>{{item.label}}</span>
         </div>
@@ -208,7 +218,7 @@ import { RouterModule } from '@angular/router';
   `]
 })
 export class NavMenuComponent {
-  menuItems = [
+  menuItems: MenuItem[] = [
     {
       label: 'EMPDS',
       subItems: [
@@ -227,7 +237,6 @@ export class NavMenuComponent {
     {
       label: 'IAPPMS',
       subItems: [
-        // To be populated based on IAPPMS requirements
         { label: 'Dashboard', route: '/iappms/dashboard' },
         { label: 'Settings', route: '/iappms/settings' }
       ]
@@ -255,14 +264,16 @@ export class NavMenuComponent {
   ];
 
   activeSidebar = false;
-  activeMenu: any = null;
+  activeMenu: MenuItem | null = null;
 
-  toggleSidebar(menu: any) {
+  toggleMenu(menu: MenuItem, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.activeMenu = menu;
     this.activeSidebar = true;
   }
 
-  closeSidebar() {
+  closeSidebar(): void {
     this.activeSidebar = false;
   }
 } 
