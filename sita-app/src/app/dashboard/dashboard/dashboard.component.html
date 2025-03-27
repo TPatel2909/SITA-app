@@ -1,107 +1,123 @@
 <app-nav-menu></app-nav-menu>
 
 <div class="dashboard-container">
-  <header>
-    <h1>👋 Welcome, {{currentUser?.firstName || 'John Doe'}}</h1>
-    <p class="subtitle">Your personalized HR dashboard. Stay updated, manage your work life.</p>
-    
-    <div class="quick-actions">
-      <button class="action-btn">Request Time Off</button>
-      <button class="action-btn">Submit Expense</button>
-      <button class="action-btn">Give Feedback</button>
-      <button class="action-btn">Get Goals</button>
-    </div>
-  </header>
+  <h1>
+    <span class="material-icons">dashboard</span>
+    Annual Performance Planning Dashboard
+  </h1>
 
-  <div class="dashboard-grid">
-    <!-- E-Leave Section -->
-    <div class="dashboard-card">
-      <h2>📅 E-Leave</h2>
-      <div class="card-content">
-        <p>Vacation: 17 days</p>
-        <p>Sick Leave: 5 days</p>
-        <p>Personal: 3 days</p>
-        <button class="action-btn green">Manage Leave</button>
+  <div class="stats-cards">
+    <div class="stat-card total">
+      <div class="icon-wrapper">
+        <span class="material-icons">folder</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.total}}</div>
+        <div class="stat-label">Total Projects</div>
+        <div class="stat-meta">Target: {{projectStats.totalTarget}}</div>
       </div>
     </div>
 
-    <!-- Upcoming Reviews Section -->
-    <div class="dashboard-card">
-      <h2>📋 Upcoming Reviews</h2>
-      <div class="card-content">
-        <p>Mid-Year Review: July 15, 2023</p>
-        <p>KPI Feedback: August 1, 2023</p>
-        <button class="action-btn green">View Performance</button>
+    <div class="stat-card completed">
+      <div class="icon-wrapper">
+        <span class="material-icons">check_circle</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.completed}}</div>
+        <div class="stat-label">Completed Projects</div>
+        <div class="stat-meta">Target: {{projectStats.completedTarget}}</div>
       </div>
     </div>
 
-    <!-- Learning Progress Section -->
-    <div class="dashboard-card">
-      <h2>📚 Learning Progress</h2>
-      <div class="card-content">
-        <p>Current Course: Advanced Leadership</p>
-        <p>Progress: 65% complete</p>
-        <button class="action-btn green">Continue Learning</button>
+    <div class="stat-card ongoing">
+      <div class="icon-wrapper">
+        <span class="material-icons">pending_actions</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.ongoing}}</div>
+        <div class="stat-label">Ongoing Projects</div>
+        <div class="stat-meta">Target: {{projectStats.ongoingTarget}}</div>
       </div>
     </div>
 
-    <!-- Payroll Section -->
-    <div class="dashboard-card">
-      <h2>💰 Payroll</h2>
-      <div class="card-content">
-        <p>Next Payroll: June 30, 2023</p>
-        <p>Last Payment: $3,500</p>
-        <button class="action-btn green">View Pay Stub</button>
+    <div class="stat-card pending">
+      <div class="icon-wrapper">
+        <span class="material-icons">schedule</span>
       </div>
-    </div>
-
-    <!-- E-Recruitment Section -->
-    <div class="dashboard-card">
-      <h2>👥 E-Recruitment</h2>
-      <div class="card-content">
-        <p>Open Positions: 3</p>
-        <p>Recent Candidate Status: Developer</p>
-        <p>Interview Status: 2</p>
-        <button class="action-btn green">View Openings</button>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.pending}}</div>
+        <div class="stat-label">Pending Projects</div>
+        <div class="stat-meta">Target: {{projectStats.pendingTarget}}</div>
       </div>
     </div>
   </div>
 
-  <!-- Company Announcements Section -->
-  <div class="announcements-section">
-    <h2>📢 Company Announcements</h2>
-    <div class="announcement-card">
-      <div class="announcement">
-        <h3>Quarterly Town Hall</h3>
-        <p class="date">June 25, 2023</p>
-        <p>Join us for our Q2 Town Hall meeting. Important company updates and Q&A session with leadership.</p>
+  <div class="charts-section">
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">timeline</span>
+        Project Completion Over Time
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
       </div>
-      <div class="announcement">
-        <h3>New Wellness Program Launch</h3>
-        <p class="date">July 1, 2023</p>
-        <p>We're excited to introduce our new employee wellness program. Stay tuned for details on fitness challenges, mental health resources, and more!</p>
+    </div>
+
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">account_balance</span>
+        Resource Allocation vs Budget
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">pie_chart</span>
+        Project Distribution by Department
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
       </div>
     </div>
   </div>
 
-  <!-- My Team Section -->
-  <div class="team-section">
-    <h2>👥 My Team</h2>
-    <div class="team-grid">
-      <div class="team-card">
-        <h3>Team Performance</h3>
-        <p>Overall Rating: 4.2/5</p>
-        <p>Top Performer: Jane Smith</p>
-        <button class="action-btn green">View Details</button>
-      </div>
-      <div class="team-card">
-        <h3>Team Calendar</h3>
-        <p>Next Team Meeting: June 28, 2023</p>
-        <p>Project Deadline: July 15, 2023</p>
-        <button class="action-btn green">Full Calendar</button>
-      </div>
-    </div>
+  <div class="table-section">
+    <h2>
+      <span class="material-icons">list_alt</span>
+      Detailed Project Data
+    </h2>
+    <table class="project-table">
+      <thead>
+        <tr>
+          <th><span class="material-icons">folder</span>Project Name</th>
+          <th><span class="material-icons">info</span>Status</th>
+          <th><span class="material-icons">trending_up</span>Progress</th>
+          <th><span class="material-icons">flag</span>Target</th>
+          <th><span class="material-icons">compare_arrows</span>Variance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectData">
+          <td>{{project.name}}</td>
+          <td>
+            <span class="status-badge" [ngClass]="project.status.toLowerCase()">
+              {{project.status}}
+            </span>
+          </td>
+          <td>{{project.progress}}%</td>
+          <td>{{project.target}}%</td>
+          <td>
+            <span class="variance" [ngClass]="getVarianceClass(project.variance)">
+              {{project.variance > 0 ? '+' : ''}}{{project.variance}}%
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <button class="logout-btn" (click)="logout()">Logout</button>
+
 </div> 
