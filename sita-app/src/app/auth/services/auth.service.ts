@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Environment } from '../../../environments/environment.interface';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface User {
   id: string;
@@ -30,14 +31,27 @@ export interface SignupCredentials extends LoginCredentials {
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser$: Observable<any>;
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser));
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    let storedUser = null;
+    
+    if (this.isBrowser) {
+      storedUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
     }
+    
+    this.currentUserSubject = new BehaviorSubject<any>(storedUser);
+    this.currentUser$ = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue() {
+    return this.currentUserSubject.value;
   }
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
