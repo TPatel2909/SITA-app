@@ -1,0 +1,123 @@
+<app-nav-menu></app-nav-menu>
+
+<div class="dashboard-container">
+  <h1>
+    <span class="material-icons">dashboard</span>
+    Annual Performance Planning Dashboard
+  </h1>
+
+  <div class="stats-cards">
+    <div class="stat-card total">
+      <div class="icon-wrapper">
+        <span class="material-icons">folder</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.total}}</div>
+        <div class="stat-label">Total Projects</div>
+        <div class="stat-meta">Target: {{projectStats.totalTarget}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card completed">
+      <div class="icon-wrapper">
+        <span class="material-icons">check_circle</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.completed}}</div>
+        <div class="stat-label">Completed Projects</div>
+        <div class="stat-meta">Target: {{projectStats.completedTarget}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card ongoing">
+      <div class="icon-wrapper">
+        <span class="material-icons">pending_actions</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.ongoing}}</div>
+        <div class="stat-label">Ongoing Projects</div>
+        <div class="stat-meta">Target: {{projectStats.ongoingTarget}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card pending">
+      <div class="icon-wrapper">
+        <span class="material-icons">schedule</span>
+      </div>
+      <div class="stat-content">
+        <div class="stat-number">{{projectStats.pending}}</div>
+        <div class="stat-label">Pending Projects</div>
+        <div class="stat-meta">Target: {{projectStats.pendingTarget}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-section">
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">timeline</span>
+        Project Completion Over Time
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">account_balance</span>
+        Resource Allocation vs Budget
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h2>
+        <span class="material-icons">pie_chart</span>
+        Project Distribution by Department
+      </h2>
+      <div class="chart-content">
+        <!-- Chart will be rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <h2>
+      <span class="material-icons">list_alt</span>
+      Detailed Project Data
+    </h2>
+    <table class="project-table">
+      <thead>
+        <tr>
+          <th><span class="material-icons">folder</span>Project Name</th>
+          <th><span class="material-icons">info</span>Status</th>
+          <th><span class="material-icons">trending_up</span>Progress</th>
+          <th><span class="material-icons">flag</span>Target</th>
+          <th><span class="material-icons">compare_arrows</span>Variance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectData">
+          <td>{{project.name}}</td>
+          <td>
+            <span class="status-badge" [ngClass]="project.status.toLowerCase()">
+              {{project.status}}
+            </span>
+          </td>
+          <td>{{project.progress}}%</td>
+          <td>{{project.target}}%</td>
+          <td>
+            <span class="variance" [ngClass]="getVarianceClass(project.variance)">
+              {{project.variance > 0 ? '+' : ''}}{{project.variance}}%
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div> 
