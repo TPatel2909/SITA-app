@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
   template: `
     <nav class="navbar">
       <div class="navbar-brand">
-        <img src="assets/logo.png" alt="SITA Logo" class="logo">
+        <img src="logo.jpg" alt="SITA Logo" class="logo">
         <span class="brand-text">SITA App</span>
       </div>
       <div class="navbar-menu">

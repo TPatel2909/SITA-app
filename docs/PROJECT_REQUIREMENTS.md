@@ -20,11 +20,18 @@
 - [ ] SMS Workplan Level 13-16
 - [ ] Personal Development Plan
 - [ ] September Review Form
-- [ ] Performance Assessment Instrument
+- [ ] Annual Performance Assessment Instrument
+- [ ] Probation: Quarterly Performance Assessment
 - [ ] Elementary Occupations
 - [ ] Performance Development Plan : Elementary Occupations
-- [ ] WorkPlan- Elementary Occupations
-- [ ] Quarterly/Annual Performance Assessment Instrument
+- [ ] Assessment Factor 1 :Job Performance Elementary Occupation
+- [ ] Assessment Criteria
+- [ ] Assessment Factor 2: Interpersonal Relations
+- [ ] Assessment Factor 3: Interpersonal Relations
+- [ ] Performance Rating Scale Level 1-12
+- [ ] Key Result Areas Level 1-12
+- [ ] Generic Assessment Factors Level 1-12
+- [ ] Final Performance Assessment Score Level 1-12
 
 #### IAPPMS
 
