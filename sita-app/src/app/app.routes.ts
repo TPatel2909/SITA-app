@@ -21,6 +21,7 @@ import { KeyResultAreasComponent } from './features/key-result-areas/key-result-
 import { GenericAssessmentFactorComponent } from './features/generic-assessment-factor/generic-assessment-factor.component';
 import { FinalScoreComponent } from './features/final-score/final-score.component';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
