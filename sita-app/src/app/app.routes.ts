@@ -10,6 +10,7 @@ import { QuarterlyAnnualAssessmentComponent } from './features/quarterly-annual-
 import { WorkplanComponent } from './features/workplan/workplan.component';
 import { SmsWorkplanComponent } from './features/sms-workplan/sms-workplan.component';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
