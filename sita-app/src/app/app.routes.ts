@@ -6,9 +6,20 @@ import { ReportsComponent } from './reports/reports.component';
 import { PerformanceComponent } from './dashboard/performance/performance.component';
 import { PersonalDevelopmentPlanComponent } from './features/personal-development-plan/personal-development-plan.component';
 import { SeptemberReviewComponent } from './features/september-review/september-review.component';
+import { PerformanceAssessmentComponent } from './features/performance-assessment/performance-assessment.component';
 import { QuarterlyAnnualAssessmentComponent } from './features/quarterly-annual-assessment/quarterly-annual-assessment.component';
+import { ElementaryComponent } from './features/elementary/elementary.component';
+import { PdpElementaryComponent } from './features/pdp-elementary/pdp-elementary.component';
+import { AssessmentFactorOneComponent } from './features/assessment-factor-one/assessment-factor-one.component';
+import { AssessmentCriteriaComponent } from './features/assessment-criteria/assessment-criteria.component';
+import { AssessmentFactorTwoComponent } from './features/assessment-factor-two/assessment-factor-two.component';
+import { AssessmentFactorThreeComponent } from './features/assessment-factor-three/assessment-factor-three.component';
 import { WorkplanComponent } from './features/workplan/workplan.component';
 import { SmsWorkplanComponent } from './features/sms-workplan/sms-workplan.component';
+import { PerformanceRatingScaleComponent } from './features/performance-rating-scale/performance-rating-scale.component';
+import { KeyResultAreasComponent } from './features/key-result-areas/key-result-areas.component';
+import { GenericAssessmentFactorComponent } from './features/generic-assessment-factor/generic-assessment-factor.component';
+import { FinalScoreComponent } from './features/final-score/final-score.component';
 
 
 export const routes: Routes = [
@@ -23,18 +34,18 @@ export const routes: Routes = [
       { path: 'sms-workplan', component: SmsWorkplanComponent },
       { path: 'pdp', component: PersonalDevelopmentPlanComponent },
       { path: 'september-review', component: SeptemberReviewComponent },
-      { path: 'assessment', component: QuarterlyAnnualAssessmentComponent },
+      { path: 'assessment', component: PerformanceAssessmentComponent },
       { path: 'quarterly-assessment', component: QuarterlyAnnualAssessmentComponent },
-      { path: 'elementary', component: TasksComponent },
-      { path: 'pdp-elementary', component: TasksComponent },
-      { path: 'factor1', component: TasksComponent },
-      { path: 'criteria', component: TasksComponent },
-      { path: 'factor2', component: TasksComponent },
-      { path: 'factor3', component: TasksComponent },
-      { path: 'rating-scale', component: TasksComponent },
-      { path: 'kra', component: TasksComponent },
-      { path: 'gaf', component: TasksComponent },
-      { path: 'final-score', component: TasksComponent }
+      { path: 'elementary', component: ElementaryComponent },
+      { path: 'pdp-elementary', component:PdpElementaryComponent },
+      { path: 'factor1', component: AssessmentFactorOneComponent },
+      { path: 'criteria', component: AssessmentCriteriaComponent },
+      { path: 'factor2', component: AssessmentFactorTwoComponent },
+      { path: 'factor3', component: AssessmentFactorThreeComponent },
+      { path: 'rating-scale', component: PerformanceRatingScaleComponent },
+      { path: 'kra', component: KeyResultAreasComponent },
+      { path: 'gaf', component: GenericAssessmentFactorComponent },
+      { path: 'final-score', component: FinalScoreComponent }
     ]
   },
   { 
