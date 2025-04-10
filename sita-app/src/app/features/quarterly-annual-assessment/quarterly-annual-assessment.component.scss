@@ -1,15 +1,197 @@
-.assessment-container {
+.page-container {
   padding: 2rem;
-  background: white;
-  margin: 2rem;
-  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  h1 {
+.form-card {
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  mat-card-header {
+    margin-bottom: 2rem;
     text-align: center;
-    font-size: 16px;
+
+    mat-card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    mat-card-subtitle {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.notice-box {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.confidential-label {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.form-section {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+
+  h2 {
+    font-size: 1.3rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
-  // Rest of your styles
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 1rem 0;
+  }
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  td {
+    padding: 0.5rem;
+    vertical-align: middle;
+
+    &:first-child {
+      width: 200px;
+      font-weight: 500;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.section-note {
+  font-style: italic;
+  color: #666;
+  margin: 1rem 0;
+}
+
+.full-width {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.signature-section {
+  margin: 1.5rem 0;
+}
+
+.signature-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  span {
+    min-width: 100px;
+  }
+
+  mat-form-field {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.assessment-note {
+  margin: 1rem 0;
+
+  .sub-note {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5rem;
+  }
+}
+
+.final-score-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  border: 1px solid #e0e0e0;
+
+  th, td {
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.placement-section,
+.permanent-section {
+  margin: 1.5rem 0;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  mat-radio-group {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.warning-note {
+  color: red;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.recommendation-section {
+  margin: 1.5rem 0;
+
+  .recommendation-option {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+  }
+
+  .recommendation-text {
+    margin-top: 1rem;
+    padding-left: 2rem;
+  }
+
+  .inline-field {
+    width: 200px;
+    margin: 0 0.5rem;
+  }
+}
+
+.comments-section {
+  margin: 1.5rem 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
 } 
