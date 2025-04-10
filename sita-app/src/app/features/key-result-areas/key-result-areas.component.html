@@ -1,0 +1,142 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="kra-container">
+      <div class="section-header">
+        <h2>KEY RESULT AREAS (KRAs)</h2>
+      </div>
+
+      <form [formGroup]="kraForm">
+        <div class="form-section">
+          <div class="employee-info">
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Employee Name</mat-label>
+                <input matInput formControlName="employeeName" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Employee Number</mat-label>
+                <input matInput formControlName="employeeNumber" required>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Job Title</mat-label>
+                <input matInput formControlName="jobTitle" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Department</mat-label>
+                <input matInput formControlName="department" required>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Assessment Period</mat-label>
+                <input matInput formControlName="assessmentPeriod" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="kra-table">
+            <thead>
+              <tr>
+                <th>Key Result Areas</th>
+                <th>Weight %</th>
+                <th>Key Activities / Outputs</th>
+                <th>Performance Indicators</th>
+                <th>Target Date</th>
+                <th>Evidence / Verification</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="kras">
+              <tr *ngFor="let kra of krasArray.controls; let i = index" [formGroupName]="i">
+                <td>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="title" placeholder="KRA Title">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" formControlName="weight" placeholder="Weight">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <textarea matInput formControlName="output" placeholder="Key Activities"></textarea>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <textarea matInput formControlName="indicators" placeholder="Performance Indicators"></textarea>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="targetDate" placeholder="Target Date">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="outline">
+                    <textarea matInput formControlName="evidence" placeholder="Evidence"></textarea>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <button mat-icon-button color="warn" (click)="removeKRA(i)" *ngIf="krasArray.length > 1">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">Total Weight: {{totalWeight}}%</td>
+                <td colspan="5"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addKRA()">
+            Add KRA
+          </button>
+          <button mat-raised-button color="accent" [disabled]="!kraForm.valid || totalWeight !== 100" (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+
+        <div class="signatures-section">
+          <div class="signature-row">
+            <div class="signature-group">
+              <span>Employee Signature:</span>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="employeeSignature">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput formControlName="employeeDate" type="date">
+              </mat-form-field>
+            </div>
+
+            <div class="signature-group">
+              <span>Supervisor Signature:</span>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="supervisorSignature">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput formControlName="supervisorDate" type="date">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
