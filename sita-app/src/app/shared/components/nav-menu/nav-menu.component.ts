@@ -10,6 +10,8 @@ interface MenuItem {
 interface SubItem {
   label: string;
   route: string;
+  icon?: string;
+  description?: string;
 }
 
 @Component({
@@ -237,8 +239,11 @@ export class NavMenuComponent {
     {
       label: 'IAPPMS',
       subItems: [
-        { label: 'Dashboard', route: '/iappms/dashboard' },
-        { label: 'Settings', route: '/iappms/settings' }
+        { label: 'MTSF Implementation Plan', route: '/iappms/mtsf', icon: '📊', description: 'Medium Term Strategic Framework Implementation Plan' },
+        { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', icon: '🗺️', description: 'Strategic Mapping of Provincial Priorities' },
+        { label: 'Operational Plan', route: '/iappms/operational-plan', icon: '📋', description: 'Operational Planning and Management' },
+        { label: 'Strategic Plan', route: '/iappms/strategic-plan', icon: '🎯', description: 'Strategic Planning and Development' },
+        { label: 'Annual Performance Plan', route: '/iappms/annual', icon: '📅', description: 'Annual Performance Planning and Review' }
       ]
     },
     {

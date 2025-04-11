@@ -1,0 +1,105 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="workplan-container">
+      <div class="section-header">
+        <h2>Annual Performance Plan</h2>
+      </div>
+
+      <form [formGroup]="annualPlanForm">
+        <!-- Part A: Our Mandate -->
+        <div class="section">
+          <h3 class="section-title">Part A: Our Mandate</h3>
+          <div class="section-subtitle">Updates to legislative and policy mandates, institutional policies and strategies, court rulings</div>
+          <textarea formControlName="mandate" class="form-control" rows="5" 
+                    placeholder="Enter updates to mandates, policies, strategies, and rulings..."></textarea>
+        </div>
+
+        <!-- Part B: Our Strategic Focus -->
+        <div class="section">
+          <h3 class="section-title">Part B: Our Strategic Focus</h3>
+          
+          <div class="analysis-section">
+            <h4>Situational Analysis</h4>
+            <textarea formControlName="situationalAnalysis" class="form-control" rows="4"
+                      placeholder="Describe the current situation..."></textarea>
+          </div>
+
+          <div class="analysis-section">
+            <h4>External Environment Analysis</h4>
+            <textarea formControlName="externalAnalysis" class="form-control" rows="4"
+                      placeholder="Analyze external factors affecting the organization..."></textarea>
+          </div>
+
+          <div class="analysis-section">
+            <h4>Internal Environment Analysis</h4>
+            <textarea formControlName="internalAnalysis" class="form-control" rows="4"
+                      placeholder="Analyze internal factors affecting the organization..."></textarea>
+          </div>
+        </div>
+
+        <!-- Part C: Measuring Our Performance -->
+        <div class="section">
+          <h3 class="section-title">Part C: Measuring Our Performance</h3>
+          <div class="section-subtitle">Institutional Programme Performance Information</div>
+
+          <div class="table-container">
+            <table class="workplan-table">
+              <thead>
+                <tr>
+                  <th>PROGRAMME</th>
+                  <th>OUTCOME</th>
+                  <th>OUTPUTS</th>
+                  <th>OUTPUT INDICATOR</th>
+                  <th>PERFORMANCE INDICATOR</th>
+                  <th>ANNUAL TARGETS</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="programmes">
+                <tr *ngFor="let programme of programmes.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <input type="text" formControlName="programme" placeholder="Programme Name">
+                  </td>
+                  <td>
+                    <select formControlName="outcome">
+                      <option value="">Select Outcome</option>
+                      <option value="outcome1">Outcome 1</option>
+                      <option value="outcome2">Outcome 2</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" formControlName="outputs" placeholder="Outputs">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="outputIndicator" placeholder="Output Indicator">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="performanceIndicator" placeholder="Performance Indicator">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="annualTargets" placeholder="Annual Target">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-action" (click)="addProgramme()">
+              Add Programme
+            </button>
+            <button type="button" class="btn-action" (click)="removeProgramme(programmes.length - 1)" 
+                    *ngIf="programmes.length > 1">
+              Remove Programme
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions main-actions">
+          <button type="button" class="btn-save" (click)="onSave()">Save</button>
+          <button type="button" class="btn-submit" (click)="onSubmit()">Save & Submit for Approval</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

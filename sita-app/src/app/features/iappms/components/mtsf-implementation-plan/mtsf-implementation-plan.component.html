@@ -1,0 +1,70 @@
+<div class="mtsf-container">
+  <div class="header">
+    <img src="assets/images/kzn-logo.png" alt="KwaZulu-Natal Province Logo" class="logo">
+    <h1>MTSF IMPLEMENTATION PLAN 2024/25</h1>
+    <p class="subtitle">KZN DOE Operational Plan 2024/2025</p>
+  </div>
+
+  <div class="content">
+    <div class="info-section">
+      <div class="info-row">
+        <div class="label">MTSF Priority:</div>
+        <div class="value">{{mtsfPriority}}</div>
+      </div>
+      <div class="info-row">
+        <div class="label">MTSF Area of Emphasis:</div>
+        <div class="value">{{mtsfAreaOfEmphasis}}</div>
+      </div>
+      <div class="info-row">
+        <div class="label">Provincial Priority:</div>
+        <div class="value">{{provincialPriority}}</div>
+      </div>
+    </div>
+
+    <div class="impact-section">
+      <h2>2024 IMPACT:</h2>
+      <ol>
+        <li *ngFor="let impact of impacts2024">{{impact}}</li>
+      </ol>
+    </div>
+
+    <div class="outcomes-section">
+      <div class="table-responsive">
+        <table class="outcomes-table">
+          <thead>
+            <tr>
+              <th>Outcomes</th>
+              <th>Indicator</th>
+              <th>Baseline 2019</th>
+              <th>Target 2024</th>
+              <th>Interventions</th>
+              <th>Indicators</th>
+              <th>Baseline</th>
+              <th>Targets 2024</th>
+              <th>POA / Contribution (Intervention)</th>
+              <th>Source</th>
+              <th>APP Indicator</th>
+              <th>OPS Indicator</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let outcome of outcomes">
+              <td>{{outcome.outcomes}}</td>
+              <td>{{outcome.indicator}}</td>
+              <td>{{outcome.baseline2019}}</td>
+              <td>{{outcome.target2024}}</td>
+              <td>{{outcome.interventions}}</td>
+              <td>{{outcome.indicators}}</td>
+              <td>{{outcome.baseline}}</td>
+              <td>{{outcome.targets}}</td>
+              <td>{{outcome.poaContribution}}</td>
+              <td>{{outcome.source}}</td>
+              <td>{{outcome.appIndicator}}</td>
+              <td>{{outcome.opsIndicator}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 
