@@ -1,0 +1,105 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="strategic-plan-container">
+      <div class="section-header">
+        <h2>Strategic Plan</h2>
+      </div>
+
+      <form [formGroup]="strategicPlanForm">
+        <!-- Part A: Our Mandate -->
+        <div class="section" formGroupName="partA">
+          <h3 class="section-title">Part A: Our Mandate</h3>
+          
+          <div class="form-group">
+            <label>Constitutional Mandate:</label>
+            <textarea formControlName="constitutionalMandate" placeholder="Enter constitutional mandate..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Legislative and Policy Mandates:</label>
+            <textarea formControlName="legislativePolicyMandates" placeholder="Enter legislative and policy mandates..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Institutional Policies and Strategies:</label>
+            <textarea formControlName="institutionalPolicies" placeholder="Enter institutional policies and strategies..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Updates to Relevant Court Rulings:</label>
+            <textarea formControlName="courtRulings" placeholder="Enter updates to relevant court rulings..."></textarea>
+          </div>
+        </div>
+
+        <!-- Part B: Our Strategic Focus -->
+        <div class="section" formGroupName="partB">
+          <h3 class="section-title">Part B: Our Strategic Focus</h3>
+          
+          <div class="form-group">
+            <label>Vision:</label>
+            <textarea formControlName="vision" placeholder="Enter the organization's vision..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Mission:</label>
+            <textarea formControlName="mission" placeholder="Enter the organization's mission..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Values:</label>
+            <textarea formControlName="values" placeholder="Enter the organization's values..."></textarea>
+          </div>
+        </div>
+
+        <!-- Part C: Measuring Our Performance -->
+        <div class="section" formGroupName="partC">
+          <h3 class="section-title">Part C: Measuring Our Performance</h3>
+
+          <div class="table-container">
+            <table class="outcomes-table">
+              <thead>
+                <tr>
+                  <th>OUTCOME</th>
+                  <th>OUTCOME INDICATOR</th>
+                  <th>BASELINE</th>
+                  <th>FIVE YEAR TARGET</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="outcomes">
+                <tr *ngFor="let outcome of outcomesArray.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <input type="text" formControlName="outcome" placeholder="Enter outcome">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="outcomeIndicator" placeholder="Enter outcome indicator">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="baseline" placeholder="Enter baseline">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="fiveYearTarget" placeholder="Enter five year target">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-action" (click)="addOutcome()">
+              ADD OUTCOME
+            </button>
+            <button type="button" class="btn-action" (click)="removeOutcome(outcomesArray.length - 1)" 
+                    *ngIf="outcomesArray.length > 1">
+              REMOVE OUTCOME
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions main-actions">
+          <button type="button" class="btn-save" (click)="onSave()">SAVE</button>
+          <button type="button" class="btn-submit" (click)="onSubmit()">SAVE & SUBMIT FOR APPROVAL</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

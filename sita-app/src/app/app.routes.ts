@@ -4,26 +4,27 @@ import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
 import { PerformanceComponent } from './dashboard/performance/performance.component';
-import { PersonalDevelopmentPlanComponent } from './features/personal-development-plan/personal-development-plan.component';
-import { SeptemberReviewComponent } from './features/september-review/september-review.component';
-import { PerformanceAssessmentComponent } from './features/performance-assessment/performance-assessment.component';
-import { QuarterlyAnnualAssessmentComponent } from './features/quarterly-annual-assessment/quarterly-annual-assessment.component';
-import { ElementaryComponent } from './features/elementary/elementary.component';
-import { PdpElementaryComponent } from './features/pdp-elementary/pdp-elementary.component';
-import { AssessmentFactorOneComponent } from './features/assessment-factor-one/assessment-factor-one.component';
-import { AssessmentCriteriaComponent } from './features/assessment-criteria/assessment-criteria.component';
-import { AssessmentFactorTwoComponent } from './features/assessment-factor-two/assessment-factor-two.component';
-import { AssessmentFactorThreeComponent } from './features/assessment-factor-three/assessment-factor-three.component';
-import { WorkplanComponent } from './features/workplan/workplan.component';
-import { SmsWorkplanComponent } from './features/sms-workplan/sms-workplan.component';
-import { PerformanceRatingScaleComponent } from './features/performance-rating-scale/performance-rating-scale.component';
-import { KeyResultAreasComponent } from './features/key-result-areas/key-result-areas.component';
-import { GenericAssessmentFactorComponent } from './features/generic-assessment-factor/generic-assessment-factor.component';
-import { FinalScoreComponent } from './features/final-score/final-score.component';
-
+import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
+import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
+import { PerformanceAssessmentComponent } from './features/epmds/performance-assessment/performance-assessment.component';
+import { QuarterlyAnnualAssessmentComponent } from './features/epmds/quarterly-annual-assessment/quarterly-annual-assessment.component';
+import { ElementaryComponent } from './features/epmds/elementary/elementary.component';
+import { PdpElementaryComponent } from './features/epmds/pdp-elementary/pdp-elementary.component';
+import { AssessmentFactorOneComponent } from './features/epmds/assessment-factor-one/assessment-factor-one.component';
+import { AssessmentCriteriaComponent } from './features/epmds/assessment-criteria/assessment-criteria.component';
+import { AssessmentFactorTwoComponent } from './features/epmds/assessment-factor-two/assessment-factor-two.component';
+import { AssessmentFactorThreeComponent } from './features/epmds/assessment-factor-three/assessment-factor-three.component';
+import { WorkplanComponent } from './features/epmds/workplan/workplan.component';
+import { SmsWorkplanComponent } from './features/epmds/sms-workplan/sms-workplan.component';
+import { PerformanceRatingScaleComponent } from './features/epmds/performance-rating-scale/performance-rating-scale.component';
+import { KeyResultAreasComponent } from './features/epmds/key-result-areas/key-result-areas.component';
+import { GenericAssessmentFactorComponent } from './features/epmds/generic-assessment-factor/generic-assessment-factor.component';
+import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
+import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
+import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/iappms/mtsf', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { 
     path: 'epmds',
@@ -42,7 +43,6 @@ export const routes: Routes = [
       { path: 'criteria', component: AssessmentCriteriaComponent },
       { path: 'factor2', component: AssessmentFactorTwoComponent },
       { path: 'factor3', component: AssessmentFactorThreeComponent },
-      { path: 'rating-scale', component: PerformanceRatingScaleComponent },
       { path: 'kra', component: KeyResultAreasComponent },
       { path: 'gaf', component: GenericAssessmentFactorComponent },
       { path: 'final-score', component: FinalScoreComponent }
@@ -50,11 +50,7 @@ export const routes: Routes = [
   },
   { 
     path: 'iappms',
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: ProjectsComponent },
-      { path: 'settings', component: TasksComponent }
-    ]
+    children: IAPPMS_ROUTES
   },
   { 
     path: 'ess',
@@ -78,5 +74,5 @@ export const routes: Routes = [
       { path: 'analytics', component: ReportsComponent }
     ]
   },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/iappms/mtsf' }
 ];

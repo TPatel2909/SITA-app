@@ -3,25 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-
+ 
 interface SidebarItem {
   label: string;
   route: string;
   icon: string;
   description?: string;
 }
-
+ 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <div *ngIf="shouldShowSidebar" class="sidebar-wrapper">
-      <div class="sidebar-overlay" 
-           [class.active]="!isCollapsed" 
+      <div class="sidebar-overlay"
+           [class.active]="!isCollapsed"
            (click)="isCollapsed = true">
       </div>
-      
+     
       <div class="sidebar" [class.collapsed]="isCollapsed">
         <div class="sidebar-header">
           <div class="header-content">
@@ -32,12 +32,12 @@ interface SidebarItem {
             <span class="icon">{{ isCollapsed ? '→' : '←' }}</span>
           </button>
         </div>
-
+ 
         <div class="sidebar-content">
           <div class="menu-section">
             <div class="menu-items">
               <ng-container *ngFor="let item of getCurrentFeatureItems()">
-                <a [routerLink]="item.route" 
+                <a [routerLink]="item.route"
                    routerLinkActive="active"
                    class="menu-item"
                    [title]="item.description">
@@ -54,7 +54,7 @@ interface SidebarItem {
             </div>
           </div>
         </div>
-
+ 
         <div class="sidebar-footer" [class.hidden]="isCollapsed">
           <div class="user-info">
             <div class="user-avatar">👤</div>
@@ -87,7 +87,7 @@ interface SidebarItem {
       --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
       --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     }
-
+ 
     .sidebar-wrapper {
       position: fixed;
       top: var(--header-height);
@@ -95,7 +95,7 @@ interface SidebarItem {
       bottom: 0;
       z-index: 100;
     }
-
+ 
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -108,13 +108,13 @@ interface SidebarItem {
       visibility: hidden;
       transition: all var(--transition-speed) ease;
       z-index: 90;
-
+ 
       &.active {
         opacity: 1;
         visibility: visible;
       }
     }
-
+ 
     .sidebar {
       width: var(--sidebar-width);
       height: 100%;
@@ -126,23 +126,23 @@ interface SidebarItem {
       position: relative;
       z-index: 100;
       border-right: 1px solid rgba(0, 0, 0, 0.05);
-
+ 
       &.collapsed {
         width: var(--sidebar-collapsed-width);
-
+ 
         .header-content {
           opacity: 0;
         }
-
+ 
         .menu-item {
           padding: 0.75rem;
           justify-content: center;
-
+ 
           .item-icon {
             margin-right: 0;
             transform: scale(1.2);
           }
-
+ 
           &:hover {
             .item-tooltip {
               opacity: 1;
@@ -151,13 +151,13 @@ interface SidebarItem {
             }
           }
         }
-
+ 
         .item-content {
           display: none;
         }
       }
     }
-
+ 
     .sidebar-header {
       padding: 1.5rem;
       background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -167,8 +167,10 @@ interface SidebarItem {
       justify-content: space-between;
       min-height: 120px;
       position: relative;
-      overflow: hidden;
-
+      overflow: visible;
+      width: 100%;
+      box-sizing: border-box;
+ 
       &:before {
         content: '';
         position: absolute;
@@ -178,11 +180,11 @@ interface SidebarItem {
         bottom: 0;
         background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 60%);
       }
-
+ 
       .header-content {
         position: relative;
         transition: opacity var(--transition-speed) ease;
-
+ 
         h2 {
           margin: 0;
           font-size: 1.5rem;
@@ -192,7 +194,7 @@ interface SidebarItem {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
-
+ 
         .feature-description {
           margin: 0.75rem 0 0;
           font-size: 0.875rem;
@@ -202,7 +204,12 @@ interface SidebarItem {
         }
       }
     }
-
+    .sidebar.collapsed .sidebar-header {
+      padding: 1.5rem 0.5rem;
+      justify-content: center;
+    }
+ 
+ 
     .collapse-btn {
       background: rgba(255, 255, 255, 0.1);
       border: none;
@@ -217,38 +224,44 @@ interface SidebarItem {
       transition: all var(--transition-speed) ease;
       backdrop-filter: blur(4px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+      position: relative;
+ 
       &:hover {
         background: rgba(255, 255, 255, 0.2);
         transform: translateX(2px);
       }
-
+ 
       .icon {
         font-size: 1.25rem;
       }
     }
-
+    .sidebar.collapsed .collapse-btn {
+      margin-right: 0;
+      position: absolute;
+      right: 10px;
+    }
+ 
     .sidebar-content {
       flex: 1;
       overflow-y: auto;
       padding: 1rem 0;
-      
+     
       &::-webkit-scrollbar {
         width: 4px;
       }
-
+ 
       &::-webkit-scrollbar-track {
         background: transparent;
       }
-
+ 
       &::-webkit-scrollbar-thumb {
         background: var(--text-light);
         border-radius: 2px;
       }
-
+ 
       .menu-section {
         padding: 0 0.5rem;
-
+ 
         .menu-items {
           display: flex;
           flex-direction: column;
@@ -256,7 +269,7 @@ interface SidebarItem {
         }
       }
     }
-
+ 
     .menu-item {
       display: flex;
       align-items: center;
@@ -268,49 +281,49 @@ interface SidebarItem {
       transition: all var(--transition-speed) ease;
       border-radius: var(--border-radius);
       margin: 0 0.5rem;
-
+ 
       &:hover {
         background: var(--primary-light);
         color: var(--primary-color);
         transform: translateX(4px);
-
+ 
         .item-description {
           color: var(--primary-color);
         }
-
+ 
         .hover-indicator {
           opacity: 1;
           transform: scaleY(1);
         }
-
+ 
         .item-icon {
           transform: scale(1.1);
         }
       }
-
+ 
       &.active {
         background: var(--primary-light);
         color: var(--primary-color);
         font-weight: 500;
         box-shadow: var(--shadow-sm);
-
+ 
         .item-icon {
           color: var(--primary-color);
           transform: scale(1.1);
         }
-
+ 
         .hover-indicator {
           opacity: 1;
           transform: scaleY(1);
           background: var(--primary-color);
         }
-
+ 
         &:hover {
           transform: translateX(4px);
         }
       }
     }
-
+ 
     .hover-indicator {
       position: absolute;
       left: 0;
@@ -323,7 +336,7 @@ interface SidebarItem {
       transform: scaleY(0);
       transition: all var(--transition-speed) ease;
     }
-
+ 
     .item-icon {
       width: 32px;
       height: 32px;
@@ -336,13 +349,13 @@ interface SidebarItem {
       transition: all var(--transition-speed) ease;
       border-radius: 8px;
     }
-
+ 
     .item-content {
       flex: 1;
       min-width: 0;
       transition: all var(--transition-speed) ease;
     }
-
+ 
     .item-label {
       display: block;
       font-size: 0.9375rem;
@@ -352,7 +365,7 @@ interface SidebarItem {
       text-overflow: ellipsis;
       font-weight: 500;
     }
-
+ 
     .item-description {
       display: block;
       font-size: 0.75rem;
@@ -362,7 +375,7 @@ interface SidebarItem {
       text-overflow: ellipsis;
       transition: color var(--transition-speed) ease;
     }
-
+ 
     .item-tooltip {
       position: absolute;
       left: calc(100% + 10px);
@@ -379,7 +392,7 @@ interface SidebarItem {
       transition: all var(--transition-speed) ease;
       pointer-events: none;
       box-shadow: var(--shadow-md);
-
+ 
       &:before {
         content: '';
         position: absolute;
@@ -391,19 +404,19 @@ interface SidebarItem {
         background: var(--primary-dark);
       }
     }
-
+ 
     .sidebar-footer {
       padding: 1rem;
       border-top: 1px solid rgba(0, 0, 0, 0.05);
       background: rgba(0, 0, 0, 0.02);
       transition: all var(--transition-speed) ease;
       margin-top: auto;
-
+ 
       &.hidden {
         display: none;
       }
     }
-
+ 
     .user-info {
       display: flex;
       align-items: center;
@@ -413,13 +426,13 @@ interface SidebarItem {
       background: white;
       box-shadow: var(--shadow-sm);
       transition: all var(--transition-speed) ease;
-
+ 
       &:hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-1px);
       }
     }
-
+ 
     .user-avatar {
       width: 40px;
       height: 40px;
@@ -431,11 +444,11 @@ interface SidebarItem {
       font-size: 1.25rem;
       box-shadow: var(--shadow-sm);
     }
-
+ 
     .user-details {
       min-width: 0;
     }
-
+ 
     .user-name {
       display: block;
       font-size: 0.9375rem;
@@ -445,28 +458,28 @@ interface SidebarItem {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
+ 
     .user-role {
       display: block;
       font-size: 0.75rem;
       color: var(--text-light);
       margin-top: 0.125rem;
     }
-
+ 
     @media (max-width: 768px) {
       .sidebar {
         position: fixed;
         left: calc(-1 * var(--sidebar-width));
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
-
+ 
         &.collapsed {
           left: calc(-1 * var(--sidebar-collapsed-width));
         }
       }
-
+ 
       .sidebar-overlay.active + .sidebar {
         left: 0;
-
+ 
         &.collapsed {
           left: 0;
         }
@@ -480,40 +493,40 @@ export class SideBarComponent implements OnInit, OnDestroy {
   shouldShowSidebar = false;
   private routerSubscription?: Subscription;
   private coreFeatures = ['epmds', 'iappms', 'ess', 'reporting'];
-
+ 
   constructor(private router: Router) {
     this.shouldShowSidebar = false;
   }
-
+ 
   ngOnInit(): void {
     this.updateSidebarVisibility(this.router.url);
-    
+   
     this.routerSubscription = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.updateSidebarVisibility(event.url);
     });
   }
-
+ 
   ngOnDestroy(): void {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
   }
-
+ 
   private updateSidebarVisibility(url: string): void {
     // Get the first segment of the URL path
     const currentPath = url.split('/')[1] || '';
-    
+   
     // Show sidebar for core features
     this.shouldShowSidebar = this.coreFeatures.includes(currentPath.toLowerCase());
-    
+   
     // Update current feature based on the path
     if (this.shouldShowSidebar) {
       this.currentFeature = currentPath.toUpperCase();
     }
   }
-
+ 
   getFeatureDescription(): string {
     switch (this.currentFeature.toLowerCase()) {
       case 'epmds':
@@ -528,7 +541,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
         return '';
     }
   }
-
+ 
   // Feature items remain the same
   private featureItems: { [key: string]: SidebarItem[] } = {
     'EPMDS': [
@@ -551,8 +564,11 @@ export class SideBarComponent implements OnInit, OnDestroy {
       { label: 'Final Assessment Score', route: '/epmds/final-score', icon: '🏆', description: 'Final performance assessment score for levels 1-12' }
     ],
     'IAPPMS': [
-      { label: 'Dashboard', route: '/iappms/dashboard', icon: '💻', description: 'IAPPMS Overview Dashboard' },
-      { label: 'Settings', route: '/iappms/settings', icon: '⚙️', description: 'System Configuration' }
+      { label: 'MTSF Implementation Plan', route: '/iappms/mtsf', icon: '📊', description: 'Medium Term Strategic Framework Implementation Plan' },
+      { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', icon: '🗺️', description: 'Strategic Mapping of Provincial Priorities' },
+      { label: 'Operational Plan', route: '/iappms/operational-plan', icon: '📋', description: 'Operational Planning and Management' },
+      { label: 'Strategic Plan', route: '/iappms/strategic-plan', icon: '🎯', description: 'Strategic Planning and Development' },
+      { label: 'Annual Performance Plan', route: '/iappms/annual', icon: '📅', description: 'Annual Performance Planning and Review' }
     ],
     'ESS': [
       { label: 'Personal Information', route: '/ess/personal-info', icon: '👤', description: 'View and update your profile' },
@@ -569,8 +585,8 @@ export class SideBarComponent implements OnInit, OnDestroy {
       { label: 'Analytics Dashboard', route: '/reporting/analytics', icon: '📊', description: 'Interactive analytics dashboard' }
     ]
   };
-
+ 
   getCurrentFeatureItems(): SidebarItem[] {
     return this.featureItems[this.currentFeature] || [];
   }
-} 
+}
