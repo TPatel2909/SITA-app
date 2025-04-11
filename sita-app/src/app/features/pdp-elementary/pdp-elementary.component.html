@@ -1,0 +1,127 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="pdp-container">
+      <div class="section-header">
+        <h2>PERSONAL DEVELOPMENT PLAN FOR ELEMENTARY OCCUPATIONS (PDP)</h2>
+      </div>
+
+      <form [formGroup]="pdpForm">
+        <!-- Header Information -->
+        <div class="form-section">
+          <div class="form-row three-columns">
+            <div class="form-group">
+              <label>COMPONENT/INSTITUTION:</label>
+              <input type="text" formControlName="component">
+            </div>
+            <div class="form-group">
+              <label>SERVICE CENTRE:</label>
+              <input type="text" formControlName="serviceCentre">
+            </div>
+            <div class="form-group">
+              <label>DISTRICT:</label>
+              <input type="text" formControlName="district">
+            </div>
+          </div>
+
+          <div class="form-row three-columns">
+            <div class="form-group">
+              <label>NAME OF EMPLOYEE:</label>
+              <input type="text" formControlName="employeeName">
+            </div>
+            <div class="form-group">
+              <label>PERSAL No.:</label>
+              <input type="text" formControlName="persalNo">
+            </div>
+            <div class="form-group">
+              <label>JOB TITLE:</label>
+              <input type="text" formControlName="jobTitle">
+            </div>
+          </div>
+
+          <!-- Purpose Section -->
+          <div class="purpose-section">
+            <div class="purpose-header">PURPOSE:</div>
+            <div class="purpose-text">
+              To enable the supervisor and the employee to identify skills development requirements that are relevant to the core job content
+              and as a result agree on the steps to be taken to address those developmental gaps
+            </div>
+          </div>
+
+          <!-- Development Areas Table -->
+          <div class="table-container">
+            <table class="development-table">
+              <thead>
+                <tr>
+                  <th>AREA IDENTIFIED FOR DEVELOPMENT</th>
+                  <th>OBJECTIVE OF DEVELOPMENT</th>
+                  <th>TYPE OF INTERVENTION (SHORT COURSE, BURSARY)</th>
+                  <th>QUARTER TARGETED</th>
+                </tr>
+                <tr class="example-row">
+                  <td>e.g. Computer Literacy</td>
+                  <td>To develop technical skills for the effective delivery of core functions</td>
+                  <td>Short course</td>
+                  <td>Third quarter</td>
+                </tr>
+              </thead>
+              <tbody formArrayName="developmentAreas">
+                <tr *ngFor="let area of developmentAreasArray.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <input type="text" formControlName="areaIdentified">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="objective">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="interventionType">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="quarterTargeted">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="table-actions">
+              <button type="button" class="btn-action" (click)="addDevelopmentArea()">Add Row</button>
+              <button type="button" class="btn-remove" *ngIf="developmentAreasArray.length > 1" (click)="removeDevelopmentArea(developmentAreasArray.length - 1)">Remove Row</button>
+            </div>
+          </div>
+
+          <!-- Note Section -->
+          <div class="note-section">
+            <p>You may be nominated to attend workshops/conference/seminars and other training interventions to address the developmental areas as identified above.</p>
+            <p class="agreement-text">
+              We, (Employee and Supervisor) agree that the above-mentioned areas for development and the type of intervention suggested would be
+              engaged in to achieve the required objective for development. We also understand that due to the operational requirements and budget
+              constraints of the Department/office/institution, it may not be possible to undertake the training and development stated with the type of
+              invention stated and/or within the quarter of the year as stated. There is also an understanding between ourselves that areas for development
+              could be identified throughout the year and that this may change the order of priority and type of invention as stated in the plan.
+            </p>
+          </div>
+
+          <!-- Signatures -->
+          <div class="signatures-section">
+            <div class="signature-row">
+              <span>Signatures : Employee:</span>
+              <input type="text" formControlName="employeeSignature">
+              <span>Date:</span>
+              <input type="text" formControlName="employeeDate">
+              <span>Supervisor:</span>
+              <input type="text" formControlName="supervisorSignature">
+              <span>Date:</span>
+              <input type="text" formControlName="supervisorDate">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-action" (click)="saveDraft()">Save Draft</button>
+          <button type="submit" class="btn-action primary" (click)="onSubmit()" [disabled]="!pdpForm.valid">
+            Submit PDP
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

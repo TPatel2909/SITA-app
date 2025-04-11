@@ -1,0 +1,339 @@
+:host {
+  --primary-color: #1c5ba3;
+  --primary-dark: #134a82;
+  --primary-light: rgba(28, 91, 163, 0.1);
+  --accent-color: #04ac64;
+  --accent-light: rgba(4, 172, 100, 0.1);
+  --text-color: #2d3748;
+  --text-light: #718096;
+  --bg-color: #ffffff;
+  --border-color: #e2e8f0;
+  --header-height: 64px;
+}
+
+.page-container {
+  min-height: calc(100vh - var(--header-height));
+  background-color: #f7fafc;
+  padding: 2rem;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.assessment-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.section-header {
+  background: var(--primary-color);
+  color: white;
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--accent-color);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.assessment-section {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rating-guide {
+  background: var(--primary-light);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  .rating-scale {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+
+    .rating-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+      .rating-number {
+        background: var(--primary-color);
+        color: white;
+        min-width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .rating-details {
+        flex: 1;
+
+        .description {
+          display: block;
+          color: var(--text-color);
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+        }
+
+        .details {
+          display: block;
+          color: var(--text-light);
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
+
+.table-container {
+  margin-top: 1rem;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.assessment-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 0.875rem;
+  }
+
+  th {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+    }
+  }
+
+  .total-row {
+    background: var(--primary-light);
+    font-weight: 600;
+
+    td {
+      border-top: 2px solid var(--primary-color);
+    }
+  }
+}
+
+.comments-section {
+  margin-top: 1.5rem;
+
+  h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+    }
+  }
+}
+
+.signatures-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  .signature-block {
+    h4 {
+      color: var(--text-color);
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 0 1rem 0;
+    }
+
+    .signature-field {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.form-actions {
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  border-top: 1px solid var(--border-color);
+
+  button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .assessment-section {
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .signatures-section {
+    grid-template-columns: 1fr;
+  }
+
+  .rating-scale {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Material Design Overrides
+::ng-deep {
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: var(--border-color);
+  }
+
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline {
+    color: var(--primary-color);
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline {
+    color: #e53e3e;
+  }
+
+  .mat-error {
+    font-size: 0.75rem;
+  }
+
+  .mat-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .mat-raised-button.mat-primary {
+    background-color: var(--primary-color);
+  }
+
+  .mat-stroked-button {
+    border-color: var(--border-color);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.assessment-section {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Print styles
+@media print {
+  .page-container {
+    padding: 0;
+    background-color: white;
+  }
+
+  .form-actions {
+    display: none;
+  }
+
+  .mat-card {
+    box-shadow: none !important;
+    border: 1px solid var(--border-color);
+  }
+} 
