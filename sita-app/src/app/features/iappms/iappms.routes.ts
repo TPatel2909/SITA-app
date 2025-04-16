@@ -9,31 +9,32 @@ export const IAPPMS_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'mtsf',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    data: { breadcrumb: 'IAPPMS' }
   },
   {
     path: 'mtsf',
     component: MtsfImplementationPlanComponent,
-    title: 'MTSF Implementation Plan'
+    data: { breadcrumb: 'MTSF Implementation Plan' }
   },
   {
     path: 'strategic-mapping',
     component: StrategicMappingComponent,
-    title: 'Strategic Mapping'
+    data: { breadcrumb: 'Strategic Mapping' }
   },
   {
     path: 'operational-plan',
     component: OperationalPlanComponent,
-    title: 'Operational Plan'
+    data: { breadcrumb: 'Operational Plan' }
   },
   {
     path: 'strategic-plan',
     component: StrategicPlanComponent,
-    title: 'Strategic Plan'
+    data: { breadcrumb: 'Strategic Plan' }
   },
   {
     path: 'annual',
     component: AnnualPerformancePlanComponent,
-    title: 'Annual Performance Plan'
+    data: { breadcrumb: 'Annual Performance Plan' }
   }
 ]; 

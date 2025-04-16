@@ -1,46 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { filter } from 'rxjs/operators';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, SideBarComponent],
-  template: `
-    <app-nav-bar></app-nav-bar>
-    <app-side-bar [currentFeature]="currentFeature"></app-side-bar>
-    <main class="main-content" [class.with-sidebar]="currentFeature">
-      <router-outlet></router-outlet>
-    </main>
-  `,
-  styles: [`
-    .main-content {
-      margin-top: 64px;
-      padding: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      transition: all 0.3s ease;
-
-      &.with-sidebar {
-        margin-left: 280px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .main-content {
-        margin-left: 0;
-        padding: 1rem;
-      }
-    }
-  `]
+  imports: [RouterOutlet, NavBarComponent, SideBarComponent, BreadcrumbComponent],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   currentFeature: string = '';
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private router: Router) {
+    if (isPlatformBrowser(this.platformId)) {
+      // Only run this code in the browser
+      const path = this.router.url.split('/')[1];
+      this.currentFeature = path ? path.toUpperCase() : '';
+    }
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
