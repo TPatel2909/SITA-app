@@ -22,9 +22,10 @@ import { GenericAssessmentFactorComponent } from './features/epmds/generic-asses
 import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
+import { AuthModule } from './auth/auth.module';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/iappms/mtsf', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { 
     path: 'epmds',

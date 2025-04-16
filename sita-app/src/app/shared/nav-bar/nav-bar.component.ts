@@ -42,7 +42,7 @@ import { RouterModule } from '@angular/router';
     }
 
     .navbar {
-      background: var(--gradient-primary);
+      background: #ffffff;
       height: 64px;
       padding: 0 1.5rem;
       display: flex;
@@ -70,7 +70,7 @@ import { RouterModule } from '@angular/router';
       .brand-text {
         font-size: 1.25rem;
         font-weight: 600;
-        color: #ffffff;
+        color: var(--primary-color);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
     }
@@ -80,7 +80,7 @@ import { RouterModule } from '@angular/router';
       gap: 1.5rem;
 
       a {
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--primary-color);
         text-decoration: none;
         font-weight: 500;
         padding: 0.5rem 1rem;
@@ -90,13 +90,13 @@ import { RouterModule } from '@angular/router';
         overflow: hidden;
 
         &:hover {
-          color: #ffffff;
+          color: var(--secondary-color);
           background-color: rgba(255, 255, 255, 0.1);
           transform: translateY(-1px);
         }
 
         &.active {
-          color: #ffffff;
+          color: var(--secondary-color);
           background: var(--gradient-accent);
           box-shadow: 0 2px 4px rgba(4, 172, 100, 0.2);
           transform: translateY(-1px);
