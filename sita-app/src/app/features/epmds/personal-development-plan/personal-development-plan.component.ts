@@ -26,172 +26,131 @@ import { MatTableModule } from '@angular/material/table';
             <h2>PERSONAL DEVELOPMENT PLAN (PDP)</h2>
           </div>
 
-          <form [formGroup]="pdpForm">
-            <div class="form-section">
-              <div class="form-row">
-                <label>DEPARTMENT:</label>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="department">
-                </mat-form-field>
-              </div>
+          <div class="key-result-area">
+            <h2>KEY RESULT AREA 1: Personal Development Planning</h2>
+            <p>OUTPUT: Enable effective skills development and career progression through structured development planning</p>
+          </div>
 
-              <div class="form-row">
-                <label>JOB TITLE:</label>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="jobTitle">
-                </mat-form-field>
+          <div class="table-section">
+            <div class="table-header">
+              <h3>KEY ACTIVITIES</h3>
+              <div class="performance-standards">
+                <h4>PERFORMANCE STANDARDS</h4>
+                <div class="quarters">
+                  <div class="quarter">Q1</div>
+                  <div class="quarter">Q2</div>
+                  <div class="quarter">Q3</div>
+                  <div class="quarter">Q4</div>
+                </div>
               </div>
-
-              <div class="form-row">
-                <label>INCUMBENT:</label>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="incumbent">
-                </mat-form-field>
-              </div>
-
-              <div class="purpose-section">
-                <label>PURPOSE:</label>
-                <p>To enable the manager and the employee to identify skills development requirements and as a result agree on the steps taken to address those developmental gaps</p>
+              <div class="resource-requirements">
+                <h4>RESOURCE REQUIREMENTS</h4>
               </div>
             </div>
 
-            <div class="table-section">
-              <table class="development-table">
-                <thead>
-                  <tr>
-                    <th colspan="2">AREA IDENTIFIED FOR DEVELOPMENT</th>
-                    <th>OBJECTIVE OF DEVELOPMENT</th>
-                    <th>TYPE OF INTERVENTION<br>(SHORT COURSE, BURSARY)</th>
-                    <th>QUARTER TARGETED</th>
-                  </tr>
-                  <tr>
-                    <th>GENERIC TRAINING REQUIRED</th>
-                    <th>WORK RELATED TRAINING REQUIRED</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="developmentAreas">
-                  <tr *ngFor="let area of developmentAreasArray.controls; let i = index" [formGroupName]="i">
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="genericTraining" [placeholder]="i === 0 ? 'e.g. Computer Training' : ''">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="workRelatedTraining">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="objective" [placeholder]="i === 0 ? 'To develop research capability for high level information gathering' : ''">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="intervention" [placeholder]="i === 0 ? 'Short course at Tech/University' : ''">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="quarter" [placeholder]="i === 0 ? 'Third quarter' : ''">
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <form [formGroup]="pdpForm">
+              <div class="form-section">
+                <div class="form-row">
+                  <label>DEPARTMENT:</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="department">
+                  </mat-form-field>
+                </div>
 
-            <div class="conference-section">
-              <p class="conference-note">You may attend a conference within the year that would be a substitute for any of the areas of development.</p>
-              
-              <table class="conference-table">
-                <thead>
-                  <tr>
-                    <th>CONFERENCES ATTENDED</th>
-                    <th>TYPE OF CONFERENCE</th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="conferences">
-                  <tr *ngFor="let conf of conferencesArray.controls; let i = index" [formGroupName]="i">
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="name" [placeholder]="i === 0 ? 'e.g. Labour Law' : ''">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="type" [placeholder]="i === 0 ? 'e.g. Dealt with current application of employment legislation' : ''">
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                <div class="form-row">
+                  <label>JOB TITLE:</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="jobTitle">
+                  </mat-form-field>
+                </div>
 
-            <div class="signature-section">
-              <div class="signature-row">
-                <div class="signature-field">
-                  <label>Employee:</label>
+                <div class="form-row">
+                  <label>INCUMBENT:</label>
                   <mat-form-field appearance="outline">
-                    <input matInput formControlName="employeeSignature">
+                    <input matInput formControlName="incumbent">
                   </mat-form-field>
                 </div>
-                <div class="signature-field">
-                  <label>Date:</label>
-                  <mat-form-field appearance="outline">
-                    <input matInput formControlName="employeeDate" type="date">
-                  </mat-form-field>
-                </div>
-                <div class="signature-field">
-                  <label>Supervisor:</label>
-                  <mat-form-field appearance="outline">
-                    <input matInput formControlName="supervisorSignature">
-                  </mat-form-field>
-                </div>
-                <div class="signature-field">
-                  <label>Date:</label>
-                  <mat-form-field appearance="outline">
-                    <input matInput formControlName="supervisorDate" type="date">
-                  </mat-form-field>
+
+                <div class="purpose-section">
+                  <label>PURPOSE:</label>
+                  <p>To enable the manager and the employee to identify skills development requirements and as a result agree on the steps taken to address those developmental gaps</p>
                 </div>
               </div>
-            </div>
 
-            <div class="impact-section">
-              <h3>IMPACT ASSESSMENT</h3>
-              <table class="impact-table">
-                <thead>
-                  <tr>
-                    <th colspan="2">IMPACT OF DEVELOPMENT ON WORK (AFTER SIX MONTHS)</th>
-                  </tr>
-                  <tr>
-                    <th>EMPLOYEE</th>
-                    <th>SUPERVISOR/MANAGER</th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="impactAssessments">
-                  <tr *ngFor="let impact of impactAssessmentsArray.controls; let i = index" [formGroupName]="i">
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="employeeImpact" 
-                               [placeholder]="i === 0 ? 'e.g. Did not have the opportunity to use all skills developed due to the need to focus on other priority areas of my work' : ''">
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field appearance="outline">
-                        <input matInput formControlName="supervisorImpact"
-                               [placeholder]="i === 0 ? 'e.g. Employee completed first draft of questionnaire for a survey to be implemented in Aug 03' : ''">
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-section">
+                <table class="development-table">
+                  <thead>
+                    <tr>
+                      <th colspan="2">AREA IDENTIFIED FOR DEVELOPMENT</th>
+                      <th>OBJECTIVE OF DEVELOPMENT</th>
+                      <th>TYPE OF INTERVENTION<br>(SHORT COURSE, BURSARY)</th>
+                      <th>QUARTER TARGETED</th>
+                    </tr>
+                    <tr>
+                      <th>GENERIC TRAINING REQUIRED</th>
+                      <th>WORK RELATED TRAINING REQUIRED</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="developmentAreas">
+                    <tr *ngFor="let area of developmentAreasArray.controls; let i = index" [formGroupName]="i">
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="genericTraining" [placeholder]="i === 0 ? 'e.g. Computer Training' : ''">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="workRelatedTraining">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="objective" [placeholder]="i === 0 ? 'To develop research capability for high level information gathering' : ''">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="intervention" [placeholder]="i === 0 ? 'Short course at Tech/University' : ''">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="quarter" [placeholder]="i === 0 ? 'Third quarter' : ''">
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-              <div class="agreement-text">
-                <p>We, (Employee) and (Supervisor) agree that the above-mentioned areas for development and the type of intervention suggested would be engaged in to achieve the required objective for development. We also understand that due to the operational requirements and budget constraints of the Department (component/unit), it may not be possible to undertake the training and development stated with the type of invention stated and/or within the quarter of the year as stated. There is also an understanding between ourselves that areas for development could be identified throughout the year and that this may change the order of priority and type of invention as stated in the plan.</p>
+              <div class="conference-section">
+                <p class="conference-note">You may attend a conference within the year that would be a substitute for any of the areas of development.</p>
+                
+                <table class="conference-table">
+                  <thead>
+                    <tr>
+                      <th>CONFERENCES ATTENDED</th>
+                      <th>TYPE OF CONFERENCE</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="conferences">
+                    <tr *ngFor="let conf of conferencesArray.controls; let i = index" [formGroupName]="i">
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="name" [placeholder]="i === 0 ? 'e.g. Labour Law' : ''">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="type" [placeholder]="i === 0 ? 'e.g. Dealt with current application of employment legislation' : ''">
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
               <div class="signature-section">
@@ -199,31 +158,97 @@ import { MatTableModule } from '@angular/material/table';
                   <div class="signature-field">
                     <label>Employee:</label>
                     <mat-form-field appearance="outline">
-                      <input matInput formControlName="impactEmployeeSignature">
+                      <input matInput formControlName="employeeSignature">
                     </mat-form-field>
                   </div>
                   <div class="signature-field">
                     <label>Date:</label>
                     <mat-form-field appearance="outline">
-                      <input matInput formControlName="impactEmployeeDate" type="date">
+                      <input matInput formControlName="employeeDate" type="date">
                     </mat-form-field>
                   </div>
                   <div class="signature-field">
                     <label>Supervisor:</label>
                     <mat-form-field appearance="outline">
-                      <input matInput formControlName="impactSupervisorSignature">
+                      <input matInput formControlName="supervisorSignature">
                     </mat-form-field>
                   </div>
                   <div class="signature-field">
                     <label>Date:</label>
                     <mat-form-field appearance="outline">
-                      <input matInput formControlName="impactSupervisorDate" type="date">
+                      <input matInput formControlName="supervisorDate" type="date">
                     </mat-form-field>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+
+              <div class="impact-section">
+                <h3>IMPACT ASSESSMENT</h3>
+                <table class="impact-table">
+                  <thead>
+                    <tr>
+                      <th colspan="2">IMPACT OF DEVELOPMENT ON WORK (AFTER SIX MONTHS)</th>
+                    </tr>
+                    <tr>
+                      <th>EMPLOYEE</th>
+                      <th>SUPERVISOR/MANAGER</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="impactAssessments">
+                    <tr *ngFor="let impact of impactAssessmentsArray.controls; let i = index" [formGroupName]="i">
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="employeeImpact" 
+                                 [placeholder]="i === 0 ? 'e.g. Did not have the opportunity to use all skills developed due to the need to focus on other priority areas of my work' : ''">
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field appearance="outline">
+                          <input matInput formControlName="supervisorImpact"
+                                 [placeholder]="i === 0 ? 'e.g. Employee completed first draft of questionnaire for a survey to be implemented in Aug 03' : ''">
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="agreement-text">
+                  <p>We, (Employee) and (Supervisor) agree that the above-mentioned areas for development and the type of intervention suggested would be engaged in to achieve the required objective for development. We also understand that due to the operational requirements and budget constraints of the Department (component/unit), it may not be possible to undertake the training and development stated with the type of invention stated and/or within the quarter of the year as stated. There is also an understanding between ourselves that areas for development could be identified throughout the year and that this may change the order of priority and type of invention as stated in the plan.</p>
+                </div>
+
+                <div class="signature-section">
+                  <div class="signature-row">
+                    <div class="signature-field">
+                      <label>Employee:</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="impactEmployeeSignature">
+                      </mat-form-field>
+                    </div>
+                    <div class="signature-field">
+                      <label>Date:</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="impactEmployeeDate" type="date">
+                      </mat-form-field>
+                    </div>
+                    <div class="signature-field">
+                      <label>Supervisor:</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="impactSupervisorSignature">
+                      </mat-form-field>
+                    </div>
+                    <div class="signature-field">
+                      <label>Date:</label>
+                      <mat-form-field appearance="outline">
+                        <input matInput formControlName="impactSupervisorDate" type="date">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <button class="add-activity-btn">Add Activity</button>
         </div>
       </div>
     </div>
@@ -244,7 +269,7 @@ import { MatTableModule } from '@angular/material/table';
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
+      background-color: rgb(195, 199, 207);
       padding: 2rem;
     }
 

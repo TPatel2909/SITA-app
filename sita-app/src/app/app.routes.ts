@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { PerformanceComponent } from './dashboard/performance/performance.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
-import { PerformanceComponent } from './dashboard/performance/performance.component';
+
 import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
 import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
 import { PerformanceAssessmentComponent } from './features/epmds/performance-assessment/performance-assessment.component';
@@ -29,51 +30,174 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { 
     path: 'epmds',
+    data: { breadcrumb: 'EPMDS' },
     children: [
-      { path: '', redirectTo: 'performance', pathMatch: 'full' },
-      { path: 'performance', component: PerformanceComponent },
-      { path: 'workplan', component: WorkplanComponent },
-      { path: 'sms-workplan', component: SmsWorkplanComponent },
-      { path: 'pdp', component: PersonalDevelopmentPlanComponent },
-      { path: 'september-review', component: SeptemberReviewComponent },
-      { path: 'assessment', component: PerformanceAssessmentComponent },
-      { path: 'quarterly-assessment', component: QuarterlyAnnualAssessmentComponent },
-      { path: 'elementary', component: ElementaryComponent },
-      { path: 'pdp-elementary', component:PdpElementaryComponent },
-      { path: 'factor1', component: AssessmentFactorOneComponent },
-      { path: 'criteria', component: AssessmentCriteriaComponent },
-      { path: 'factor2', component: AssessmentFactorTwoComponent },
-      { path: 'factor3', component: AssessmentFactorThreeComponent },
-      { path: 'kra', component: KeyResultAreasComponent },
-      { path: 'gaf', component: GenericAssessmentFactorComponent },
-      { path: 'final-score', component: FinalScoreComponent }
+      { 
+        path: '', 
+        redirectTo: 'performance', 
+        pathMatch: 'full'
+      },
+      { 
+        path: 'performance', 
+        component: PerformanceComponent,
+        data: { breadcrumb: 'Performance Agreement' }
+      },
+      { 
+        path: 'workplan', 
+        component: WorkplanComponent,
+        data: { breadcrumb: 'Workplan' }
+      },
+      { 
+        path: 'sms-workplan', 
+        component: SmsWorkplanComponent,
+        data: { breadcrumb: 'SMS Workplan' }
+      },
+      { 
+        path: 'pdp', 
+        component: PersonalDevelopmentPlanComponent,
+        data: { breadcrumb: 'Personal Development Plan' }
+      },
+      { 
+        path: 'september-review', 
+        component: SeptemberReviewComponent,
+        data: { breadcrumb: 'September Review' }
+      },
+      { 
+        path: 'assessment', 
+        component: PerformanceAssessmentComponent,
+        data: { breadcrumb: 'Assessment' }
+      },
+      { 
+        path: 'quarterly-assessment', 
+        component: QuarterlyAnnualAssessmentComponent,
+        data: { breadcrumb: 'Quarterly Assessment' }
+      },
+      { 
+        path: 'elementary', 
+        component: ElementaryComponent,
+        data: { breadcrumb: 'Elementary' }
+      },
+      { 
+        path: 'pdp-elementary', 
+        component: PdpElementaryComponent,
+        data: { breadcrumb: 'PDP Elementary' }
+      },
+      { 
+        path: 'factor1', 
+        component: AssessmentFactorOneComponent,
+        data: { breadcrumb: 'Factor 1' }
+      },
+      { 
+        path: 'criteria', 
+        component: AssessmentCriteriaComponent,
+        data: { breadcrumb: 'Criteria' }
+      },
+      { 
+        path: 'factor2', 
+        component: AssessmentFactorTwoComponent,
+        data: { breadcrumb: 'Factor 2' }
+      },
+      { 
+        path: 'factor3', 
+        component: AssessmentFactorThreeComponent,
+        data: { breadcrumb: 'Factor 3' }
+      },
+      { 
+        path: 'kra', 
+        component: KeyResultAreasComponent,
+        data: { breadcrumb: 'Key Result Areas' }
+      },
+      { 
+        path: 'gaf', 
+        component: GenericAssessmentFactorComponent,
+        data: { breadcrumb: 'Generic Assessment Factor' }
+      },
+      { 
+        path: 'final-score', 
+        component: FinalScoreComponent,
+        data: { breadcrumb: 'Final Score' }
+      }
     ]
   },
   { 
     path: 'iappms',
+    data: { breadcrumb: 'IAPPMS' },
     children: IAPPMS_ROUTES
   },
   { 
     path: 'ess',
+    data: { breadcrumb: 'ESS' },
     children: [
-      { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
-      { path: 'personal-info', component: TasksComponent },
-      { path: 'leave', component: TasksComponent },
-      { path: 'time', component: TasksComponent },
-      { path: 'benefits', component: TasksComponent },
-      { path: 'documents', component: TasksComponent }
+      { 
+        path: '', 
+        redirectTo: 'personal-info', 
+        pathMatch: 'full'
+      },
+      { 
+        path: 'personal-info', 
+        component: TasksComponent,
+        data: { breadcrumb: 'Personal Info' }
+      },
+      { 
+        path: 'leave', 
+        component: TasksComponent,
+        data: { breadcrumb: 'Leave' }
+      },
+      { 
+        path: 'time', 
+        component: TasksComponent,
+        data: { breadcrumb: 'Time' }
+      },
+      { 
+        path: 'benefits', 
+        component: TasksComponent,
+        data: { breadcrumb: 'Benefits' }
+      },
+      { 
+        path: 'documents', 
+        component: TasksComponent,
+        data: { breadcrumb: 'Documents' }
+      }
     ]
   },
   { 
     path: 'reporting',
+    data: { breadcrumb: 'Reporting' },
     children: [
-      { path: '', redirectTo: 'performance', pathMatch: 'full' },
-      { path: 'performance', component: ReportsComponent },
-      { path: 'assessment', component: ReportsComponent },
-      { path: 'ess', component: ReportsComponent },
-      { path: 'custom', component: ReportsComponent },
-      { path: 'analytics', component: ReportsComponent }
+      { 
+        path: '', 
+        redirectTo: 'performance', 
+        pathMatch: 'full'
+      },
+      { 
+        path: 'performance', 
+        component: ReportsComponent,
+        data: { breadcrumb: 'Performance' }
+      },
+      { 
+        path: 'assessment', 
+        component: ReportsComponent,
+        data: { breadcrumb: 'Assessment' }
+      },
+      { 
+        path: 'ess', 
+        component: ReportsComponent,
+        data: { breadcrumb: 'ESS' }
+      },
+      { 
+        path: 'custom', 
+        component: ReportsComponent,
+        data: { breadcrumb: 'Custom' }
+      },
+      { 
+        path: 'analytics', 
+        component: ReportsComponent,
+        data: { breadcrumb: 'Analytics' }
+      }
     ]
   },
-  { path: '**', redirectTo: '/iappms/mtsf' }
+  { 
+    path: '**', 
+    redirectTo: 'iappms'
+  }
 ];

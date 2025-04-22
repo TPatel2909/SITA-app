@@ -13,7 +13,7 @@
 
 .page-container {
   min-height: calc(100vh - var(--header-height));
-  background-color: #f7fafc;
+  background-color: rgb(195, 199, 207);
   padding: 2rem;
 }
 
@@ -46,18 +46,19 @@ mat-card-header {
 .purpose-section {
   margin: 1.5rem;
   padding: 1.5rem;
-  background: var(--primary-light);
+  background: var(--accent-color);
+  color: white;
   border-radius: 6px;
   
   p {
     margin: 0.5rem 0;
-    color: var(--text-color);
+    color: white;
     line-height: 1.5;
   }
   
   .note {
     font-style: italic;
-    color: var(--text-light);
+    color: white;
   }
 }
 

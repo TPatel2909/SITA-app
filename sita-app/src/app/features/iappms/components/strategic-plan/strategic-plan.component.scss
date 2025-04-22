@@ -13,7 +13,7 @@
 
 .page-container {
   min-height: calc(100vh - var(--header-height));
-  background-color: #f7fafc;
+  background-color: rgb(195, 199, 207);
   padding: 2rem;
 }
 
@@ -66,14 +66,12 @@
     margin-bottom: 0.5rem;
   }
 
-  textarea {
+  input, textarea {
     width: 100%;
-    min-height: 100px;
     padding: 0.75rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 0.875rem;
-    resize: vertical;
     transition: all 0.2s;
 
     &:focus {
@@ -86,6 +84,11 @@
       color: var(--text-light);
     }
   }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
 }
 
 .table-container {
@@ -95,7 +98,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.outcomes-table {
+.strategic-table {
   width: 100%;
   border-collapse: collapse;
   background: white;
@@ -139,11 +142,7 @@
   display: flex;
   gap: 1rem;
   justify-content: flex-start;
-  
-  &.main-actions {
-    border-top: 1px solid var(--border-color);
-    justify-content: flex-end;
-  }
+  border-top: 1px solid var(--border-color);
 }
 
 .btn-action, .btn-save, .btn-submit {
@@ -173,18 +172,16 @@
 }
 
 .btn-save {
-  background: var(--primary-light);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  background: #04a9e8;
+  color: white;
 
   &:hover {
-    background: var(--primary-color);
-    color: white;
+    background: darken(#04a9e8, 10%);
   }
 }
 
 .btn-submit {
-  background: var(--accent-color);
+  background: #04ac64;
   color: white;
 
   &:hover {
@@ -201,9 +198,15 @@
     padding: 1rem;
   }
 
+  .strategic-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .form-actions {
     flex-direction: column;
-
+    
     button {
       width: 100%;
     }
