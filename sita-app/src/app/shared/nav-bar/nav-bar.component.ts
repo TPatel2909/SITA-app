@@ -8,6 +8,11 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <nav class="navbar">
+      <button class="burger-menu" (click)="toggleMenu()">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
       <div class="navbar-brand">
         <img src="logo.jpg" alt="SITA Logo" class="logo">
         <span class="brand-text">SITA App</span>
@@ -39,6 +44,30 @@ import { RouterModule } from '@angular/router';
       --text-light: rgba(4, 4, 113, 0.8);
       --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
       --gradient-accent: linear-gradient(135deg, var(--accent-color), #038a4f);
+    }
+
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-right: 1rem;
+
+      .burger-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: all 0.3s ease;
+      }
+
+      &:hover .burger-line {
+        background-color: var(--accent-color);
+      }
     }
 
     .navbar {
@@ -146,6 +175,10 @@ import { RouterModule } from '@angular/router';
     }
 
     @media (max-width: 768px) {
+      .burger-menu {
+        display: flex;
+      }
+
       .navbar {
         padding: 0 1rem;
       }
@@ -169,4 +202,12 @@ export class NavBarComponent {
     { label: 'ESS', route: '/ess' },
     { label: 'Reporting', route: '/reporting' }
   ];
+
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    const menu = document.querySelector('.navbar-menu');
+    menu?.classList.toggle('active');
+  }
 } 

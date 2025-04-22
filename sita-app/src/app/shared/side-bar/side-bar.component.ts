@@ -18,23 +18,28 @@ interface SidebarItem {
   template: `
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div class="app-layout">
-      <div *ngIf="shouldShowSidebar" class="sidebar-wrapper">
-        <div class="sidebar-overlay"
-             [class.active]="isMobile && isOpen"
-             (click)="closeSidebar()">
-        </div>
-       
-        <div class="sidebar" [class.collapsed]="isCollapsed" [class.mobile-open]="isMobile && isOpen">
+      <div class="sidebar-wrapper" [class.collapsed]="!isOpen">
+        <div class="sidebar" [class.collapsed]="!isOpen">
+          <!-- Expand/Collapse Button -->
+          <button class="expand-button" (click)="toggleSidebar()">
+            <i class="material-icons">{{ isOpen ? 'chevron_left' : 'chevron_right' }}</i>
+          </button>
+
+          <!-- Floating Expand Button (shown only when collapsed) -->
+          <button class="floating-expand-button" *ngIf="!isOpen" (click)="toggleSidebar()">
+            <i class="material-icons">chevron_right</i>
+          </button>
+
           <!-- Company Header -->
           <div class="company-header">
             <img src="assets/logo.jpg" alt="SITA Logo" class="company-logo">
-            <div class="company-info" [class.hidden]="isCollapsed">
+            <div class="company-info" [class.hidden]="!isOpen">
               <div class="company-name">SITA App</div>
             </div>
           </div>
 
           <!-- Feature Header -->
-          <div class="feature-header" [class.hidden]="isCollapsed">
+          <div class="feature-header" [class.hidden]="!isOpen" (click)="toggleSidebar()">
             <h2>{{ currentFeature }}</h2>
             <p>{{ getFeatureDescription() }}</p>
           </div>
@@ -49,7 +54,7 @@ interface SidebarItem {
                 <div class="item-icon">
                   <i class="material-icons">{{ item.icon }}</i>
                 </div>
-                <div class="item-content" [class.hidden]="isCollapsed">
+                <div class="item-content" [class.hidden]="!isOpen">
                   <div class="item-label">{{ item.label }}</div>
                   <div class="item-description">{{ item.description }}</div>
                 </div>
@@ -58,38 +63,64 @@ interface SidebarItem {
           </div>
 
           <!-- User Profile -->
-          <div class="user-profile" [class.collapsed]="isCollapsed">
+          <div class="user-profile" [class.collapsed]="!isOpen">
             <div class="user-avatar">JT</div>
-            <div class="user-info" [class.hidden]="isCollapsed">
+            <div class="user-info" [class.hidden]="!isOpen">
               <span class="user-name">John Doe</span>
               <span class="user-email">john.doe&#64;sita.co.za</span>
             </div>
           </div>
         </div>
       </div>
-
-      <main class="main-content">
-        <router-outlet></router-outlet>
-      </main>
+      <div class="app-content">
+        <ng-content></ng-content>
+      </div>
     </div>
   `,
   styles: [`
+    :host {
+      --primary-color: #1c5ba3;
+      --primary-dark: #134a82;
+      --primary-light: rgba(28, 91, 163, 0.08);
+      --primary-lighter: rgba(28, 91, 163, 0.04);
+      --text-color: #2d3748;
+      --text-light: #718096;
+      --bg-color: #ffffff;
+      --bg-secondary: #f8fafc;
+      --sidebar-width: 300px;
+      --sidebar-collapsed-width: 72px;
+      --transition-speed: 0.3s;
+      --border-radius: 8px;
+      --active-bg: linear-gradient(to right, var(--primary-light), var(--primary-lighter));
+      --hover-bg: var(--bg-secondary);
+
+      display: block;
+      height: 100%;
+    }
+
     .app-layout {
       display: flex;
       min-height: 100vh;
+      width: 100%;
+      position: relative;
+      
     }
 
-    .main-content {
+    .app-content {
       flex: 1;
       margin-left: var(--sidebar-width);
-      padding: 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
+      min-height: 100vh;
+      background-color: #f0f2f5;
       transition: margin-left var(--transition-speed) ease;
+      padding: 24px;
+      padding-top: 88px;
+      width: calc(100% - var(--sidebar-width)) or calc(100% - var(--sidebar-collapsed-width));
+      position: relative;
+      z-index: 1;
 
-      @media (min-width: 1200px) {
-        padding: 24px calc((100% - 1200px) / 2);
+      .sidebar-wrapper.collapsed ~ & {
+        margin-left: var(--sidebar-collapsed-width);
+        width: calc(100% - var(--sidebar-collapsed-width));
       }
     }
 
@@ -119,21 +150,62 @@ interface SidebarItem {
       -webkit-font-smoothing: antialiased;
     }
 
-    :host {
-      --primary-color: #1c5ba3;
-      --primary-dark: #134a82;
-      --primary-light: rgba(28, 91, 163, 0.08);
-      --primary-lighter: rgba(28, 91, 163, 0.04);
-      --text-color: #2d3748;
-      --text-light: #718096;
-      --bg-color: #ffffff;
-      --bg-secondary: #f8fafc;
-      --sidebar-width: 300px;
-      --sidebar-collapsed-width: 72px;
-      --transition-speed: 0.3s;
-      --border-radius: 8px;
-      --active-bg: linear-gradient(to right, var(--primary-light), var(--primary-lighter));
-      --hover-bg: var(--bg-secondary);
+
+    .expand-button {
+      position: absolute;
+      top: 20px;
+      right: -16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all var(--transition-speed) ease;
+
+      &:hover {
+        background: var(--primary-dark);
+        transform: scale(1.1);
+      }
+
+      .material-icons {
+        font-size: 20px;
+      }
+    }
+
+    .floating-expand-button {
+      position: fixed;
+      top: 20px;
+      left: var(--sidebar-collapsed-width);
+      width: 32px;
+      height: 32px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 0 4px 4px 0;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all var(--transition-speed) ease;
+      transform: translateX(-100%);
+
+      &:hover {
+        background: var(--primary-dark);
+        transform: translateX(-100%) scale(1.1);
+      }
+
+      .material-icons {
+        font-size: 20px;
+      }
     }
 
     .sidebar-wrapper {
@@ -142,39 +214,19 @@ interface SidebarItem {
       left: 0;
       bottom: 0;
       z-index: 100;
-    }
-
-    .sidebar {
       width: var(--sidebar-width);
-      height: 100%;
-      background: var(--bg-color);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      z-index: 100;
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
       transition: width var(--transition-speed) ease;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
 
       &.collapsed {
         width: var(--sidebar-collapsed-width);
-
-        .company-info, .user-info, .item-content {
-          opacity: 0;
-          visibility: hidden;
-        }
-
-        & ~ .main-content {
-          margin-left: var(--sidebar-collapsed-width);
-        }
       }
     }
 
     .company-header {
-      padding: 20px;
+      padding: 16px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       background: var(--bg-color);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 
@@ -185,19 +237,28 @@ interface SidebarItem {
       }
 
       .company-info {
-        .company-name {
-          font-size: 16px;
-          font-weight: 600;
-          color: var(--primary-color);
-          letter-spacing: 0.2px;
+        transition: opacity var(--transition-speed) ease;
+
+        &.hidden {
+          opacity: 0;
+          width: 0;
+          padding: 0;
         }
       }
     }
 
     .feature-header {
-      padding: 20px;
+      padding: 16px;
       background: var(--primary-color);
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      transition: opacity var(--transition-speed) ease;
+
+      &.hidden {
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        border: none;
+      }
 
       h2 {
         margin: 0;
@@ -210,16 +271,19 @@ interface SidebarItem {
       p {
         margin: 4px 0 0;
         font-size: 12px;
-        color: #ffffff;
-        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8);
       }
     }
 
     .sidebar-content {
       flex: 1;
       overflow-y: auto;
-      padding: 12px;
+      padding: 10px;
       background: var(--bg-color);
+
+      .sidebar.collapsed & {
+        padding: 10px;
+      }
 
       &::-webkit-scrollbar {
         width: 4px;
@@ -236,119 +300,93 @@ interface SidebarItem {
     }
 
     .menu-section {
-      margin: 4px 0;
+      margin: 2px 0;
+
+      .sidebar.collapsed & {
+        margin: 2px 0;
+      }
     }
 
     .menu-item {
       display: flex;
-      align-items: flex-start;
-      padding: 10px 12px;
+      align-items: center;
+      padding: 10px;
       color: var(--text-color);
       text-decoration: none;
-      gap: 16px;
-      margin: 2px 0;
-      border-radius: var(--border-radius);
       transition: all var(--transition-speed) ease;
       position: relative;
       overflow: hidden;
+      margin-bottom: 4px;
+
+      .sidebar.collapsed & {
+        padding: 10px;
+        justify-content: center;
+      }
 
       &:hover {
         background: var(--hover-bg);
-        color: var(--primary-color);
-
-        .item-icon {
-          color: var(--primary-color);
-        }
       }
 
       &.active {
-        background: var(--secondary-color);
+        background: var(--active-bg);
         color: var(--primary-color);
-        font-weight: 500;
-
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 3px;
-          background: var(--primary-color);
-          border-radius: 0 3px 3px 0;
-        }
-
-        .item-icon {
-          color: var(--primary-color);
-        }
-
-        .item-label {
-          color: var(--primary-color);
-          font-weight: 500;
-        }
-
-        .item-description {
-          color: var(--primary-dark);
-          opacity: 0.8;
-        }
       }
 
       .item-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 24px;
         min-width: 24px;
-        height: 24px;
+        margin-right: 12px;
         color: var(--text-light);
         transition: color var(--transition-speed) ease;
-        font-family: 'Material Symbols Outlined';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 20px;
-        line-height: 1;
-        letter-spacing: normal;
-        text-transform: none;
-        white-space: nowrap;
-        word-wrap: normal;
-        direction: ltr;
-        -webkit-font-smoothing: antialiased;
+
+        .sidebar.collapsed & {
+          margin-right: 0;
+        }
+
+        .material-icons {
+          font-size: 20px;
+        }
       }
 
       .item-content {
         flex: 1;
         min-width: 0;
-        
-        .item-text {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
+        transition: opacity var(--transition-speed) ease;
+
+        &.hidden {
+          opacity: 0;
+          width: 0;
+          padding: 0;
         }
 
         .item-label {
           font-size: 14px;
-          font-weight: 400;
-          color: inherit;
-          transition: all var(--transition-speed) ease;
+          font-weight: 500;
+          margin-bottom: 4px;
         }
 
         .item-description {
           font-size: 12px;
           color: var(--text-light);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          transition: all var(--transition-speed) ease;
         }
       }
     }
 
     .user-profile {
-      padding: 16px 20px;
+      padding: 16px;
       display: flex;
       align-items: center;
       gap: 12px;
       background: var(--bg-secondary);
       border-top: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all var(--transition-speed) ease;
+
+      &.collapsed {
+        justify-content: center;
+        padding: 16px 0;
+      }
 
       .user-avatar {
         width: 32px;
@@ -359,34 +397,16 @@ interface SidebarItem {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
         font-weight: 500;
       }
 
       .user-info {
-        flex: 1;
-        min-width: 0;
+        transition: opacity var(--transition-speed) ease;
 
-        .user-name {
-          display: block;
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--primary-color);
-        }
-
-        .user-email {
-          display: block;
-          font-size: 12px;
-          color: var(--text-light);
-        }
-      }
-
-      &.collapsed {
-        justify-content: center;
-        padding: 16px 0;
-        
-        .user-info {
-          display: none;
+        &.hidden {
+          opacity: 0;
+          width: 0;
+          padding: 0;
         }
       }
     }
@@ -396,32 +416,121 @@ interface SidebarItem {
       visibility: hidden;
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        position: fixed;
-        transform: translateX(-100%);
+    .burger-menu {
+      display: flex;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all var(--transition-speed) ease;
 
-        &.mobile-open {
-          transform: translateX(0);
+      .burger-line {
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: all var(--transition-speed) ease;
+        margin: 2px 0;
+      }
+
+      &:hover .burger-line {
+        background-color: var(--primary-dark);
+      }
+
+      &.active {
+        .burger-line:first-child {
+          transform: translateY(8px) rotate(45deg);
+        }
+        .burger-line:nth-child(2) {
+          opacity: 0;
+        }
+        .burger-line:last-child {
+          transform: translateY(-8px) rotate(-45deg);
+        }
+      }
+    }
+
+    .sidebar-overlay {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-speed) ease;
+      z-index: 90;
+
+      &.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .sidebar {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all var(--transition-speed) ease;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 100;
+
+      &.collapsed {
+        width: var(--sidebar-collapsed-width);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .burger-menu {
+        display: flex;
+      }
+
+      .nav-items {
+        position: fixed;
+        top: 56px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 56px);
+        background: var(--primary);
+        flex-direction: column;
+        padding: 1rem;
+        transition: left 0.3s ease;
+        
+        &.mobile-active {
+          left: 0;
         }
       }
 
-      .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(2px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all var(--transition-speed) ease;
-        z-index: 90;
+      .nav-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
 
-        &.active {
-          opacity: 1;
-          visibility: visible;
+      .main-content,
+      .app-content {
+        margin-left: 0;
+        width: 100%;
+        z-index: 100;
+        
+        &.with-sidebar {
+          margin-left: 0;
         }
       }
     }
@@ -429,19 +538,16 @@ interface SidebarItem {
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   @Input() currentFeature: string = '';
-  @Input() isOpen: boolean = false;
-  isCollapsed = false;
-  shouldShowSidebar = false;
+  isOpen: boolean = true;
+  shouldShowSidebar = true;
   isMobile = false;
   private routerSubscription?: Subscription;
   private coreFeatures = ['epmds', 'iappms', 'ess', 'reporting'];
-  private resizeSubscription?: Subscription;
  
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.shouldShowSidebar = false;
     if (isPlatformBrowser(this.platformId)) {
       this.checkMobile();
       window.addEventListener('resize', () => this.checkMobile());
@@ -470,20 +576,15 @@ export class SideBarComponent implements OnInit, OnDestroy {
   private checkMobile() {
     if (isPlatformBrowser(this.platformId)) {
       this.isMobile = window.innerWidth <= 768;
-      if (!this.isMobile) {
-        this.isOpen = false;
-      }
     }
   }
  
-  toggleCollapse() {
-    this.isCollapsed = !this.isCollapsed;
+  toggleSidebar(): void {
+    this.isOpen = !this.isOpen;
   }
- 
-  closeSidebar() {
-    if (this.isMobile) {
-      this.isOpen = false;
-    }
+
+  closeSidebar(): void {
+    this.isOpen = false;
   }
  
   handleItemClick() {

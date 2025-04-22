@@ -105,10 +105,10 @@ interface KeyResultArea {
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn-action" (click)="addWorkplanItem(0)">
+              <button style="background-color: #04ac64;" type="button" class="btn-action" (click)="addWorkplanItem(0)">
                 Add Activity
               </button>
-              <button type="button" class="btn-action" (click)="removeWorkplanItem(0)" *ngIf="getWorkplanItems(keyResultAreasArray.at(0)).length > 1">
+              <button style="background-color: #04a9e8 ;" type="button" class="btn-action" (click)="removeWorkplanItem(0)" *ngIf="getWorkplanItems(keyResultAreasArray.at(0)).length > 1">
                 Remove Activity
               </button>
             </div>
@@ -133,7 +133,7 @@ interface KeyResultArea {
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
+      background-color:rgb(195, 199, 207);
       padding: 2rem;
     }
 
@@ -168,7 +168,7 @@ interface KeyResultArea {
     }
 
     .kra-header {
-      background: var(--primary-light);
+      background: #04ac64;
       border: 1px solid var(--primary-color);
       border-radius: 4px;
       padding: 1rem;
@@ -176,13 +176,13 @@ interface KeyResultArea {
     }
 
     .kra-title {
-      color: var(--primary-color);
+      color: white;
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
     .kra-output {
-      color: var(--text-color);
+      color: white;
     }
 
     .table-container {

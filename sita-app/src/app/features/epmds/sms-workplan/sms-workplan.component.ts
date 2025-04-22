@@ -181,7 +181,7 @@ interface WorkplanItem {
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
+      background-color:rgb(195, 199, 207);
       padding: 2rem;
     }
 
@@ -215,7 +215,7 @@ interface WorkplanItem {
     }
 
     .kra-header {
-      background: var(--primary-light);
+      background: #04ac64;
       border: 1px solid var(--primary-color);
       border-radius: 4px;
       padding: 1.5rem;
@@ -223,20 +223,20 @@ interface WorkplanItem {
     }
 
     .kra-title {
-      color: var(--primary-color);
+      color: white;
       font-weight: 600;
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
     }
 
     .kra-subtitle {
-      color: var(--primary-color);
+      color: white;
       font-weight: 600;
       margin-bottom: 1rem;
     }
 
     .strategic-objective {
-      color: var(--text-color);
+      color: white;
       line-height: 1.5;
     }
 

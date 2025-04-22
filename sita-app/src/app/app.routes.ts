@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { PerformanceComponent } from './dashboard/performance/performance.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
-import { PerformanceComponent } from './dashboard/performance/performance.component';
+
 import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
 import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
 import { PerformanceAssessmentComponent } from './features/epmds/performance-assessment/performance-assessment.component';
@@ -39,7 +40,7 @@ export const routes: Routes = [
       { 
         path: 'performance', 
         component: PerformanceComponent,
-        data: { breadcrumb: 'Performance' }
+        data: { breadcrumb: 'Performance Agreement' }
       },
       { 
         path: 'workplan', 

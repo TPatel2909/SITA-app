@@ -1,105 +1,123 @@
-<div class="operational-plan-container">
-  <h1>Operational Plan</h1>
-
-  <form [formGroup]="operationalPlanForm">
-    <div class="section">
-      <h2>Programme and Output Details</h2>
-
-      <div class="form-group">
-        <label for="programName">Programme Name:</label>
-        <select id="programName" formControlName="programName" class="form-control">
-          <option value="">Select Programme</option>
-          <option value="programme1">Programme 1</option>
-          <option value="programme2">Programme 2</option>
-        </select>
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="operational-plan-container">
+      <div class="section-header">
+        <h2>Operational Plan</h2>
       </div>
 
-      <div class="form-group">
-        <label for="subProgramme">Sub-Programme:</label>
-        <select id="subProgramme" formControlName="subProgramme" class="form-control">
-          <option value="">Select Sub-Programme</option>
-          <option value="sub1">Sub-Programme 1</option>
-          <option value="sub2">Sub-Programme 2</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="output">Output:</label>
-        <select id="output" formControlName="output" class="form-control">
-          <option value="">Select Output</option>
-          <option value="output1">Output 1</option>
-          <option value="output2">Output 2</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="outputIndicator">Output Indicator:</label>
-        <select id="outputIndicator" formControlName="outputIndicator" class="form-control">
-          <option value="">Select Output Indicator</option>
-          <option value="indicator1">Indicator 1</option>
-          <option value="indicator2">Indicator 2</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="annualTarget">Annual Target:</label>
-        <input type="text" id="annualTarget" formControlName="annualTarget" class="form-control">
-      </div>
-
-      <div class="form-group" formGroupName="quarterlyTargets">
-        <label>Quarterly Targets:</label>
-        <div class="quarterly-targets">
-          <div class="quarter">
-            <label for="q1">Q1</label>
-            <input type="text" id="q1" formControlName="q1" class="form-control">
+      <form [formGroup]="operationalPlanForm">
+        <!-- Program Details -->
+        <div class="section">
+          <h3 class="section-title">Program Details</h3>
+          
+          <div class="form-group">
+            <label>Program Name:</label>
+            <input type="text" formControlName="programName" placeholder="Enter program name">
           </div>
-          <div class="quarter">
-            <label for="q2">Q2</label>
-            <input type="text" id="q2" formControlName="q2" class="form-control">
+
+          <div class="form-group">
+            <label>Sub Programme:</label>
+            <input type="text" formControlName="subProgramme" placeholder="Enter sub programme">
           </div>
-          <div class="quarter">
-            <label for="q3">Q3</label>
-            <input type="text" id="q3" formControlName="q3" class="form-control">
+
+          <div class="form-group">
+            <label>Output:</label>
+            <textarea formControlName="output" placeholder="Enter output details..."></textarea>
           </div>
-          <div class="quarter">
-            <label for="q4">Q4</label>
-            <input type="text" id="q4" formControlName="q4" class="form-control">
+
+          <div class="form-group">
+            <label>Output Indicator:</label>
+            <textarea formControlName="outputIndicator" placeholder="Enter output indicator..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Annual Target:</label>
+            <textarea formControlName="annualTarget" placeholder="Enter annual target..."></textarea>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="section">
-      <h2>Activities, Timeframes, and Responsibilities</h2>
-      
-      <div class="activities-table">
-        <div class="table-header">
-          <div>MONTHLY TARGET</div>
-          <div>ACTIVITIES</div>
-          <div>TIMEFRAME</div>
-          <div>BUDGET</div>
-          <div>DEPENDENCIES</div>
-          <div>RESPONSIBLE PERSON(S)</div>
-        </div>
+        <!-- Quarterly Targets -->
+        <div class="section" formGroupName="quarterlyTargets">
+          <h3 class="section-title">Quarterly Targets</h3>
+          
+          <div class="form-group">
+            <label>Quarter 1:</label>
+            <textarea formControlName="q1" placeholder="Enter Q1 target..."></textarea>
+          </div>
 
-        <div formArrayName="activities" class="activities-list">
-          <div *ngFor="let activity of activities.controls; let i=index" [formGroupName]="i" class="activity-row">
-            <input type="text" formControlName="monthlyTarget" placeholder="Monthly Target">
-            <input type="text" formControlName="activity" placeholder="Activity">
-            <input type="text" formControlName="timeframe" placeholder="Timeframe">
-            <input type="number" formControlName="budget" placeholder="Budget">
-            <input type="text" formControlName="dependencies" placeholder="Dependencies">
-            <input type="text" formControlName="responsiblePerson" placeholder="Responsible Person(s)">
+          <div class="form-group">
+            <label>Quarter 2:</label>
+            <textarea formControlName="q2" placeholder="Enter Q2 target..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Quarter 3:</label>
+            <textarea formControlName="q3" placeholder="Enter Q3 target..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Quarter 4:</label>
+            <textarea formControlName="q4" placeholder="Enter Q4 target..."></textarea>
           </div>
         </div>
-      </div>
 
-      <button type="button" class="btn-add" (click)="addActivity()">Add Activity</button>
-    </div>
+        <!-- Activities -->
+        <div class="section">
+          <h3 class="section-title">Activities</h3>
 
-    <div class="form-actions">
-      <button type="button" class="btn-save" (click)="onSave()">Save</button>
-      <button type="button" class="btn-submit" (click)="onSaveAndSubmit()">Save & Submit for Approval</button>
+          <div class="table-container">
+            <table class="activities-table">
+              <thead>
+                <tr>
+                  <th>MONTHLY TARGET</th>
+                  <th>ACTIVITY</th>
+                  <th>TIMEFRAME</th>
+                  <th>BUDGET</th>
+                  <th>DEPENDENCIES</th>
+                  <th>RESPONSIBLE PERSON</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="activities">
+                <tr *ngFor="let activity of activities.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <input type="text" formControlName="monthlyTarget" placeholder="Enter monthly target">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="activity" placeholder="Enter activity">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="timeframe" placeholder="Enter timeframe">
+                  </td>
+                  <td>
+                    <input type="number" formControlName="budget" placeholder="Enter budget">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="dependencies" placeholder="Enter dependencies">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="responsiblePerson" placeholder="Enter responsible person">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-action" (click)="addActivity()">
+              ADD ACTIVITY
+            </button>
+            <button type="button" class="btn-action" (click)="removeActivity(activities.length - 1)" 
+                    *ngIf="activities.length > 1">
+              REMOVE ACTIVITY
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions main-actions">
+          <button type="button" class="btn-save" (click)="onSave()">SAVE</button>
+          <button type="button" class="btn-submit" (click)="onSaveAndSubmit()">SAVE & SUBMIT FOR APPROVAL</button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div> 
