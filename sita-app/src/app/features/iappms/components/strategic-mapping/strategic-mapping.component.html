@@ -1,0 +1,42 @@
+<div class="strategic-mapping-container">
+  <div class="header">
+    <img src="assets/images/kzn-logo.png" alt="KwaZulu-Natal Province Logo" class="logo">
+    <h1>STRATEGIC MAPPING OF PROVINCIAL PRIORITIES</h1>
+    <p class="subtitle">KZN DOE Operational Plan 2024/2025</p>
+    <p class="description">In identifying policy initiatives, the Department will focus on what has been identified by DBE as priorities within the broad sector plan. These are:</p>
+  </div>
+
+  <div class="content">
+    <div class="table-responsive">
+      <table class="mapping-table">
+        <thead>
+          <tr>
+            <th>OUTCOME</th>
+            <th>OUTCOME INDICATORS</th>
+            <th>BASELINE</th>
+            <th>5 YEAR TARGET</th>
+            <th>NATIONAL PRIORITY</th>
+            <th>MTSF OUTCOME</th>
+            <th>ACTION PLAN GOAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mapping of mappings">
+            <td>{{mapping.outcome}}</td>
+            <td>{{mapping.outcomeIndicators}}</td>
+            <td>{{mapping.baseline}}</td>
+            <td>{{mapping.fiveYearTarget}}</td>
+            <td>{{mapping.nationalPriority}}</td>
+            <td>{{mapping.mtsfOutcome}}</td>
+            <td>{{mapping.actionPlanGoal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary">Add New Mapping</button>
+      <button class="btn-secondary">Export to PDF</button>
+    </div>
+  </div>
+</div> 

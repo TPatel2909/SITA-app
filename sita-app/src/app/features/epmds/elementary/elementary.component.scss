@@ -1,0 +1,273 @@
+:host {
+  --primary-color: #1c5ba3;
+  --primary-dark: #134a82;
+  --primary-light: rgba(28, 91, 163, 0.1);
+  --accent-color: #04ac64;
+  --accent-light: rgba(4, 172, 100, 0.1);
+  --text-color: #2d3748;
+  --text-light: #718096;
+  --bg-color: #ffffff;
+  --border-color: #e2e8f0;
+  --header-height: 64px;
+}
+
+.page-container {
+  min-height: calc(100vh - var(--header-height));
+  background-color:rgb(195, 199, 207);
+  padding: 2rem;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.elementary-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.section-header {
+  background: var(--primary-color);
+  color: white;
+  padding: 1.5rem;
+  border-bottom: 3px solid var(--accent-color);
+  text-align: center;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0;
+  }
+}
+
+.confidential-section {
+  text-align: center;
+  font-weight: bold;
+  padding: 1rem;
+  color: red;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-section {
+  padding: 1.5rem;
+}
+
+.form-row {
+  margin-bottom: 1.5rem;
+
+  &.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.form-group {
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+    }
+  }
+}
+
+.period-inputs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  input {
+    flex: 1;
+  }
+
+  .to-text {
+    font-weight: 500;
+  }
+}
+
+.instruction-text {
+  font-style: italic;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  input[type="radio"] {
+    margin: 0;
+  }
+}
+
+.disability-input {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  span {
+    font-style: italic;
+    color: var(--text-light);
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+.status-group {
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.signatures-section {
+  margin-top: 2rem;
+}
+
+.signature-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  span {
+    min-width: 100px;
+    font-weight: 500;
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+.form-actions {
+  padding: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-action {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.primary {
+    background: var(--accent-color);
+
+    &:hover {
+      background: darken(#04ac64, 10%);
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .form-section {
+    padding: 1rem;
+  }
+
+  .form-row {
+    &.two-columns {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .checkbox-group {
+    gap: 1rem;
+  }
+
+  .signature-row {
+    flex-direction: column;
+    align-items: flex-start;
+
+    span {
+      min-width: auto;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    .btn-action {
+      width: 100%;
+    }
+  }
+}
+
+// Material Design overrides
+::ng-deep {
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fafafa;
+  }
+
+  .mat-form-field-subscript-wrapper {
+    margin-top: 0.5rem;
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 1rem;
+  }
+} 

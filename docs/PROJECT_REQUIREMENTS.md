@@ -34,6 +34,11 @@
 - [ ] Final Performance Assessment Score Level 1-12
 
 #### IAPPMS
+- [ ] MTSF Implementation Plan
+- [ ] Strategic Mapping of Provincial Priorities
+- [ ] Operational Plan
+- [ ] Strategic Plan
+- [ ] Annual Performance Plan
 
 #### ESS
 

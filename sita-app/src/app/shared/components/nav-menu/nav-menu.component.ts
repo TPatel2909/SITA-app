@@ -10,6 +10,8 @@ interface MenuItem {
 interface SubItem {
   label: string;
   route: string;
+  icon?: string;
+  description?: string;
 }
 
 @Component({
@@ -18,7 +20,12 @@ interface SubItem {
   imports: [CommonModule, RouterModule],
   template: `
     <nav class="top-nav">
-      <div class="nav-items">
+      <button class="burger-menu" (click)="toggleMobileMenu()">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+      <div class="nav-items" [class.mobile-active]="isMobileMenuOpen">
         <div *ngFor="let item of menuItems" 
              class="nav-item" 
              (click)="toggleMenu(item, $event)"
@@ -64,6 +71,31 @@ interface SubItem {
       --tertiary-dark: #03035c;
     }
 
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-right: 1rem;
+      z-index: 101;
+
+      .burger-line {
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+
+      &:hover .burger-line {
+        background-color: var(--secondary-light);
+      }
+    }
+
     .top-nav {
       background: var(--primary);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -73,6 +105,8 @@ interface SubItem {
       left: 0;
       right: 0;
       z-index: 100;
+      display: flex;
+      align-items: center;
     }
 
     .nav-items {
@@ -200,19 +234,37 @@ interface SubItem {
     }
 
     @media (max-width: 768px) {
+      .burger-menu {
+        display: flex;
+      }
+
       .nav-items {
-        justify-content: flex-start;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        position: fixed;
+        top: 56px; /* Height of top-nav */
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 56px);
+        background: var(--primary);
+        flex-direction: column;
+        padding: 1rem;
+        transition: left 0.3s ease;
         
+        &.mobile-active {
+          left: 0;
+        }
+
         &::-webkit-scrollbar {
           display: none;
         }
       }
 
       .nav-item {
-        padding: 0.5rem 1rem;
-        white-space: nowrap;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        &:last-child {
+          border-bottom: none;
+        }
       }
     }
   `]
@@ -237,8 +289,11 @@ export class NavMenuComponent {
     {
       label: 'IAPPMS',
       subItems: [
-        { label: 'Dashboard', route: '/iappms/dashboard' },
-        { label: 'Settings', route: '/iappms/settings' }
+        { label: 'MTSF Implementation Plan', route: '/iappms/mtsf', icon: '📊', description: 'Medium Term Strategic Framework Implementation Plan' },
+        { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', icon: '🗺️', description: 'Strategic Mapping of Provincial Priorities' },
+        { label: 'Operational Plan', route: '/iappms/operational-plan', icon: '📋', description: 'Operational Planning and Management' },
+        { label: 'Strategic Plan', route: '/iappms/strategic-plan', icon: '🎯', description: 'Strategic Planning and Development' },
+        { label: 'Annual Performance Plan', route: '/iappms/annual', icon: '📅', description: 'Annual Performance Planning and Review' }
       ]
     },
     {
@@ -265,12 +320,23 @@ export class NavMenuComponent {
 
   activeSidebar = false;
   activeMenu: MenuItem | null = null;
+  isMobileMenuOpen = false;
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (!this.isMobileMenuOpen) {
+      this.closeSidebar();
+    }
+  }
 
   toggleMenu(menu: MenuItem, event: Event): void {
     event.preventDefault();
     event.stopPropagation();
     this.activeMenu = menu;
     this.activeSidebar = true;
+    if (window.innerWidth <= 768) {
+      this.isMobileMenuOpen = false;
+    }
   }
 
   closeSidebar(): void {
