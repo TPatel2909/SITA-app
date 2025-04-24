@@ -441,7 +441,7 @@ interface RatingScale {
       min-height: calc(100vh - var(--header-height));
       z-index: 900;
       max-width: 100%;
-      background-color: rgb(195, 199, 207);
+      background-color: #f5f5f5;
       padding: 2rem;
       width: 100%;
     }

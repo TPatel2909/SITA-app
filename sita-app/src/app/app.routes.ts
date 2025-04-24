@@ -4,7 +4,10 @@ import { PerformanceComponent } from './dashboard/performance/performance.compon
 import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
+// Import EPMDS feature components
 import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
 import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
 import { PerformanceAssessmentComponent } from './features/epmds/performance-assessment/performance-assessment.component';
@@ -21,105 +24,48 @@ import { PerformanceRatingScaleComponent } from './features/epmds/performance-ra
 import { KeyResultAreasComponent } from './features/epmds/key-result-areas/key-result-areas.component';
 import { GenericAssessmentFactorComponent } from './features/epmds/generic-assessment-factor/generic-assessment-factor.component';
 import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
+
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
-import { AuthModule } from './auth/auth.module';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { 
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'epmds',
-    data: { breadcrumb: 'EPMDS' },
+    canActivate: [AuthGuard],
     children: [
-      { 
-        path: '', 
-        redirectTo: 'performance', 
-        pathMatch: 'full'
-      },
-      { 
-        path: 'performance', 
-        component: PerformanceComponent,
-        data: { breadcrumb: 'Performance Agreement' }
-      },
-      { 
-        path: 'workplan', 
-        component: WorkplanComponent,
-        data: { breadcrumb: 'Workplan' }
-      },
-      { 
-        path: 'sms-workplan', 
-        component: SmsWorkplanComponent,
-        data: { breadcrumb: 'SMS Workplan' }
-      },
-      { 
-        path: 'pdp', 
-        component: PersonalDevelopmentPlanComponent,
-        data: { breadcrumb: 'Personal Development Plan' }
-      },
-      { 
-        path: 'september-review', 
-        component: SeptemberReviewComponent,
-        data: { breadcrumb: 'September Review' }
-      },
-      { 
-        path: 'assessment', 
-        component: PerformanceAssessmentComponent,
-        data: { breadcrumb: 'Assessment' }
-      },
-      { 
-        path: 'quarterly-assessment', 
-        component: QuarterlyAnnualAssessmentComponent,
-        data: { breadcrumb: 'Quarterly Assessment' }
-      },
-      { 
-        path: 'elementary', 
-        component: ElementaryComponent,
-        data: { breadcrumb: 'Elementary' }
-      },
-      { 
-        path: 'pdp-elementary', 
-        component: PdpElementaryComponent,
-        data: { breadcrumb: 'PDP Elementary' }
-      },
-      { 
-        path: 'factor1', 
-        component: AssessmentFactorOneComponent,
-        data: { breadcrumb: 'Factor 1' }
-      },
-      { 
-        path: 'criteria', 
-        component: AssessmentCriteriaComponent,
-        data: { breadcrumb: 'Criteria' }
-      },
-      { 
-        path: 'factor2', 
-        component: AssessmentFactorTwoComponent,
-        data: { breadcrumb: 'Factor 2' }
-      },
-      { 
-        path: 'factor3', 
-        component: AssessmentFactorThreeComponent,
-        data: { breadcrumb: 'Factor 3' }
-      },
-      { 
-        path: 'kra', 
-        component: KeyResultAreasComponent,
-        data: { breadcrumb: 'Key Result Areas' }
-      },
-      { 
-        path: 'gaf', 
-        component: GenericAssessmentFactorComponent,
-        data: { breadcrumb: 'Generic Assessment Factor' }
-      },
-      { 
-        path: 'final-score', 
-        component: FinalScoreComponent,
-        data: { breadcrumb: 'Final Score' }
-      }
+      { path: 'personal-development-plan', component: PersonalDevelopmentPlanComponent },
+      { path: 'september-review', component: SeptemberReviewComponent },
+      { path: 'performance-assessment', component: PerformanceAssessmentComponent },
+      { path: 'quarterly-annual-assessment', component: QuarterlyAnnualAssessmentComponent },
+      { path: 'elementary', component: ElementaryComponent },
+      { path: 'pdp-elementary', component: PdpElementaryComponent },
+      { path: 'assessment-factor-one', component: AssessmentFactorOneComponent },
+      { path: 'assessment-criteria', component: AssessmentCriteriaComponent },
+      { path: 'assessment-factor-two', component: AssessmentFactorTwoComponent },
+      { path: 'assessment-factor-three', component: AssessmentFactorThreeComponent },
+      { path: 'workplan', component: WorkplanComponent },
+      { path: 'sms-workplan', component: SmsWorkplanComponent },
+      { path: 'performance-rating-scale', component: PerformanceRatingScaleComponent },
+      { path: 'key-result-areas', component: KeyResultAreasComponent },
+      { path: 'generic-assessment-factor', component: GenericAssessmentFactorComponent },
+      { path: 'final-score', component: FinalScoreComponent }
     ]
   },
-  { 
+  {
     path: 'iappms',
     data: { breadcrumb: 'IAPPMS' },
     children: IAPPMS_ROUTES
@@ -196,8 +142,8 @@ export const routes: Routes = [
       }
     ]
   },
-  { 
-    path: '**', 
-    redirectTo: 'iappms'
+  {
+    path: '**',
+    redirectTo: '/dashboard'
   }
 ];

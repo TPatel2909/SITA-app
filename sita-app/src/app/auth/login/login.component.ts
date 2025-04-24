@@ -3,15 +3,14 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule],
-  providers: [AuthService]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  providers: []  // Remove AuthService from providers to use root instance
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -24,8 +23,8 @@ export class LoginComponent {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['testuser@email.com', [Validators.required, Validators.email]],  // Pre-fill test email
+      password: ['Password01', [Validators.required, Validators.minLength(6)]]  // Pre-fill test password
     });
   }
 
@@ -36,13 +35,18 @@ export class LoginComponent {
       
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/epmds/dashboard']);
         },
         error: (err) => {
-          this.error = err.error.message || 'An error occurred during login';
+          this.error = err.message || 'Invalid email or password';
+          this.loading = false;
+        },
+        complete: () => {
           this.loading = false;
         }
       });
+    } else {
+      this.error = 'Please enter valid credentials';
     }
   }
 

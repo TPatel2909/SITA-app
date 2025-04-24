@@ -1,0 +1,8 @@
+{
+  "/home": {
+    "target": "http://eimbpm2.dcxeim.local:81",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+} 
