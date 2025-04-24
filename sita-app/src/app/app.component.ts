@@ -1,6 +1,5 @@
 import { Component, inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd, RouterModule } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './auth/services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +8,6 @@ import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,7 +15,6 @@ import { Subscription } from 'rxjs';
     CommonModule,
     RouterOutlet,
     RouterModule,
-    LoginComponent,
     ReactiveFormsModule,
     NavBarComponent,
     SideBarComponent
