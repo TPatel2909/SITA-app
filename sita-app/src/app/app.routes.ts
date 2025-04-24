@@ -20,7 +20,7 @@ import { PerformanceRatingScaleComponent } from './features/performance-rating-s
 import { KeyResultAreasComponent } from './features/key-result-areas/key-result-areas.component';
 import { GenericAssessmentFactorComponent } from './features/generic-assessment-factor/generic-assessment-factor.component';
 import { FinalScoreComponent } from './features/final-score/final-score.component';
-
+import { AppWorksTestComponent } from './test/appworks-test.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -78,5 +78,6 @@ export const routes: Routes = [
       { path: 'analytics', component: ReportsComponent }
     ]
   },
+  { path: 'appworks-test', component: AppWorksTestComponent },
   { path: '**', redirectTo: '/dashboard' }
 ];
