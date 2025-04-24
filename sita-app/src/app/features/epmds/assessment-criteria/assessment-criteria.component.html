@@ -1,0 +1,91 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="assessment-container">
+      <div class="section-header">
+        <h2>ASSESSMENT CRITERIA</h2>
+        <p class="subtitle">Performance Assessment Form</p>
+      </div>
+
+      <form [formGroup]="assessmentForm" (ngSubmit)="onSubmit()">
+        <div class="assessment-content">
+          <div class="table-container" *ngFor="let criteria of assessmentCriteria">
+            <div class="criteria-header">
+              {{criteria.id}}. ASSESSMENT CRITERIA: {{criteria.title}}
+            </div>
+            <table class="assessment-table">
+              <tbody>
+                <tr>
+                  <td [attr.colspan]="1">{{criteria.ratings.one}}</td>
+                  <td [attr.colspan]="1">{{criteria.ratings.two}}</td>
+                  <td [attr.colspan]="1">{{criteria.ratings.three}}</td>
+                  <td [attr.colspan]="1">{{criteria.ratings.four}}</td>
+                  <td [attr.colspan]="1">{{criteria.ratings.five}}</td>
+                </tr>
+                <tr class="rating-row">
+                  <td class="rating-cell">1</td>
+                  <td class="rating-cell">2</td>
+                  <td class="rating-cell">3</td>
+                  <td class="rating-cell">4</td>
+                  <td class="rating-cell">5</td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="rating-input-cell">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Rating (1-5)</mat-label>
+                      <input matInput type="number" [formControlName]="'rating' + criteria.id" 
+                             min="1" max="5" required>
+                      <mat-error *ngIf="assessmentForm.get('rating' + criteria.id)?.invalid && 
+                                      assessmentForm.get('rating' + criteria.id)?.touched">
+                        Please enter a rating between 1 and 5
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Signatures Section -->
+          <div class="signatures-section">
+            <div class="signature-row">
+              <p>Signatures:</p>
+              <div class="signature-fields">
+                <div class="signature-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Employee</mat-label>
+                    <input matInput formControlName="employeeSignature">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput type="date" formControlName="employeeDate">
+                  </mat-form-field>
+                </div>
+                <div class="signature-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Supervisor</mat-label>
+                    <input matInput formControlName="supervisorSignature">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput type="date" formControlName="supervisorDate">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button style="background-color: #04a9e8 ;" mat-raised-button type="button" (click)="saveDraft()">
+              Save Draft
+            </button>
+            <button style="background-color: #04ac64;" mat-raised-button color="primary" type="submit" 
+                    [disabled]="!assessmentForm.valid">
+              Submit Assessment
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,141 @@
+.strategic-mapping-container {
+  padding: 2rem;
+  max-width: 100%;
+  margin: 0 auto;
+  background: white;
+
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-bottom: 2px solid #1c5ba3;
+
+    .logo {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      color: #1c5ba3;
+      font-size: 2rem;
+      margin: 0.5rem 0;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+  }
+
+  .content {
+    .table-responsive {
+      overflow-x: auto;
+      margin: 0 -1rem;
+      padding: 0 1rem;
+
+      .mapping-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1200px;
+        margin-bottom: 2rem;
+
+        th, td {
+          padding: 0.75rem;
+          text-align: left;
+          border: 1px solid #ddd;
+          font-size: 0.9rem;
+        }
+
+        th {
+          background: #1c5ba3;
+          color: white;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        tr:nth-child(even) {
+          background: #f8f9fa;
+        }
+
+        tr:hover {
+          background: #f0f4f8;
+        }
+
+        td {
+          color: #333;
+          vertical-align: top;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &.btn-primary {
+          background: #1c5ba3;
+          color: white;
+
+          &:hover {
+            background: #134a82;
+            transform: translateY(-1px);
+          }
+        }
+
+        &.btn-secondary {
+          background: #f0f4f8;
+          color: #1c5ba3;
+          border: 1px solid #1c5ba3;
+
+          &:hover {
+            background: #e1e7ef;
+            transform: translateY(-1px);
+          }
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .strategic-mapping-container {
+    padding: 1rem;
+
+    .header {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .content {
+      .actions {
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+} 

@@ -1,0 +1,212 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+      <mat-card class="review-container">
+        <mat-card-header>
+          <mat-card-title>SEPTEMBER REVIEW FORM</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="purpose-section">
+            <p><strong>Purpose:</strong> To review, summarise and develop the work performance off all employees.</p>
+            <p class="note">(Following completion of this form, a copy must be forwarded to the Section: People Management.)</p>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-row">
+              <mat-form-field appearance="outline">
+                <mat-label>NAME</mat-label>
+                <input matInput formControlName="name">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>SUPERVISOR/PROJECT LEADER</mat-label>
+                <input matInput formControlName="supervisor">
+              </mat-form-field>
+            </div>
+            <div class="info-row">
+              <mat-form-field appearance="outline">
+                <mat-label>JOB TITLE</mat-label>
+                <input matInput formControlName="jobTitle">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>COMPONENT</mat-label>
+                <input matInput formControlName="component">
+              </mat-form-field>
+            </div>
+            <div class="info-row">
+              <mat-form-field appearance="outline">
+                <mat-label>DATE OF REVIEW</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="reviewDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>SALARY LEVEL</mat-label>
+                <input matInput formControlName="salaryLevel">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- KRAs Section -->
+          <section class="assessment-section">
+            <h2>A. KEY RESULT AREAS (KRAs)</h2>
+            <p class="subtitle">(Rate all the KRAs included in the performance agreement)</p>
+            
+            <table mat-table [dataSource]="kras.controls" class="assessment-table">
+              <ng-container matColumnDef="kra">
+                <th mat-header-cell *matHeaderCellDef>KRAs</th>
+                <td mat-cell *matCellDef="let kra; let i = index">{{i + 1}}.</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weighting">
+                <th mat-header-cell *matHeaderCellDef>Weighting</th>
+                <td mat-cell *matCellDef="let kra">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="kra.get('weighting')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ownAssessment">
+                <th mat-header-cell *matHeaderCellDef>Own Assessment (1-5)</th>
+                <td mat-cell *matCellDef="let kra">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="kra.get('ownAssessment')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="supervisorAssessment">
+                <th mat-header-cell *matHeaderCellDef>Supervisor's assessment (1-5)</th>
+                <td mat-cell *matCellDef="let kra">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="kra.get('supervisorAssessment')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['kra', 'weighting', 'ownAssessment', 'supervisorAssessment']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['kra', 'weighting', 'ownAssessment', 'supervisorAssessment'];"></tr>
+            </table>
+            <p class="note">NOTE: WEIGHTING OF KRAs MUST TOTAL 100%</p>
+          </section>
+
+          <!-- GAFs Section -->
+          <section class="assessment-section">
+            <h2>B. GENERIC ASSESSMENT FACTORS (GAFs):</h2>
+            <p class="subtitle">(Rate the GAFs/CMCs agreed upon in the performance agreement)</p>
+            
+            <table mat-table [dataSource]="gafs.controls" class="assessment-table">
+              <ng-container matColumnDef="gaf">
+                <th mat-header-cell *matHeaderCellDef>GAF</th>
+                <td mat-cell *matCellDef="let gaf; let i = index">{{i + 1}}.</td>
+              </ng-container>
+
+              <ng-container matColumnDef="weighting">
+                <th mat-header-cell *matHeaderCellDef>Weighting</th>
+                <td mat-cell *matCellDef="let gaf">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="gaf.get('weighting')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ownRating">
+                <th mat-header-cell *matHeaderCellDef>Own rating (1-5)</th>
+                <td mat-cell *matCellDef="let gaf">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="gaf.get('ownRating')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="supervisorRating">
+                <th mat-header-cell *matHeaderCellDef>Supervisor's rating (1-5)</th>
+                <td mat-cell *matCellDef="let gaf">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" [formControl]="gaf.get('supervisorRating')">
+                  </mat-form-field>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="['gaf', 'weighting', 'ownRating', 'supervisorRating']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['gaf', 'weighting', 'ownRating', 'supervisorRating'];"></tr>
+            </table>
+            <p class="note">NOTE: WEIGHTING OF GAFs MUST TOTAL 100%</p>
+          </section>
+
+          <!-- Developmental Areas -->
+          <section class="text-section">
+            <h2>C. DEVELOPMENTAL AREAS</h2>
+            <p>Specify areas in which the employee was developed as indicated in the Performance Agreement and Personal Development Plan, if not developed, state reasons why and specify dates when will this take place.</p>
+            <mat-form-field appearance="outline" class="full-width">
+              <textarea matInput rows="4" formControlName="developmentalAreas"></textarea>
+            </mat-form-field>
+          </section>
+
+          <!-- Managing Unsatisfactory Performance -->
+          <section class="text-section">
+            <h2>D. MANAGING UNSATISFACTORY PERFORMANCE</h2>
+            <p>Identify unsatisfactory performance and state actions taken or to be taken by when and by whom.</p>
+            <mat-form-field appearance="outline" class="full-width">
+              <textarea matInput rows="4" formControlName="unsatisfactoryPerformance"></textarea>
+            </mat-form-field>
+          </section>
+
+          <!-- Employee Comments -->
+          <section class="text-section">
+            <h2>E. EMPLOYEE'S COMMENTS</h2>
+            <p>(CAN INCLUDE OBSTACLES ENCOUNTERED AND OVERCOME) if applicable</p>
+            <mat-form-field appearance="outline" class="full-width">
+              <textarea matInput rows="4" formControlName="employeeComments"></textarea>
+            </mat-form-field>
+            <div class="signature-row">
+              <div class="signature-field">
+                <mat-form-field appearance="outline">
+                  <mat-label>Signature</mat-label>
+                  <input matInput formControlName="employeeSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-field">
+                <mat-form-field appearance="outline">
+                  <mat-label>Date</mat-label>
+                  <input matInput [matDatepicker]="employeeDatePicker" formControlName="employeeDate">
+                  <mat-datepicker-toggle matSuffix [for]="employeeDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #employeeDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </section>
+
+          <!-- Supervisor Comments -->
+          <section class="text-section">
+            <h2>F.1 SUPERVISOR'S COMMENTS</h2>
+            <mat-form-field appearance="outline" class="full-width">
+              <textarea matInput rows="4" formControlName="supervisorComments"></textarea>
+            </mat-form-field>
+            <div class="signature-row">
+              <div class="signature-field">
+                <mat-form-field appearance="outline">
+                  <mat-label>Signature</mat-label>
+                  <input matInput formControlName="supervisorSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-field">
+                <mat-form-field appearance="outline">
+                  <mat-label>Date</mat-label>
+                  <input matInput [matDatepicker]="supervisorDatePicker" formControlName="supervisorDate">
+                  <mat-datepicker-toggle matSuffix [for]="supervisorDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #supervisorDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </section>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button style="background-color: #04ac04" mat-raised-button color="primary" type="submit">Submit</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div> 
