@@ -1,24 +1,58 @@
+:host {
+  --primary-color: #1c5ba3;
+  --primary-dark: #134a82;
+  --primary-light: rgba(28, 91, 163, 0.1);
+  --accent-color: #04ac64;
+  --accent-light: rgba(4, 172, 100, 0.1);
+  --text-color: #040471;
+      --text-light: rgba(4, 4, 113, 0.8);
+      --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      --gradient-accent: linear-gradient(135deg, var(--accent-color), #038a4f);
+}
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--primary-color);
   padding: 20px;
 }
 
 .login-card {
   background: white;
-  padding: 2rem;
+  padding: 3rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
 
   h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     color: #333;
+  }
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+
+  h1 {
+    margin-top: 1rem;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 }
 
@@ -33,10 +67,10 @@
 
   .form-control {
     width: 100%;
-    padding: 0.75rem;
+    padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.2rem;
 
     &:focus {
       outline: none;
@@ -59,7 +93,7 @@
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: var(--accent-color);
   color: white;
 
   &:disabled {

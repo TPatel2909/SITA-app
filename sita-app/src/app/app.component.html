@@ -1,6 +1,30 @@
-<app-nav-bar></app-nav-bar>
-<app-side-bar [currentFeature]="currentFeature"></app-side-bar>
-<main class="main-content" [class.with-sidebar]="currentFeature">
-  <app-breadcrumb></app-breadcrumb>
+<!-- Auth pages -->
+<ng-container *ngIf="isAuthPage">
+  <div class="auth-container">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
+<!-- Main app layout -->
+<ng-container *ngIf="!isAuthPage">
+  <div class="app-container">
+    <!-- Nav bar at the top -->
+    <app-nav-bar></app-nav-bar>
+    
+    <!-- Main content area with sidebar -->
+    <div class="main-container">
+      <!-- Sidebar -->
+      <app-side-bar [currentFeature]="currentFeature"></app-side-bar>
+      
+      <!-- Main content -->
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Not authenticated -->
+<ng-container *ngIf="!isAuthenticated && !isAuthPage">
   <router-outlet></router-outlet>
-</main>
+</ng-container>

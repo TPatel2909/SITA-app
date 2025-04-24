@@ -4,6 +4,7 @@ import { PerformanceComponent } from './dashboard/performance/performance.compon
 import { TasksComponent } from './tasks/tasks.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
+import { LoginComponent } from './auth/login/login.component';
 
 import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
 import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
@@ -23,10 +24,12 @@ import { GenericAssessmentFactorComponent } from './features/epmds/generic-asses
 import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
-import { AuthModule } from './auth/auth.module';
+
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+
   { path: 'dashboard', component: DashboardComponent },
   { 
     path: 'epmds',
@@ -34,8 +37,13 @@ export const routes: Routes = [
     children: [
       { 
         path: '', 
-        redirectTo: 'performance', 
+        redirectTo: 'dashboard', 
         pathMatch: 'full'
+      },
+      { 
+        path: 'dashboard', 
+        component: DashboardComponent,
+        data: { breadcrumb: 'Dashboard' }
       },
       { 
         path: 'performance', 
@@ -196,8 +204,5 @@ export const routes: Routes = [
       }
     ]
   },
-  { 
-    path: '**', 
-    redirectTo: 'iappms'
-  }
+  { path: '**', redirectTo: 'login' }
 ];
