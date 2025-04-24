@@ -2,6 +2,19 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+interface MenuItem {
+  label: string;
+  route: string;
+  subItems?: SubMenuItem[];
+}
+
+interface SubMenuItem {
+  label: string;
+  route: string;
+  icon?: string;
+  description?: string;
+}
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -17,18 +30,33 @@ import { RouterModule } from '@angular/router';
         <img src="logo.jpg" alt="SITA Logo" class="logo">
         <span class="brand-text">SITA App</span>
       </div>
-      <div class="navbar-menu">
-        <a *ngFor="let item of menuItems" 
-           [routerLink]="item.route"
-           routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: true}">
-          {{ item.label }}
-        </a>
+      <div class="navbar-menu" [class.active]="isMenuOpen">
+        <div class="menu-item" *ngFor="let item of menuItems">
+          <a [routerLink]="item.route"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}"
+             (mouseenter)="showSubmenu(item)"
+             (mouseleave)="hideSubmenu()">
+            {{ item.label }}
+          </a>
+          <div class="submenu" *ngIf="item.subItems && activeMenuItem === item">
+            <a *ngFor="let subItem of item.subItems"
+               [routerLink]="subItem.route"
+               routerLinkActive="active"
+               class="submenu-item">
+              <span class="icon" *ngIf="subItem.icon">{{ subItem.icon }}</span>
+              <div class="submenu-content">
+                <span class="label">{{ subItem.label }}</span>
+                <span class="description" *ngIf="subItem.description">{{ subItem.description }}</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
       <div class="navbar-end">
-        <button class="user-menu">
+        <button class="user-menu" (click)="logout()">
           <span class="user-icon">👤</span>
-          <span class="user-name">John Doe</span>
+          <span class="user-name">Logout</span>
         </button>
       </div>
     </nav>
@@ -44,6 +72,21 @@ import { RouterModule } from '@angular/router';
       --text-light: rgba(4, 4, 113, 0.8);
       --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
       --gradient-accent: linear-gradient(135deg, var(--accent-color), #038a4f);
+    }
+
+    .navbar {
+      background: #ffffff;
+      height: 64px;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(28, 91, 163, 0.2);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
     .burger-menu {
@@ -70,21 +113,6 @@ import { RouterModule } from '@angular/router';
       }
     }
 
-    .navbar {
-      background: #ffffff;
-      height: 64px;
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(28, 91, 163, 0.2);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-    }
-
     .navbar-brand {
       display: flex;
       align-items: center;
@@ -100,46 +128,78 @@ import { RouterModule } from '@angular/router';
         font-size: 1.25rem;
         font-weight: 600;
         color: var(--primary-color);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
     }
 
     .navbar-menu {
       display: flex;
       gap: 1.5rem;
+      position: relative;
 
-      a {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        transition: all 0.3s ease;
+      .menu-item {
         position: relative;
-        overflow: hidden;
 
-        &:hover {
-          color: var(--secondary-color);
-          background-color: rgba(255, 255, 255, 0.1);
-          transform: translateY(-1px);
+        a {
+          color: var(--text-color);
+          text-decoration: none;
+          font-weight: 500;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+          display: block;
+
+          &:hover, &.active {
+            color: var(--accent-color);
+            background-color: var(--accent-light);
+          }
         }
 
-        &.active {
-          color: var(--secondary-color);
-          background: var(--gradient-accent);
-          box-shadow: 0 2px 4px rgba(4, 172, 100, 0.2);
-          transform: translateY(-1px);
+        .submenu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background: white;
+          border-radius: 4px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          min-width: 200px;
+          z-index: 1000;
+          padding: 0.5rem;
+          display: none;
 
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #ffffff;
-            opacity: 0.8;
+          .submenu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background-color: var(--accent-light);
+              color: var(--accent-color);
+            }
+
+            .icon {
+              margin-right: 0.75rem;
+              font-size: 1.2rem;
+            }
+
+            .submenu-content {
+              display: flex;
+              flex-direction: column;
+
+              .description {
+                font-size: 0.8rem;
+                color: var(--text-light);
+                margin-top: 0.25rem;
+              }
+            }
           }
+        }
+
+        &:hover .submenu {
+          display: block;
         }
       }
     }
@@ -151,25 +211,20 @@ import { RouterModule } from '@angular/router';
         gap: 0.75rem;
         padding: 0.5rem 1rem;
         border: none;
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--primary-light);
         cursor: pointer;
-        color: #ffffff;
+        color: var(--primary-color);
         font-weight: 500;
         border-radius: 4px;
         transition: all 0.3s ease;
-        backdrop-filter: blur(4px);
 
         &:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-1px);
+          background: var(--accent-light);
+          color: var(--accent-color);
         }
 
         .user-icon {
           font-size: 1.2rem;
-        }
-
-        .user-name {
-          color: #ffffff;
         }
       }
     }
@@ -179,35 +234,119 @@ import { RouterModule } from '@angular/router';
         display: flex;
       }
 
-      .navbar {
-        padding: 0 1rem;
-      }
-
       .navbar-menu {
         display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        &.active {
+          display: flex;
+        }
+
+        .menu-item {
+          width: 100%;
+
+          a {
+            width: 100%;
+          }
+
+          .submenu {
+            position: static;
+            box-shadow: none;
+            padding: 0;
+            margin-left: 1rem;
+          }
+        }
       }
 
-      .user-menu {
-        .user-name {
-          display: none;
-        }
+      .user-menu .user-name {
+        display: none;
       }
     }
   `]
 })
 export class NavBarComponent {
-  menuItems = [
-    { label: 'EPMDS', route: '/epmds' },
-    { label: 'IAPPMS', route: '/iappms' },
-    { label: 'ESS', route: '/ess' },
-    { label: 'Reporting', route: '/reporting' }
+  menuItems: MenuItem[] = [
+    {
+      label: 'EPMDS',
+      route: '/epmds',
+      subItems: [
+        { label: 'Performance Agreement', route: '/epmds/performance' },
+        { label: 'EPMDS Workplan (Level 1-12)', route: '/epmds/workplan' },
+        { label: 'SMS Workplan (Level 13-16)', route: '/epmds/sms-workplan' },
+        { label: 'Personal Development Plan', route: '/epmds/pdp' },
+        { label: 'September Review Form', route: '/epmds/september-review' },
+        { label: 'Performance Assessment', route: '/epmds/assessment' },
+        { label: 'Elementary Occupations', route: '/epmds/elementary' },
+        { label: 'Performance Development Plan (EO)', route: '/epmds/pdp-elementary' },
+        { label: 'Assessment Factor 1', route: '/epmds/factor1' },
+        { label: 'Assessment Criteria', route: '/epmds/criteria' },
+        { label: 'Assessment Factor 2', route: '/epmds/factor2' },
+        { label: 'Assessment Factor 3', route: '/epmds/factor3' },
+        { label: 'Key Result Areas', route: '/epmds/kra' },
+        { label: 'Generic Assessment Factors', route: '/epmds/gaf' },
+        { label: 'Final Score', route: '/epmds/final-score' },
+        { label: 'Quarterly/Annual Assessment', route: '/epmds/quarterly-assessment' }
+      ]
+    },
+    {
+      label: 'IAPPMS',
+      route: '/iappms',
+      subItems: [
+        { label: 'MTSF Implementation Plan', route: '/iappms/mtsf', icon: '📊', description: 'Medium Term Strategic Framework Implementation Plan' },
+        { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', icon: '🗺️', description: 'Strategic Mapping of Provincial Priorities' },
+        { label: 'Operational Plan', route: '/iappms/operational-plan', icon: '📋', description: 'Operational Planning and Management' },
+        { label: 'Strategic Plan', route: '/iappms/strategic-plan', icon: '🎯', description: 'Strategic Planning and Development' },
+        { label: 'Annual Performance Plan', route: '/iappms/annual', icon: '📅', description: 'Annual Performance Planning and Review' }
+      ]
+    },
+    {
+      label: 'ESS',
+      route: '/ess',
+      subItems: [
+        { label: 'Personal Information', route: '/ess/personal-info' },
+        { label: 'Leave Management', route: '/ess/leave' },
+        { label: 'Time Management', route: '/ess/time' },
+        { label: 'Benefits', route: '/ess/benefits' },
+        { label: 'Documents', route: '/ess/documents' }
+      ]
+    },
+    {
+      label: 'Reporting',
+      route: '/reporting',
+      subItems: [
+        { label: 'Performance Reports', route: '/reporting/performance' },
+        { label: 'Assessment Reports', route: '/reporting/assessment' },
+        { label: 'ESS Reports', route: '/reporting/ess' },
+        { label: 'Custom Reports', route: '/reporting/custom' },
+        { label: 'Analytics Dashboard', route: '/reporting/analytics' }
+      ]
+    }
   ];
 
   isMenuOpen = false;
+  activeMenuItem: MenuItem | null = null;
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    const menu = document.querySelector('.navbar-menu');
-    menu?.classList.toggle('active');
+  }
+
+  showSubmenu(item: MenuItem) {
+    this.activeMenuItem = item;
+  }
+
+  hideSubmenu() {
+    this.activeMenuItem = null;
+  }
+
+  logout() {
+    // TODO: Implement logout functionality
   }
 } 

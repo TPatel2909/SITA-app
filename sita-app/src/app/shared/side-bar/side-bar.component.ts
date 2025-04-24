@@ -75,6 +75,8 @@ interface SidebarItem {
       <div class="app-content">
         <ng-content></ng-content>
       </div>
+      <!-- Move overlay outside of sidebar -->
+      <div class="sidebar-overlay" [class.active]="!isOpen && isMobile" (click)="toggleSidebar()"></div>
     </div>
   `,
   styles: [`
@@ -622,6 +624,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
  
   private featureItems: { [key: string]: SidebarItem[] } = {
     'EPMDS': [
+      { label: 'Dashboard', route: '/epmds/dashboard', description: 'EPMDS Overview', icon: 'dashboard' },
       { label: 'Performance Agreement', route: '/epmds/performance', description: 'Create and manage agreements', icon: 'assignment' },
       { label: 'EPMDS Workplan Level 1-12', route: '/epmds/workplan', description: 'Workplan for levels 1-12', icon: 'work' },
       { label: 'SMS Workplan Level 13-16', route: '/epmds/sms-workplan', description: 'Workplan for levels 13-16', icon: 'work' },
