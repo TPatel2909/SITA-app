@@ -30,6 +30,7 @@ export interface SignupCredentials extends LoginCredentials {
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser$: Observable<User | null>;
