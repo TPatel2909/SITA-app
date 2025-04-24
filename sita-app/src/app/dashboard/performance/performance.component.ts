@@ -413,8 +413,8 @@ interface RatingScale {
 
             <!-- Form Actions -->
             <div class="form-actions">
-              <button mat-button type="button" (click)="saveDraft()">Save Draft</button>
-              <button mat-raised-button color="primary" type="submit" [disabled]="!agreementForm.valid" (click)="onSubmit()">
+              <button style="background-color: #04a9e8 ;" mat-button type="button" (click)="saveDraft()">Save Draft</button>
+              <button style="background-color: #04ac64;" mat-raised-button color="primary" type="submit" [disabled]="!agreementForm.valid" (click)="onSubmit()">
                 Submit Agreement
               </button>
             </div>
@@ -439,12 +439,16 @@ interface RatingScale {
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
+      z-index: 900;
+      max-width: 100%;
+      background-color: rgb(195, 199, 207);
       padding: 2rem;
+      width: 100%;
     }
 
     .content-wrapper {
       max-width: 1200px;
+      z-index: 900;
       margin: 0 auto;
     }
 
@@ -460,98 +464,171 @@ interface RatingScale {
       color: white;
       padding: 1.5rem;
       border-bottom: 3px solid var(--accent-color);
-      text-align: center;
 
-      h2 {
-        font-size: 1.5rem;
+      h2, h3 {
+        font-size: 1.25rem;
         font-weight: 600;
         margin: 0;
-        margin-bottom: 0.5rem;
       }
 
       h3 {
-        font-size: 1.25rem;
-        font-weight: 500;
-        margin: 0;
+        margin-top: 0.5rem;
+        font-size: 1rem;
       }
     }
 
     .notice-box {
-      background: var(--primary-light);
+      background: #04ac64;
+      color: white;
       padding: 1rem;
       margin: 1.5rem;
       border-radius: 4px;
-      border: 1px solid var(--primary-color);
     }
 
-    .form-section {
-      padding: 1.5rem;
+    .section {
+      margin: 1.5rem;
+      padding: 2rem;
       border-bottom: 1px solid var(--border-color);
 
-      h3 {
+      .section-title {
         color: var(--primary-color);
-        font-size: 1.2rem;
+        font-size: 1.125rem;
         font-weight: 600;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--primary-light);
+      }
+
+      p, .numbered-item p {
         margin-bottom: 1rem;
+        line-height: 1.5;
+        text-align: justify;
+        padding: 0 0.5rem;
+      }
+
+      ul {
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+
+        li {
+          margin-bottom: 0.5rem;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      padding: 0 0.5rem;
+
+      label {
+        display: block;
+        color: var(--text-color);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      input, textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          background: var(--primary-light);
+        }
+
+        &::placeholder {
+          color: var(--text-light);
+        }
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
       }
     }
 
     .subsection {
       margin-bottom: 2rem;
+      padding: 0 0.5rem;
 
       h4 {
         color: var(--primary-color);
-        font-size: 1.1rem;
-        font-weight: 500;
+        font-size: 1rem;
+        font-weight: 600;
         margin-bottom: 1rem;
-      }
-    }
-
-    .numbered-item {
-      margin-bottom: 1rem;
-      padding-left: 1rem;
-
-      p {
-        margin-bottom: 0.5rem;
-      }
-
-      ul {
-        list-style-type: disc;
-        padding-left: 2rem;
-        margin-top: 0.5rem;
-
-        li {
-          margin-bottom: 0.5rem;
-        }
       }
     }
 
     .job-details-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .signatures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .signature-block {
+      p {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+    }
+
+    .table-container {
+      margin-top: 1rem;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     .assessment-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 1rem;
+      background: white;
 
       th, td {
         border: 1px solid var(--border-color);
         padding: 0.75rem;
         text-align: left;
+        font-size: 0.875rem;
       }
 
       th {
         background: var(--primary-light);
         color: var(--primary-color);
-        font-weight: 500;
+        font-weight: 600;
+        white-space: nowrap;
       }
 
-      .mat-form-field {
+      input {
         width: 100%;
+        padding: 0.5rem;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          background: var(--primary-light);
+        }
+
+        &::placeholder {
+          color: var(--text-light);
+        }
       }
     }
 
@@ -573,38 +650,64 @@ interface RatingScale {
       }
     }
 
-    .development-areas {
-      margin-top: 1rem;
-      
-      p {
-        color: var(--text-light);
-        margin-bottom: 0.5rem;
-      }
-    }
-
-    .signatures-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .signature-block {
-      p {
-        margin-bottom: 0.5rem;
-      }
-    }
-
     .form-actions {
       padding: 1.5rem;
       display: flex;
       gap: 1rem;
       justify-content: flex-end;
       border-top: 1px solid var(--border-color);
+      margin-top: 2rem;
     }
 
-    .full-width {
-      width: 100%;
+    .form-section {
+      margin-left: 1rem;
+      padding-left: 1rem;
+  }
+
+    .btn-action, .btn-save, .btn-submit {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 120px;
+      text-align: center;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .btn-action {
+      background: var(--primary-color);
+      color: white;
+
+      &:hover {
+        background: var(--primary-dark);
+      }
+    }
+
+    .btn-save {
+      background: #04a9e8;
+      color: white;
+
+      &:hover {
+        background: darken(#04a9e8, 10%);
+      }
+    }
+
+    .btn-submit {
+      background: #04ac64;
+      color: white;
+
+      &:hover {
+        background: darken(#04ac64, 10%);
+      }
     }
 
     @media (max-width: 768px) {
@@ -612,17 +715,13 @@ interface RatingScale {
         padding: 1rem;
       }
 
-      .form-section {
+      .section {
         padding: 1rem;
-      }
-
-      .signatures-grid {
-        grid-template-columns: 1fr;
       }
 
       .form-actions {
         flex-direction: column;
-
+        
         button {
           width: 100%;
         }
