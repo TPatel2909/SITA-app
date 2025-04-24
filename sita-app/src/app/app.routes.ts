@@ -24,6 +24,7 @@ import { PerformanceRatingScaleComponent } from './features/epmds/performance-ra
 import { KeyResultAreasComponent } from './features/epmds/key-result-areas/key-result-areas.component';
 import { GenericAssessmentFactorComponent } from './features/epmds/generic-assessment-factor/generic-assessment-factor.component';
 import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
+import { SignaturePadComponent } from './signature-pad/signature-pad.component';
 
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
@@ -37,6 +38,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'SignaturePadComponent',
+    component: SignaturePadComponent
   },
   {
     path: 'dashboard',
