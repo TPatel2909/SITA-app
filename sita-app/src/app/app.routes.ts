@@ -8,22 +8,24 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 
 // Import EPMDS feature components
-import { PersonalDevelopmentPlanComponent } from './features/epmds/personal-development-plan/personal-development-plan.component';
-import { SeptemberReviewComponent } from './features/epmds/september-review/september-review.component';
-import { PerformanceAssessmentComponent } from './features/epmds/performance-assessment/performance-assessment.component';
-import { QuarterlyAnnualAssessmentComponent } from './features/epmds/quarterly-annual-assessment/quarterly-annual-assessment.component';
-import { ElementaryComponent } from './features/epmds/elementary/elementary.component';
-import { PdpElementaryComponent } from './features/epmds/pdp-elementary/pdp-elementary.component';
-import { AssessmentFactorOneComponent } from './features/epmds/assessment-factor-one/assessment-factor-one.component';
-import { AssessmentCriteriaComponent } from './features/epmds/assessment-criteria/assessment-criteria.component';
-import { AssessmentFactorTwoComponent } from './features/epmds/assessment-factor-two/assessment-factor-two.component';
-import { AssessmentFactorThreeComponent } from './features/epmds/assessment-factor-three/assessment-factor-three.component';
-import { WorkplanComponent } from './features/epmds/workplan/workplan.component';
-import { SmsWorkplanComponent } from './features/epmds/sms-workplan/sms-workplan.component';
-import { PerformanceRatingScaleComponent } from './features/epmds/performance-rating-scale/performance-rating-scale.component';
-import { KeyResultAreasComponent } from './features/epmds/key-result-areas/key-result-areas.component';
-import { GenericAssessmentFactorComponent } from './features/epmds/generic-assessment-factor/generic-assessment-factor.component';
-import { FinalScoreComponent } from './features/epmds/final-score/final-score.component';
+import {
+  PersonalDevelopmentPlanComponent,
+  SeptemberReviewComponent,
+  PerformanceAssessmentComponent,
+  QuarterlyAnnualAssessmentComponent,
+  ElementaryComponent,
+  PdpElementaryComponent,
+  AssessmentFactorOneComponent,
+  AssessmentCriteriaComponent,
+  AssessmentFactorTwoComponent,
+  AssessmentFactorThreeComponent,
+  WorkplanComponent,
+  SmsWorkplanComponent,
+  PerformanceRatingScaleComponent,
+  KeyResultAreasComponent,
+  GenericAssessmentFactorComponent,
+  FinalScoreComponent
+} from './features/epmds/index';
 
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
@@ -46,23 +48,98 @@ export const routes: Routes = [
   {
     path: 'epmds',
     canActivate: [AuthGuard],
+    data: { breadcrumb: 'EPMDS' },
     children: [
-      { path: 'personal-development-plan', component: PersonalDevelopmentPlanComponent },
-      { path: 'september-review', component: SeptemberReviewComponent },
-      { path: 'performance-assessment', component: PerformanceAssessmentComponent },
-      { path: 'quarterly-annual-assessment', component: QuarterlyAnnualAssessmentComponent },
-      { path: 'elementary', component: ElementaryComponent },
-      { path: 'pdp-elementary', component: PdpElementaryComponent },
-      { path: 'assessment-factor-one', component: AssessmentFactorOneComponent },
-      { path: 'assessment-criteria', component: AssessmentCriteriaComponent },
-      { path: 'assessment-factor-two', component: AssessmentFactorTwoComponent },
-      { path: 'assessment-factor-three', component: AssessmentFactorThreeComponent },
-      { path: 'workplan', component: WorkplanComponent },
-      { path: 'sms-workplan', component: SmsWorkplanComponent },
-      { path: 'performance-rating-scale', component: PerformanceRatingScaleComponent },
-      { path: 'key-result-areas', component: KeyResultAreasComponent },
-      { path: 'generic-assessment-factor', component: GenericAssessmentFactorComponent },
-      { path: 'final-score', component: FinalScoreComponent }
+      {
+        path: '',
+        redirectTo: 'performance',
+        pathMatch: 'full'
+      },
+      {
+        path: 'performance',
+        component: PerformanceComponent,
+        data: { breadcrumb: 'Performance Agreement' }
+      },
+      { 
+        path: 'personal-development-plan', 
+        component: PersonalDevelopmentPlanComponent,
+        data: { breadcrumb: 'Personal Development Plan' }
+      },
+      { 
+        path: 'september-review', 
+        component: SeptemberReviewComponent,
+        data: { breadcrumb: 'September Review' }
+      },
+      { 
+        path: 'performance-assessment', 
+        component: PerformanceAssessmentComponent,
+        data: { breadcrumb: 'Performance Assessment' }
+      },
+      { 
+        path: 'quarterly-annual-assessment', 
+        component: QuarterlyAnnualAssessmentComponent,
+        data: { breadcrumb: 'Quarterly/Annual Assessment' }
+      },
+      { 
+        path: 'elementary', 
+        component: ElementaryComponent,
+        data: { breadcrumb: 'Elementary Occupations' }
+      },
+      { 
+        path: 'pdp-elementary', 
+        component: PdpElementaryComponent,
+        data: { breadcrumb: 'PDP Elementary' }
+      },
+      { 
+        path: 'assessment-factor-one', 
+        component: AssessmentFactorOneComponent,
+        data: { breadcrumb: 'Assessment Factor 1' }
+      },
+      { 
+        path: 'assessment-criteria', 
+        component: AssessmentCriteriaComponent,
+        data: { breadcrumb: 'Assessment Criteria' }
+      },
+      { 
+        path: 'assessment-factor-two', 
+        component: AssessmentFactorTwoComponent,
+        data: { breadcrumb: 'Assessment Factor 2' }
+      },
+      { 
+        path: 'assessment-factor-three', 
+        component: AssessmentFactorThreeComponent,
+        data: { breadcrumb: 'Assessment Factor 3' }
+      },
+      { 
+        path: 'workplan', 
+        component: WorkplanComponent,
+        data: { breadcrumb: 'Workplan' }
+      },
+      { 
+        path: 'sms-workplan', 
+        component: SmsWorkplanComponent,
+        data: { breadcrumb: 'SMS Workplan' }
+      },
+      { 
+        path: 'performance-rating-scale', 
+        component: PerformanceRatingScaleComponent,
+        data: { breadcrumb: 'Performance Rating Scale' }
+      },
+      { 
+        path: 'key-result-areas', 
+        component: KeyResultAreasComponent,
+        data: { breadcrumb: 'Key Result Areas' }
+      },
+      { 
+        path: 'generic-assessment-factor', 
+        component: GenericAssessmentFactorComponent,
+        data: { breadcrumb: 'Generic Assessment Factor' }
+      },
+      { 
+        path: 'final-score', 
+        component: FinalScoreComponent,
+        data: { breadcrumb: 'Final Score' }
+      }
     ]
   },
   {

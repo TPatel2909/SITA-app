@@ -27,7 +27,7 @@ interface SubMenuItem {
         <span class="burger-line"></span>
       </button>
       <div class="navbar-brand">
-        <img src="logo.jpg" alt="SITA Logo" class="logo">
+        <img src="C:\Users\TPatel\Sita5\SITA-app\sita-app\public\logo.jpg" alt="SITA Logo" class="logo">
         <span class="brand-text">SITA App</span>
       </div>
       <div class="navbar-menu" [class.active]="isMenuOpen">

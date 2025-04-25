@@ -25,9 +25,9 @@ interface SidebarItem {
             <i class="material-icons">{{ isOpen ? 'chevron_left' : 'chevron_right' }}</i>
           </button>
 
-          <!-- Floating Expand Button (shown only when collapsed) -->
+          <!-- Floating Expand Button -->
           <button class="floating-expand-button" *ngIf="!isOpen" (click)="toggleSidebar()">
-            <i class="material-icons">chevron_right</i>
+            <i class="material-icons">menu</i>
           </button>
 
           <!-- Company Header -->
@@ -103,14 +103,14 @@ interface SidebarItem {
     .app-layout {
       display: flex;
       min-height: 100vh;
-      width: 100%;
+      width: 90%; 
       position: relative;
       
     }
 
     .app-content {
       flex: 1;
-      margin-left: var(--sidebar-width);
+      margin-left: 250px;
       min-height: 100vh;
       background-color: #f0f2f5;
       transition: margin-left var(--transition-speed) ease;

@@ -4,6 +4,7 @@ import { AuthService } from './auth/services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -17,7 +18,8 @@ import { Subscription } from 'rxjs';
     RouterModule,
     ReactiveFormsModule,
     NavBarComponent,
-    SideBarComponent
+    SideBarComponent,
+    BreadcrumbComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -40,7 +42,7 @@ export class AppComponent implements OnDestroy {
           this.router.navigate(['/login']);
         } else if (this.isAuthenticated && this.isAuthPage) {
           // If authenticated and on auth page, redirect to dashboard
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/epmds/dashboard']);
         }
       });
 
