@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 
 interface MenuItem {
   label: string;
@@ -18,7 +19,7 @@ interface SubMenuItem {
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgOptimizedImage],
   template: `
     <nav class="navbar">
       <button class="burger-menu" (click)="toggleMenu()">
@@ -27,7 +28,13 @@ interface SubMenuItem {
         <span class="burger-line"></span>
       </button>
       <div class="navbar-brand">
-        <img src="C:\Users\TPatel\Sita5\SITA-app\sita-app\public\logo.jpg" alt="SITA Logo" class="logo">
+        <img 
+          ngSrc="/assets/logo.jpg" 
+          alt="SITA Logo" 
+          class="logo"
+          width="40"
+          height="40"
+          priority>
         <span class="brand-text">SITA App</span>
       </div>
       <div class="navbar-menu" [class.active]="isMenuOpen">

@@ -6,6 +6,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { SignaturePadComponent } from './signature-pad/signature-pad.component';
 
 // Import EPMDS feature components
 import {
@@ -65,7 +66,7 @@ export const routes: Routes = [
         data: { breadcrumb: 'Performance Agreement' }
       },
       { 
-        path: 'personal-development-plan', 
+        path: 'pdp', 
         component: PersonalDevelopmentPlanComponent,
         data: { breadcrumb: 'Personal Development Plan' }
       },
@@ -80,7 +81,7 @@ export const routes: Routes = [
         data: { breadcrumb: 'Performance Assessment' }
       },
       { 
-        path: 'quarterly-annual-assessment', 
+        path: 'quarterly-assessment', 
         component: QuarterlyAnnualAssessmentComponent,
         data: { breadcrumb: 'Quarterly/Annual Assessment' }
       },

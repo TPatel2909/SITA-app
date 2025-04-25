@@ -1,293 +1,302 @@
 <div class="page-container">
-  <mat-card class="form-card">
-    <mat-card-header>
-      <mat-card-title>EPMDS</mat-card-title>
-      <mat-card-subtitle>PROBATION: QUARTERLY PERFORMANCE ASSESSMENT</mat-card-subtitle>
-    </mat-card-header>
-
-    <div class="notice-box">
-      Employees on probation must be assessed on a quarterly basis using this form as the point of departure.
-      <br>
-      The manager must forward the completed form to the Section: People Management immediately after completion.
-    </div>
-
-    <div class="confidential-label">CONFIDENTIAL</div>
-
-    <form [formGroup]="assessmentForm">
-      <!-- Header Information -->
-      <section class="form-section header-info">
-        <table class="info-table">
-          <tr>
-            <td>Quarter</td>
-            <td *ngFor="let q of quarters">
-              <mat-radio-group formControlName="quarter">
-                <mat-radio-button [value]="q">{{q}}</mat-radio-button>
-              </mat-radio-group>
-            </td>
-          </tr>
-          <tr>
-            <td>Name:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput formControlName="name">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>Rank:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput formControlName="rank">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>Component:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput formControlName="component">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>Date of appointment:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput [matDatepicker]="appointmentPicker" formControlName="dateOfAppointment">
-                <mat-datepicker-toggle matSuffix [for]="appointmentPicker"></mat-datepicker-toggle>
-                <mat-datepicker #appointmentPicker></mat-datepicker>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>Period of assessment:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput formControlName="periodOfAssessment">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>Persal No.:</td>
-            <td colspan="4">
-              <mat-form-field>
-                <input matInput formControlName="persalNo">
-              </mat-form-field>
-            </td>
-          </tr>
-        </table>
-      </section>
-
-      <!-- Part 1 - Comments by Employee -->
-      <section class="form-section">
-        <h2>PART 1:</h2>
-        <h3>COMMENTS BY EMPLOYEE</h3>
-        <p class="section-note">
-          (To be completed by Employee, prior to assessment. If the space provided is insufficient, the comments can be included in an attachment)
-        </p>
-
-        <mat-form-field class="full-width">
-          <mat-label>1. During the past quarter my major accomplishments as they related to my job description/Performance Agreement were:</mat-label>
-          <textarea matInput formControlName="majorAccomplishments" rows="5"></textarea>
-        </mat-form-field>
-
-        <mat-form-field class="full-width">
-          <mat-label>2. During the past quarter I was less successful in the following areas for the reasons stated:</mat-label>
-          <textarea matInput formControlName="lessSuccessfulAreas" rows="5"></textarea>
-        </mat-form-field>
-
-        <div class="signature-section">
-          <div class="signature-row">
-            <span>Employee:</span>
-            <mat-form-field>
-              <mat-label>Signature</mat-label>
-              <input matInput formControlName="employeeSignature">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="employeeDatePicker" formControlName="employeeSignatureDate">
-              <mat-datepicker-toggle matSuffix [for]="employeeDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #employeeDatePicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-      </section>
-
-      <!-- Part 2 - Performance Assessment -->
-      <section class="form-section">
-        <h2>QUARTERLY PERFORMANCE ASSESSMENT</h2>
-        
-        <div class="assessment-note">
-          <p>2.1 Supervisor's assessment of Key Result Areas (KRA's):</p>
-          <p class="sub-note">(Use the Performance Assessment Instrument in Annexure F)</p>
-        </div>
-
-        <div class="assessment-note">
-          <p>2.2 Supervisor's assessment of Generic Assessment Factors (GAFs):</p>
-          <p class="sub-note">(Use the Performance Assessment Instrument in Annexure F)</p>
-        </div>
-
-        <h3>FINAL SCORE</h3>
-        <table class="final-score-table">
-          <tr>
-            <th>GRAND TOTAL</th>
-            <th>OWN RATING</th>
-            <th>SUPERVISOR'S RATING</th>
-            <th>MODERATING COM'S RATING</th>
-          </tr>
-          <tr>
-            <td>KRA + GAF (80% + 20% for levels 1-12)</td>
-            <td>
-              <mat-form-field>
-                <input matInput formControlName="ownRating">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput formControlName="supervisorRating">
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput formControlName="moderatingRating">
-                <mat-hint>If applicable</mat-hint>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>FINAL SCORE</td>
-            <td colspan="3">
-              <mat-form-field>
-                <input matInput formControlName="finalScore">
-                <mat-hint>If applicable</mat-hint>
-              </mat-form-field>
-            </td>
-          </tr>
-        </table>
-      </section>
-
-      <!-- Part 3 - Supervisor Assessment -->
-      <section class="form-section">
-        <h2>PART 3:</h2>
-        <h3>TO BE COMPLETED BY THE SUPERVISOR</h3>
-
-        <mat-form-field class="full-width">
-          <mat-label>3.1 Employee to receive training for the following reasons:</mat-label>
-          <textarea matInput formControlName="trainingReasons" rows="4"></textarea>
-        </mat-form-field>
-
-        <div class="placement-section">
-          <p>3.2 Is the Employee correctly placed,</p>
-          <mat-radio-group formControlName="isCorrectlyPlaced">
-            <mat-radio-button value="yes">YES</mat-radio-button>
-            <mat-radio-button value="no">NO</mat-radio-button>
-          </mat-radio-group>
-        </div>
-
-        <div class="permanent-section">
-          <p>3.3 Upon expiry of his/her probationary period do you anticipate that he/she will be suitable for a permanent appointment?</p>
-          <mat-radio-group formControlName="suitableForPermanent">
-            <mat-radio-button value="yes">YES</mat-radio-button>
-            <mat-radio-button value="no">NO</mat-radio-button>
-          </mat-radio-group>
-          <p class="warning-note" *ngIf="assessmentForm.get('suitableForPermanent')?.value === 'no'">
-            If the employee is not correctly placed, please consult the Manager: People Management and Development.
-          </p>
-        </div>
-
-        <div class="recommendation-section">
-          <h3>3.4 Supervisor's recommendation/s at the end of the probationary period:</h3>
-          <p class="sub-note">(Please complete either 3.4.1 or 3.4.2)</p>
-
-          <mat-radio-group formControlName="recommendationType">
-            <div class="recommendation-option">
-              <mat-radio-button value="confirm">3.4.1</mat-radio-button>
-              <div class="recommendation-text" formGroupName="probationConfirmation">
-                I recommend the confirmation of
-                <mat-form-field class="inline-field">
-                  <input matInput formControlName="employeeName">
-                </mat-form-field>'s probation, in view of the employee's diligence and because his/her conduct has been uniformly satisfactory.
-              </div>
-            </div>
-
-            <div class="recommendation-option">
-              <mat-radio-button value="extend">3.4.2</mat-radio-button>
-              <div class="recommendation-text" formGroupName="probationExtension">
-                I recommend that
-                <mat-form-field class="inline-field">
-                  <input matInput formControlName="employeeName">
-                </mat-form-field>'s probation be extended for a period of
-                <mat-form-field class="inline-field">
-                  <mat-select formControlName="extensionPeriod">
-                    <mat-option value="three">three</mat-option>
-                    <mat-option value="six">six</mat-option>
-                    <mat-option value="nine">nine</mat-option>
-                    <mat-option value="twelve">twelve</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                months for the following reasons:
-                <mat-form-field class="full-width">
-                  <textarea matInput formControlName="extensionReasons" rows="3"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
-          </mat-radio-group>
-        </div>
-
-        <!-- Employee's Comments -->
-        <div class="comments-section">
-          <h3>4. Employee's comments:</h3>
-          <mat-form-field class="full-width">
-            <textarea matInput formControlName="employeeComments" rows="4"></textarea>
-          </mat-form-field>
-
-          <div class="signature-row">
-            <mat-form-field>
-              <mat-label>Signature</mat-label>
-              <input matInput formControlName="employeeCommentsSignature">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="employeeCommentsName">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="employeeCommentDatePicker" formControlName="employeeCommentsDate">
-              <mat-datepicker-toggle matSuffix [for]="employeeCommentDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #employeeCommentDatePicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <!-- Final Approval -->
-        <div class="approval-section">
-          <h3>5. Recommendation/s in 3.4 approved in accordance with delegated authority.</h3>
-          <div class="signature-row">
-            <mat-form-field>
-              <mat-label>Signature</mat-label>
-              <input matInput formControlName="approvalSignature">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="approvalName">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="approvalDatePicker" formControlName="approvalDate">
-              <mat-datepicker-toggle matSuffix [for]="approvalDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #approvalDatePicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
-      </section>
-
-      <!-- Form Actions -->
-      <div class="form-actions">
-        <button style="background-color: #04ac64" mat-button type="button" (click)="saveDraft()">Save Draft</button>
-        <button style="background-color: #04ac64" mat-raised-button color="primary" type="submit" [disabled]="!assessmentForm.valid" (click)="onSubmit()">
-          Submit Assessment
-        </button>
+  <div class="content-wrapper">
+    <div class="assessment-container">
+      <div class="section-header">
+        <h2>EPMDS</h2>
+        <h3>PROBATION: QUARTERLY PERFORMANCE ASSESSMENT</h3>
       </div>
-    </form>
-  </mat-card>
+
+      <div class="notice-box">
+        Employees on probation must be assessed on a quarterly basis using this form as the point of departure.
+        <br>
+        The manager must forward the completed form to the Section: People Management immediately after completion.
+      </div>
+
+      <div class="confidential-banner">
+        CONFIDENTIAL
+      </div>
+
+      <form [formGroup]="assessmentForm">
+        <!-- Basic Information Section -->
+        <section class="form-section">
+          <div class="info-grid">
+            <div class="quarter-selector">
+              <label>Quarter:</label>
+              <div class="quarter-boxes">
+                <div *ngFor="let q of [1,2,3,4]" class="quarter-box">
+                  <span>{{q}}</span>
+                  <mat-radio-button [value]="q" formControlName="quarter"></mat-radio-button>
+                </div>
+              </div>
+            </div>
+            
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Name:</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Rank:</mat-label>
+              <input matInput formControlName="rank">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Component:</mat-label>
+              <input matInput formControlName="component">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Date of appointment:</mat-label>
+              <input matInput [matDatepicker]="appointmentPicker" formControlName="dateOfAppointment">
+              <mat-datepicker-toggle matSuffix [for]="appointmentPicker"></mat-datepicker-toggle>
+              <mat-datepicker #appointmentPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Period of assessment:</mat-label>
+              <input matInput formControlName="periodOfAssessment">
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Persal No.:</mat-label>
+              <input matInput formControlName="persalNo">
+            </mat-form-field>
+          </div>
+        </section>
+
+        <!-- Part 1: Comments by Employee -->
+        <section class="form-section">
+          <h3>PART 1: COMMENTS BY EMPLOYEE</h3>
+          <p class="section-note">(To be completed by Employee, prior to assessment. If the space provided is insufficient, the comments can be included in an attachment)</p>
+
+          <div class="comments-section">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>1. During the past quarter my major accomplishments as they related to my job description/Performance Agreement were:</mat-label>
+              <textarea matInput rows="5" formControlName="majorAccomplishments"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>2. During the past quarter I was less successful in the following areas for the reasons stated:</mat-label>
+              <textarea matInput rows="5" formControlName="lessSuccessfulAreas"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="signatures-grid">
+            <div class="signature-block">
+              <div class="signature-line">
+                <span>Employee:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="employeeSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Date:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="empDatePicker" formControlName="employeeDate">
+                  <mat-datepicker-toggle matSuffix [for]="empDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #empDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="signature-block">
+              <div class="signature-line">
+                <span>Supervisor:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="supervisorSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Date:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="supDatePicker" formControlName="supervisorDate">
+                  <mat-datepicker-toggle matSuffix [for]="supDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #supDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Part 2: Assessment -->
+        <section class="form-section">
+          <h3>QUARTERLY PERFORMANCE ASSESSMENT</h3>
+          
+          <div class="assessment-subsection">
+            <h4>2.1 Supervisor's assessment of Key Result Areas (KRA's):</h4>
+            <p class="reference-note">(Use the Performance Assessment Instrument in Annexure F)</p>
+          </div>
+
+          <div class="assessment-subsection">
+            <h4>2.2 Supervisor's assessment of Generic Assessment Factors (GAFs):</h4>
+            <p class="reference-note">(Use the Performance Assessment Instrument in Annexure F)</p>
+          </div>
+
+          <!-- Final Score Section -->
+          <div class="final-score-section">
+            <h4>FINAL SCORE</h4>
+            <table class="assessment-table">
+              <thead>
+                <tr>
+                  <th>GRAND TOTAL</th>
+                  <th>OWN RATING</th>
+                  <th>SUPERVISOR'S RATING</th>
+                  <th>MODERATING COM'S RATING</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>KRA + GAF (80% + 20% for levels 1-12)</td>
+                  <td><input matInput formControlName="ownRating"></td>
+                  <td><input matInput formControlName="supervisorRating"></td>
+                  <td>
+                    <input matInput formControlName="moderatingRating">
+                    <span class="note">If applicable</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>FINAL SCORE</td>
+                  <td><input matInput formControlName="finalScoreOwn"></td>
+                  <td><input matInput formControlName="finalScoreSupervisor"></td>
+                  <td>
+                    <input matInput formControlName="finalScoreModerating">
+                    <span class="note">If applicable</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Part 3: Supervisor Section -->
+        <section class="form-section">
+          <h3>PART 3: TO BE COMPLETED BY THE SUPERVISOR</h3>
+
+          <div class="supervisor-section">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>3.1 Employee to receive training for the following reasons:</mat-label>
+              <textarea matInput rows="4" formControlName="trainingReasons"></textarea>
+            </mat-form-field>
+
+            <div class="placement-section">
+              <h4>3.2 Is the Employee correctly placed?</h4>
+              <mat-radio-group formControlName="isCorrectlyPlaced">
+                <mat-radio-button value="yes">YES</mat-radio-button>
+                <mat-radio-button value="no">NO</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="suitability-section">
+              <h4>3.3 Upon expiry of his/her probationary period do you anticipate that he/she will be suitable for a permanent appointment?</h4>
+              <mat-radio-group formControlName="suitableForPermanent">
+                <mat-radio-button value="yes">YES</mat-radio-button>
+                <mat-radio-button value="no">NO</mat-radio-button>
+              </mat-radio-group>
+              <p class="warning-note" *ngIf="assessmentForm.get('suitableForPermanent')?.value === 'no'">
+                If the employee is not correctly placed, please consult the Manager: People Management and Development.
+              </p>
+            </div>
+
+            <div class="recommendation-options">
+              <h4>3.4 Supervisor's recommendation/s at the end of the probationary period:</h4>
+              <p class="note">(Please complete either 3.4.1 or 3.4.2)</p>
+
+              <mat-radio-group formControlName="recommendationType">
+                <div class="option">
+                  <mat-radio-button value="confirm">3.4.1</mat-radio-button>
+                  <div class="confirmation-text" *ngIf="assessmentForm.get('recommendationType')?.value === 'confirm'">
+                    I recommend the confirmation of
+                    <mat-form-field class="inline-field" appearance="outline">
+                      <input matInput formControlName="confirmationName">
+                    </mat-form-field>'s probation, in view of the employee's diligence and because his/her conduct has been uniformly satisfactory.
+                  </div>
+                </div>
+
+                <div class="option">
+                  <mat-radio-button value="extend">3.4.2</mat-radio-button>
+                  <div class="extension-text" *ngIf="assessmentForm.get('recommendationType')?.value === 'extend'">
+                    I recommend that
+                    <mat-form-field class="inline-field" appearance="outline">
+                      <input matInput formControlName="extensionName">
+                    </mat-form-field>'s probation be extended for a period of
+                    <mat-select formControlName="extensionPeriod">
+                      <mat-option value="three">three</mat-option>
+                      <mat-option value="six">six</mat-option>
+                      <mat-option value="nine">nine</mat-option>
+                      <mat-option value="twelve">twelve</mat-option>
+                    </mat-select>
+                    months for the following reasons:
+                    <mat-form-field class="full-width" appearance="outline">
+                      <textarea matInput rows="3" formControlName="extensionReasons"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-radio-group>
+            </div>
+
+            <!-- Employee Comments Section -->
+            <div class="signature-block">
+              <h4>4. Employee's comments:</h4>
+              <mat-form-field class="full-width" appearance="outline">
+                <textarea matInput rows="4" formControlName="employeeComments"></textarea>
+              </mat-form-field>
+              
+              <div class="signature-line">
+                <span>Signature:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="employeeCommentsSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Name:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="employeeCommentsName">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Date:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="commentDatePicker" formControlName="employeeCommentsDate">
+                  <mat-datepicker-toggle matSuffix [for]="commentDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #commentDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Final Approval Section -->
+            <div class="signature-block">
+              <h4>5. Recommendation/s in 3.4 approved in accordance with delegated authority.</h4>
+              <div class="signature-line">
+                <span>Signature:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="approvalSignature">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Name:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="approvalName">
+                </mat-form-field>
+              </div>
+              <div class="signature-line">
+                <span>Date:</span>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="approvalDatePicker" formControlName="approvalDate">
+                  <mat-datepicker-toggle matSuffix [for]="approvalDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #approvalDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button mat-button type="button" (click)="saveDraft()">Save Draft</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!assessmentForm.valid" (click)="onSubmit()">
+            Submit Assessment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div> 
