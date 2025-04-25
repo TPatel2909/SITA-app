@@ -41,6 +41,10 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'SignaturePadComponent',
+    component: SignaturePadComponent
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard]
