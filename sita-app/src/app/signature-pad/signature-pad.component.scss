@@ -1,0 +1,165 @@
+.signature-capture-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+  }
+  
+  .signature-input-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+  }
+  
+  .sign-here-button {
+    background-color: #007bff; 
+    color: white;            
+    padding: 0.5rem 1rem;      
+    border-radius: 0.375rem;  
+    cursor: pointer;
+    transition: background-color 0.2s ease; 
+  
+    &:hover {
+      background-color: #0056b3; 
+    }
+  }
+  
+  .signature-preview-image {
+    width: 10rem;          
+    height: auto;
+    border: 1px solid #ccc;  
+    border-radius: 0.375rem;  
+    max-height: 8rem; 
+  }
+  
+  .signature-popup {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+  }
+  
+  .signature-popup-content {
+    background-color: white;
+    padding: 1.5rem;        
+    border-radius: 0.5rem;  
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); 
+    width: 90%;             
+    max-width: 500px;      
+  }
+  
+  
+  .signature-mode-selection {
+    display: flex;
+    justify-content: space-between; /* push buttons to the edges */
+    margin-bottom: 1rem;
+    align-items: center; /* Vertically center items */
+  }
+  
+  .mode-button {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: background-color 0.2s ease;
+    font-weight: 500; /* Make the text a bit bolder */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  .mode-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .mode-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .draw-mode-button{
+    margin-right: auto; 
+  }
+  .close-popup-button {
+    padding: 0.5rem;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    background-color: transparent; 
+    line-height: 1; 
+  }
+  
+  .close-popup-button:hover {
+    opacity: 1;
+  }
+  
+  
+  .draw-mode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .signature-canvas {
+    border: 1px solid #ccc;
+    width: 100%;  
+    height: auto; 
+    max-height: 200px; 
+    aspect-ratio: 4 / 2;
+  }
+  
+  .signature-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end; 
+  }
+  
+  .clear-button,
+  .save-button {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  
+  .clear-button:hover,
+  .save-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .save-button {
+    background-color: #28a745; 
+    color: white;
+    border-color: #28a745;
+  }
+  
+  .save-button:hover {
+    background-color: #218838; 
+  }
+  
+  .clear-button {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+  }
+  
+  .clear-button:hover {
+    background-color: #c82333;
+  }
+  
+  
+  .upload-mode-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
