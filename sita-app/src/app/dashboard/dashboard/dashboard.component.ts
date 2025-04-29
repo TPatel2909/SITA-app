@@ -3,7 +3,6 @@ import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgClass, NgFor } from '@angular/common';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import {
   BarController,
@@ -84,8 +83,7 @@ interface DevelopmentActivity {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgClass, NgFor],
-  providers: [AuthService]
+  imports: [CommonModule, HttpClientModule]
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   currentUser: any;

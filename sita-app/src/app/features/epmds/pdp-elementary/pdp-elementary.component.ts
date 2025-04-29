@@ -167,7 +167,7 @@ interface DevelopmentArea {
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
+      background-color: #f5f5f5;
       padding: 2rem;
     }
 
@@ -212,19 +212,22 @@ interface DevelopmentArea {
     }
 
     .purpose-section {
-      padding: 1.5rem;
-      background: var(--primary-light);
-      border-bottom: 1px solid var(--border-color);
+             margin: 1.5rem;
+     padding: 1.5rem;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 6px;
+
 
       h3 {
-        color: var(--primary-color);
+        color: white;
         margin: 0 0 0.5rem 0;
         font-weight: 600;
       }
 
       p {
         margin: 0;
-        color: var(--text-color);
+        color: white;
         line-height: 1.5;
       }
     }

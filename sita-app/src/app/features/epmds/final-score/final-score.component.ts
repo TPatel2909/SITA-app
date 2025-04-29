@@ -218,7 +218,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
     .page-container {
       min-height: calc(100vh - var(--header-height));
-      background-color:rgb(195, 199, 207);
+      background-color: #f5f5f5;
       padding: 2rem;
     }
 

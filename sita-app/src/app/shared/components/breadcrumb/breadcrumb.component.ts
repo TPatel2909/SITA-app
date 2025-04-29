@@ -17,6 +17,7 @@ interface Breadcrumb {
 })
 export class BreadcrumbComponent implements OnInit {
   breadcrumbs: Breadcrumb[] = [];
+  showBreadcrumbs = true;
 
   constructor(
     private router: Router,
@@ -27,11 +28,27 @@ export class BreadcrumbComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      const root = this.activatedRoute.root;
-      const breadcrumbs: Breadcrumb[] = [];
-      this.buildBreadcrumbs(root, '', breadcrumbs);
-      this.breadcrumbs = breadcrumbs;
+      // Check if we're on a dashboard route
+      const currentUrl = this.router.url;
+      this.showBreadcrumbs = !this.isDashboardRoute(currentUrl);
+
+      if (this.showBreadcrumbs) {
+        const root = this.activatedRoute.root;
+        const breadcrumbs: Breadcrumb[] = [];
+        this.buildBreadcrumbs(root, '', breadcrumbs);
+        this.breadcrumbs = breadcrumbs;
+      } else {
+        this.breadcrumbs = [];
+      }
     });
+  }
+
+  private isDashboardRoute(url: string): boolean {
+    return url === '/dashboard' || 
+           url === '/epmds/dashboard' || 
+           url === '/epmds/dashboard/' ||
+           url.startsWith('/dashboard/') ||
+           url.startsWith('/epmds/dashboard/');
   }
 
   private buildBreadcrumbs(route: ActivatedRoute, url: string, breadcrumbs: Breadcrumb[]): void {

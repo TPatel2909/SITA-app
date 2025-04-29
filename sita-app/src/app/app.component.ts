@@ -1,14 +1,13 @@
 import { Component, inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd, RouterModule } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
 import { AuthService } from './auth/services/auth.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-root',
@@ -17,10 +16,10 @@ import { Subscription } from 'rxjs';
     CommonModule,
     RouterOutlet,
     RouterModule,
-    LoginComponent,
     ReactiveFormsModule,
     NavBarComponent,
-    SideBarComponent
+    SideBarComponent,
+    BreadcrumbComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -33,6 +32,7 @@ export class AppComponent implements OnDestroy {
   isAuthenticated = false;
   currentFeature = '';
   isAuthPage = false;
+  currentUrl = '';
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -43,7 +43,8 @@ export class AppComponent implements OnDestroy {
           this.router.navigate(['/login']);
         } else if (this.isAuthenticated && this.isAuthPage) {
           // If authenticated and on auth page, redirect to dashboard
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/epmds/dashboard']);
+          this.currentUrl = '/epmds/dashboard';
         }
       });
 
@@ -53,6 +54,7 @@ export class AppComponent implements OnDestroy {
       ).subscribe((event: any) => {
         const path = event.url.split('/')[1];
         this.currentFeature = path ? path.toUpperCase() : '';
+        this.currentUrl = event.url;
         
         // Check if current route is an auth page
         this.isAuthPage = this.checkIfAuthPage(event.url);
@@ -60,7 +62,16 @@ export class AppComponent implements OnDestroy {
         // Ensure any overlays are cleaned up on navigation
         this.cleanupOverlays();
       });
+
+      // Initialize currentUrl with the current route
+      this.currentUrl = this.router.url;
     }
+  }
+
+  isDashboardPage(): boolean {
+    return this.currentUrl === '/epmds/dashboard' || 
+           this.currentUrl === '/dashboard' || 
+           this.currentUrl === '/epmds/dashboard/';
   }
 
   ngOnDestroy(): void {
