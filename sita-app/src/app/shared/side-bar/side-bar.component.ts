@@ -25,9 +25,9 @@ interface SidebarItem {
             <i class="material-icons">{{ isOpen ? 'chevron_left' : 'chevron_right' }}</i>
           </button>
 
-          <!-- Floating Expand Button (shown only when collapsed) -->
+          <!-- Floating Expand Button -->
           <button class="floating-expand-button" *ngIf="!isOpen" (click)="toggleSidebar()">
-            <i class="material-icons">chevron_right</i>
+            <i class="material-icons">menu</i>
           </button>
 
           <!-- Company Header -->
@@ -103,14 +103,14 @@ interface SidebarItem {
     .app-layout {
       display: flex;
       min-height: 100vh;
-      width: 100%;
+      width: 90%; 
       position: relative;
       
     }
 
     .app-content {
       flex: 1;
-      margin-left: var(--sidebar-width);
+      margin-left: 250px;
       min-height: 100vh;
       background-color: #f0f2f5;
       transition: margin-left var(--transition-speed) ease;
@@ -630,18 +630,18 @@ export class SideBarComponent implements OnInit, OnDestroy {
       { label: 'SMS Workplan Level 13-16', route: '/epmds/sms-workplan', description: 'Workplan for levels 13-16', icon: 'work' },
       { label: 'Personal Development Plan', route: '/epmds/pdp', description: 'Personal development planning', icon: 'person' },
       { label: 'September Review Form', route: '/epmds/september-review', description: 'September review assessment', icon: 'assessment' },
-      { label: 'Annual Performance Assessment Instrument', route: '/epmds/annual-assessment', description: 'Annual performance review', icon: 'assessment' },
-      { label: 'Probation: Quarterly Performance Assessment', route: '/epmds/quarterly-assessment', description: 'Quarterly performance review', icon: 'analytics' },
+      { label: 'Annual Performance Assessment Instrument', route: '/epmds/annual-performance-assessment-instrument', description: 'Annual performance review', icon: 'assessment' },
+      { label: 'Probation: Quarterly Performance Assessment', route: '/epmds/quarterly-performance-assessment', description: 'Quarterly performance review', icon: 'analytics' },
       { label: 'Elementary Occupations', route: '/epmds/elementary', description: 'Elementary occupations', icon: 'group' },
       { label: 'Performance Development Plan: Elementary Occupations', route: '/epmds/pdp-elementary', description: 'Elementary development plan', icon: 'person_add' },
-      { label: 'Assessment Factor 1: Job Performance Elementary Occupation', route: '/epmds/factor1', description: 'Job performance assessment', icon: 'list' },
-      { label: 'Assessment Criteria', route: '/epmds/criteria', description: 'Performance assessment criteria', icon: 'checklist' },
-      { label: 'Assessment Factor 2: Interpersonal Relations', route: '/epmds/factor2', description: 'Interpersonal relations assessment', icon: 'people' },
-      { label: 'Assessment Factor 3: Interpersonal Relations', route: '/epmds/factor3', description: 'Interpersonal relations assessment', icon: 'people' },
-      { label: 'Performance Rating Scale Level 1-12', route: '/epmds/rating-scale', description: 'Rating scale for levels 1-12', icon: 'star' },
-      { label: 'Key Result Areas Level 1-12', route: '/epmds/kra', description: 'Key result areas for levels 1-12', icon: 'track_changes' },
-      { label: 'Generic Assessment Factors Level 1-12', route: '/epmds/generic-factors', description: 'Generic assessment factors', icon: 'format_list_bulleted' },
-      { label: 'Final Performance Assessment Score Level 1-12', route: '/epmds/final-score', description: 'Final performance assessment', icon: 'calculate' }
+      { label: 'Assessment Factor 1: Job Performance Elementary Occupation', route: '/epmds/assessment-factor-one', description: 'Job performance assessment', icon: 'list' },
+      { label: 'Assessment Criteria', route: '/epmds/assessment-criteria', description: 'Performance assessment criteria', icon: 'checklist' },
+      { label: 'Assessment Factor 2: Interpersonal Relations', route: '/epmds/assessment-factor-two', description: 'Interpersonal relations assessment', icon: 'people' },
+      { label: 'Assessment Factor 3: Interpersonal Relations', route: '/epmds/assessment-factor-three', description: 'Interpersonal relations assessment', icon: 'people' },
+      { label: 'Performance Rating Scale Level 1-12', route: '/epmds/performance-rating-scale', description: 'Rating scale for levels 1-12', icon: 'star' },
+      { label: 'Key Result Areas Level 1-12', route: '/epmds/key-result-areas', description: 'Key result areas for levels 1-12', icon: 'track_changes' },
+      { label: 'Generic Assessment Factors Level 1-12', route: '/epmds/generic-assessment-factors', description: 'Generic assessment factors', icon: 'format_list_bulleted' },
+      { label: 'Final Performance Assessment Score Level 1-12', route: '/epmds/final-performance-assessment-score', description: 'Final performance assessment', icon: 'calculate' }
     ],
     'IAPPMS': [
       { label: 'MTSF Implementation', route: '/iappms/mtsf', description: 'Medium Term Strategic Frame...', icon: 'timeline' },
