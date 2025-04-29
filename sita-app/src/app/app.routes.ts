@@ -25,7 +25,8 @@ import {
   PerformanceRatingScaleComponent,
   KeyResultAreasComponent,
   GenericAssessmentFactorComponent,
-  FinalScoreComponent
+  FinalScoreComponent,
+  AnnualPerformanceAssessmentComponent
 } from './features/epmds/index';
 
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
@@ -84,6 +85,11 @@ export const routes: Routes = [
         path: 'quarterly-assessment', 
         component: QuarterlyAnnualAssessmentComponent,
         data: { breadcrumb: 'Quarterly/Annual Assessment' }
+      },
+      { 
+        path: 'annual-performance-assessment-instrument', 
+        component: AnnualPerformanceAssessmentComponent,
+        data: { breadcrumb: 'Annual Performance Assessment Instrument' }
       },
       { 
         path: 'elementary', 

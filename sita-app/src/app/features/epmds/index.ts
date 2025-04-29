@@ -13,4 +13,5 @@ export { SmsWorkplanComponent } from './sms-workplan/sms-workplan.component';
 export { PerformanceRatingScaleComponent } from './performance-rating-scale/performance-rating-scale.component';
 export { KeyResultAreasComponent } from './key-result-areas/key-result-areas.component';
 export { GenericAssessmentFactorComponent } from './generic-assessment-factor/generic-assessment-factor.component';
-export { FinalScoreComponent } from './final-score/final-score.component'; 
+export { FinalScoreComponent } from './final-score/final-score.component';
+export { AnnualPerformanceAssessmentComponent } from './annual-performance-assessment/annual-performance-assessment.component'; 
