@@ -1,22 +1,36 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import SignaturePad from 'signature_pad';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import ResizeObserver from 'resize-observer-polyfill';
 
 @Component({
   standalone: true,
   selector: 'app-signature-pad',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './signature-pad.component.html',
   styleUrls: ['./signature-pad.component.scss']
 })
 export class SignaturePadComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('typedSignatureCanvas', { static: false }) typedSignatureCanvasRef!: ElementRef<HTMLCanvasElement>;
 
   signaturePad!: SignaturePad;
-  mode: 'draw' | 'upload' = 'draw';
+  mode: 'draw' | 'upload' | 'type' = 'draw';
   signatureImage: string | null = null;   
   showModal = false;
+  typedSignature: string = '';
+  typedSignatureFont: string = 'Dancing Script';
+  typedSignatureFontSize: number = 48;
+  availableFonts: string[] = [
+    'Dancing Script', 
+    'Pacifico', 
+    'Satisfy', 
+    'Great Vibes', 
+    'Tangerine',
+    'Alex Brush',
+    'Allura'
+  ];
   private resizeObserver: ResizeObserver | null = null;
 
   constructor(
@@ -84,38 +98,46 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
 
     setTimeout(() => {
       if (this.mode === 'draw' && this.canvasRef) {
-        const canvasElement = this.canvasRef.nativeElement;
-        const parentElement = canvasElement.parentElement;
-        let width = 400;
-        let height = 200;
-
-        if (parentElement) {
-          width = parentElement.clientWidth;
-          height = width / 2;
-        }
-
-        // Set the CSS display size
-        canvasElement.style.width = `${width}px`;
-        canvasElement.style.height = `${height}px`;
-        
-        // Set the actual pixel dimensions
-        const dpr = window.devicePixelRatio || 1;
-        canvasElement.width = width * dpr;
-        canvasElement.height = height * dpr;
-        
-        // Scale the drawing context
-        const ctx = canvasElement.getContext('2d');
-        if (ctx) {
-          ctx.scale(dpr, dpr);
-        }
-        
-        // Initialize the signature pad
-        this.signaturePad = new SignaturePad(canvasElement, {
-          throttle: 16,  // ms, for better performance
-          minWidth: 0.5, // Thinner lines for better precision
-          maxWidth: 2.5  // Maximum thickness of the line
-        });
+        this.initializeDrawCanvas();
+      } else if (this.mode === 'type' && this.typedSignatureCanvasRef) {
+        this.renderTypedSignature();
       }
+    });
+  }
+
+  initializeDrawCanvas(): void {
+    if (!this.canvasRef) return;
+    
+    const canvasElement = this.canvasRef.nativeElement;
+    const parentElement = canvasElement.parentElement;
+    let width = 400;
+    let height = 200;
+
+    if (parentElement) {
+      width = parentElement.clientWidth;
+      height = width / 2;
+    }
+
+    // Set the CSS display size
+    canvasElement.style.width = `${width}px`;
+    canvasElement.style.height = `${height}px`;
+    
+    // Set the actual pixel dimensions
+    const dpr = window.devicePixelRatio || 1;
+    canvasElement.width = width * dpr;
+    canvasElement.height = height * dpr;
+    
+    // Scale the drawing context
+    const ctx = canvasElement.getContext('2d');
+    if (ctx) {
+      ctx.scale(dpr, dpr);
+    }
+    
+    // Initialize the signature pad
+    this.signaturePad = new SignaturePad(canvasElement, {
+      throttle: 16,  // ms, for better performance
+      minWidth: 0.5, // Thinner lines for better precision
+      maxWidth: 2.5  // Maximum thickness of the line
     });
   }
 
@@ -123,56 +145,98 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
     this.showModal = false;
   }
 
-  setMode(mode: 'draw' | 'upload'): void {
+  setMode(mode: 'draw' | 'upload' | 'type'): void {
     this.mode = mode;
     if (mode === 'draw') {
       setTimeout(() => {
-        if (this.canvasRef) {
-          const canvasElement = this.canvasRef.nativeElement;
-          const parentElement = canvasElement.parentElement;
-          let width = 400;
-          let height = 200;
-
-          if (parentElement) {
-            width = parentElement.clientWidth;
-            height = width / 2;
-          }
-
-          // Set the CSS display size
-          canvasElement.style.width = `${width}px`;
-          canvasElement.style.height = `${height}px`;
-          
-          // Set the actual pixel dimensions
-          const dpr = window.devicePixelRatio || 1;
-          canvasElement.width = width * dpr;
-          canvasElement.height = height * dpr;
-          
-          // Scale the drawing context
-          const ctx = canvasElement.getContext('2d');
-          if (ctx) {
-            ctx.scale(dpr, dpr);
-          }
-          
-          // Initialize the signature pad
-          this.signaturePad = new SignaturePad(canvasElement, {
-            throttle: 16,  // ms, for better performance
-            minWidth: 0.5, // Thinner lines for better precision
-            maxWidth: 2.5  // Maximum thickness of the line
-          });
-        }
+        this.initializeDrawCanvas();
+      });
+    } else if (mode === 'type') {
+      setTimeout(() => {
+        this.renderTypedSignature();
       });
     }
   }
 
+  renderTypedSignature(): void {
+    if (!this.typedSignatureCanvasRef) return;
+
+    const canvas = this.typedSignatureCanvasRef.nativeElement;
+    const parentElement = canvas.parentElement;
+    let width = 400;
+    let height = 200;
+
+    if (parentElement) {
+      width = parentElement.clientWidth;
+      height = width / 2;
+    }
+
+    // Set the CSS display size
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    
+    // Set the actual pixel dimensions
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Set up font
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = 'black';
+    ctx.font = `${this.typedSignatureFontSize}px "${this.typedSignatureFont}"`;
+    ctx.textBaseline = 'middle';
+    
+    // Center the text
+    const text = this.typedSignature || 'Your Signature';
+    const textMetrics = ctx.measureText(text);
+    const textWidth = textMetrics.width;
+    const x = (width - textWidth) / 2;
+    const y = height / 2;
+    
+    // Draw the text
+    ctx.fillText(text, x, y);
+  }
+
+  onTypedSignatureChange(): void {
+    this.renderTypedSignature();
+  }
+
+  onFontChange(): void {
+    this.renderTypedSignature();
+  }
+
+  onFontSizeChange(): void {
+    this.renderTypedSignature();
+  }
+
   clearSignature(): void {
-    if (this.signaturePad) {
+    if (this.mode === 'draw' && this.signaturePad) {
       this.signaturePad.clear();
+    } else if (this.mode === 'type') {
+      this.typedSignature = '';
+      this.renderTypedSignature();
     }
   }
 
   saveDrawnSignature(): void {
-    if (this.signaturePad && !this.signaturePad.isEmpty()) {
+    if (this.mode === 'draw' && this.signaturePad && !this.signaturePad.isEmpty()) {
       this.signatureImage = this.signaturePad.toDataURL();
+      console.log(this.signatureImage);
+      this.closePopup();
+    }
+  }
+
+  saveTypedSignature(): void {
+    if (this.mode === 'type' && this.typedSignatureCanvasRef && this.typedSignature.trim()) {
+      const canvas = this.typedSignatureCanvasRef.nativeElement;
+      this.signatureImage = canvas.toDataURL();
+      console.log(this.signatureImage);
       this.closePopup();
     }
   }
