@@ -32,6 +32,7 @@ export class AppComponent implements OnDestroy {
   isAuthenticated = false;
   currentFeature = '';
   isAuthPage = false;
+  currentUrl = '';
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -43,6 +44,7 @@ export class AppComponent implements OnDestroy {
         } else if (this.isAuthenticated && this.isAuthPage) {
           // If authenticated and on auth page, redirect to dashboard
           this.router.navigate(['/epmds/dashboard']);
+          this.currentUrl = '/epmds/dashboard';
         }
       });
 
@@ -52,6 +54,7 @@ export class AppComponent implements OnDestroy {
       ).subscribe((event: any) => {
         const path = event.url.split('/')[1];
         this.currentFeature = path ? path.toUpperCase() : '';
+        this.currentUrl = event.url;
         
         // Check if current route is an auth page
         this.isAuthPage = this.checkIfAuthPage(event.url);
@@ -59,7 +62,16 @@ export class AppComponent implements OnDestroy {
         // Ensure any overlays are cleaned up on navigation
         this.cleanupOverlays();
       });
+
+      // Initialize currentUrl with the current route
+      this.currentUrl = this.router.url;
     }
+  }
+
+  isDashboardPage(): boolean {
+    return this.currentUrl === '/epmds/dashboard' || 
+           this.currentUrl === '/dashboard' || 
+           this.currentUrl === '/epmds/dashboard/';
   }
 
   ngOnDestroy(): void {
