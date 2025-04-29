@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 interface PerformanceAgreement {
   employerDetails: {
@@ -59,7 +60,8 @@ interface RatingScale {
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
   ],
   template: `
     <div class="page-container">
@@ -74,18 +76,18 @@ interface RatingScale {
             Following completion of this form, a copy must be forwarded to the Section: Human Resource Management (applicable component/unit).
           </div>
 
-          <form [formGroup]="agreementForm">
+          <form [formGroup]="performanceForm">
             <!-- Agreement Parties Section -->
             <section class="form-section">
               <h3>ENTERED INTO BY AND BETWEEN:</h3>
               <div class="employer-section">
                 <p>The Department of (ABC) herein represented by</p>
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Full name" formControlName="employerFullName">
+                  <input matInput placeholder="Full name" formControlName="employer.name">
                 </mat-form-field>
                 <p>in her/his capacity as</p>
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Position" formControlName="employerPosition">
+                  <input matInput placeholder="Position" formControlName="employer.position">
                 </mat-form-field>
                 <p>(position) of the Department of (ABC)</p>
                 <p>(herein referred to as the Employer)</p>
@@ -95,11 +97,11 @@ interface RatingScale {
 
               <div class="employee-section">
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Full name" formControlName="employeeFullName">
+                  <input matInput placeholder="Full name" formControlName="employee.name">
                 </mat-form-field>
                 <p>as the</p>
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Position" formControlName="employeePosition">
+                  <input matInput placeholder="Position" formControlName="employee.jobTitle">
                 </mat-form-field>
                 <p>(position) of the Department of Public Service and Administration</p>
                 <p>(herein referred to as the Employee)</p>
@@ -144,37 +146,37 @@ interface RatingScale {
                 <div class="job-details-grid">
                   <mat-form-field>
                     <mat-label>Persal number</mat-label>
-                    <input matInput formControlName="persalNumber">
+                    <input matInput formControlName="employee.persal">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Component</mat-label>
-                    <input matInput formControlName="component">
+                    <input matInput formControlName="employee.component">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Unit</mat-label>
-                    <input matInput formControlName="unit">
+                    <input matInput formControlName="employee.unit">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Salary level</mat-label>
-                    <input matInput formControlName="salaryLevel">
+                    <input matInput formControlName="employee.salary">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Notch (MMS package)</mat-label>
-                    <input matInput formControlName="notchMmsPackage">
+                    <input matInput formControlName="employee.notchMmsPackage">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Occupational classification</mat-label>
-                    <input matInput formControlName="occupationalClassification">
+                    <input matInput formControlName="employee.occupationalClassification">
                   </mat-form-field>
 
                   <mat-form-field>
                     <mat-label>Designation</mat-label>
-                    <input matInput formControlName="designation">
+                    <input matInput formControlName="employee.designation">
                   </mat-form-field>
                 </div>
               </div>
@@ -183,7 +185,7 @@ interface RatingScale {
               <div class="subsection">
                 <h4>4. JOB PURPOSE</h4>
                 <mat-form-field class="full-width">
-                  <textarea matInput rows="4" placeholder="Describe the purpose of the job (overall focus) as it relates to the Vision and Mission of the Department. Capture the overall accountability that the job holder has in relation to his/her position." formControlName="jobPurpose"></textarea>
+                  <textarea matInput rows="4" placeholder="Describe the purpose of the job (overall focus) as it relates to the Vision and Mission of the Department. Capture the overall accountability that the job holder has in relation to his/her position." formControlName="employee.jobPurpose"></textarea>
                 </mat-form-field>
               </div>
 
@@ -232,7 +234,7 @@ interface RatingScale {
                       </tr>
                     </thead>
                     <tbody formArrayName="kras">
-                      <tr *ngFor="let kra of krasArray.controls; let i = index" [formGroupName]="i">
+                      <tr *ngFor="let kra of kras.controls; let i = index" [formGroupName]="i">
                         <td>
                           <mat-form-field class="full-width">
                             <input matInput formControlName="description">
@@ -267,7 +269,7 @@ interface RatingScale {
                       </tr>
                     </thead>
                     <tbody formArrayName="gafs">
-                      <tr *ngFor="let gaf of gafsArray.controls; let i = index" [formGroupName]="i">
+                      <tr *ngFor="let gaf of gafs.controls; let i = index" [formGroupName]="i">
                         <td>
                           <mat-form-field class="full-width">
                             <input matInput formControlName="description">
@@ -414,7 +416,7 @@ interface RatingScale {
             <!-- Form Actions -->
             <div class="form-actions">
               <button style="background-color: #04a9e8 ;" mat-button type="button" (click)="saveDraft()">Save Draft</button>
-              <button style="background-color: #04ac64;" mat-raised-button color="primary" type="submit" [disabled]="!agreementForm.valid" (click)="onSubmit()">
+              <button style="background-color: #04ac64;" mat-raised-button color="primary" type="submit" [disabled]="!performanceForm.valid" (click)="onSubmit()">
                 Submit Agreement
               </button>
             </div>
@@ -455,7 +457,7 @@ interface RatingScale {
     .performance-container {
       background: white;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--accent-color);
       overflow: hidden;
     }
 
@@ -662,7 +664,7 @@ interface RatingScale {
     .form-section {
       margin-left: 1rem;
       padding-left: 1rem;
-  }
+    }
 
     .btn-action, .btn-save, .btn-submit {
       padding: 0.75rem 1.5rem;
@@ -730,22 +732,31 @@ interface RatingScale {
   `]
 })
 export class PerformanceComponent implements OnInit {
-  agreementForm: FormGroup;
+  performanceForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.agreementForm = this.fb.group({
-      employerFullName: ['', Validators.required],
-      employerPosition: ['', Validators.required],
-      employeeFullName: ['', Validators.required],
-      employeePosition: ['', Validators.required],
-      persalNumber: ['', Validators.required],
-      component: ['', Validators.required],
-      unit: ['', Validators.required],
-      salaryLevel: ['', Validators.required],
-      notchMmsPackage: ['', Validators.required],
-      occupationalClassification: ['', Validators.required],
-      designation: ['', Validators.required],
-      jobPurpose: ['', Validators.required],
+    this.performanceForm = this.fb.group({
+      employer: this.fb.group({
+        name: ['', Validators.required],
+        department: ['', Validators.required],
+        division: ['', Validators.required]
+      }),
+      employee: this.fb.group({
+        name: ['', Validators.required],
+        jobTitle: ['', Validators.required],
+        persal: ['', Validators.required],
+        salary: ['', [Validators.required, Validators.min(0)]],
+        component: ['', Validators.required],
+        unit: ['', Validators.required],
+        notchMmsPackage: ['', Validators.required],
+        occupationalClassification: ['', Validators.required],
+        designation: ['', Validators.required],
+        jobPurpose: ['', Validators.required]
+      }),
+      agreement: this.fb.group({
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required]
+      }),
       kras: this.fb.array([]),
       gafs: this.fb.array([]),
       developmentArea1: [''],
@@ -760,54 +771,69 @@ export class PerformanceComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.initializeKRAs();
-    this.initializeGAFs();
+  ngOnInit(): void {}
+
+  // KRA Methods
+  get kras(): FormArray {
+    return this.performanceForm.get('kras') as FormArray;
   }
 
-  private initializeKRAs(): void {
-    for (let i = 0; i < 5; i++) {
-      this.krasArray.push(this.createKRAFormGroup());
-    }
-  }
-
-  private initializeGAFs(): void {
-    for (let i = 0; i < 5; i++) {
-      this.gafsArray.push(this.createGAFFormGroup());
-    }
-  }
-
-  private createKRAFormGroup(): FormGroup {
-    return this.fb.group({
+  addKra(): void {
+    const kraGroup = this.fb.group({
       description: ['', Validators.required],
-      weight: ['', [Validators.required, Validators.min(0), Validators.max(100)]]
+      weight: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      indicators: ['', Validators.required],
+      targetDate: ['', Validators.required],
+      resourceRequirements: ['']
     });
+
+    this.kras.push(kraGroup);
   }
 
-  private createGAFFormGroup(): FormGroup {
-    return this.fb.group({
-      description: ['', Validators.required],
-      weight: ['', [Validators.required, Validators.min(0), Validators.max(100)]]
+  removeKra(index: number): void {
+    this.kras.removeAt(index);
+  }
+
+  // GAF Methods
+  get gafs(): FormArray {
+    return this.performanceForm.get('gafs') as FormArray;
+  }
+
+  addGaf(): void {
+    const gafGroup = this.fb.group({
+      factor: ['', Validators.required],
+      weight: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      description: ['', Validators.required]
     });
+
+    this.gafs.push(gafGroup);
   }
 
-  get krasArray() {
-    return this.agreementForm.get('kras') as FormArray;
-  }
-
-  get gafsArray() {
-    return this.agreementForm.get('gafs') as FormArray;
-  }
-
-  saveDraft(): void {
-    console.log('Saving draft:', this.agreementForm.value);
-    // Implement draft saving logic
+  removeGaf(index: number): void {
+    this.gafs.removeAt(index);
   }
 
   onSubmit(): void {
-    if (this.agreementForm.valid) {
-      console.log('Submitting form:', this.agreementForm.value);
-      // Implement form submission logic
+    if (this.performanceForm.valid) {
+      console.log('Form submitted:', this.performanceForm.value);
+      // TODO: Add API call to save the form
+    } else {
+      this.markFormGroupTouched(this.performanceForm);
     }
+  }
+
+  saveDraft(): void {
+    console.log('Draft saved:', this.performanceForm.value);
+    // TODO: Add API call to save draft
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach(control => {
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
   }
 } 

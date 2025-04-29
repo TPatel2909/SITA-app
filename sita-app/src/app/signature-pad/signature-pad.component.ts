@@ -173,6 +173,7 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
   saveDrawnSignature(): void {
     if (this.signaturePad && !this.signaturePad.isEmpty()) {
       this.signatureImage = this.signaturePad.toDataURL();
+      console.log(this.signatureImage);
       this.closePopup();
     }
   }
