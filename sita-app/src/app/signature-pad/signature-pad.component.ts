@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, Output, EventEmitter, Input } from '@angular/core';
 import SignaturePad from 'signature_pad';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,12 @@ import ResizeObserver from 'resize-observer-polyfill';
   styleUrls: ['./signature-pad.component.scss']
 })
 export class SignaturePadComponent implements AfterViewInit, OnDestroy {
+  getSignature() {
+    throw new Error('Method not implemented.');
+  }
+  @Output() signatureChange = new EventEmitter<any>();
+  @Input() signatureType: string = '';
+
   @ViewChild('canvas', { static: false }) canvasRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('typedSignatureCanvas', { static: false }) typedSignatureCanvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -227,6 +233,7 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
   saveDrawnSignature(): void {
     if (this.mode === 'draw' && this.signaturePad && !this.signaturePad.isEmpty()) {
       this.signatureImage = this.signaturePad.toDataURL();
+      this.onSignatureChange(this.signatureImage);
       console.log(this.signatureImage);
       this.closePopup();
     }
@@ -236,6 +243,7 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
     if (this.mode === 'type' && this.typedSignatureCanvasRef && this.typedSignature.trim()) {
       const canvas = this.typedSignatureCanvasRef.nativeElement;
       this.signatureImage = canvas.toDataURL();
+      this.onSignatureChange(this.signatureImage);
       console.log(this.signatureImage);
       this.closePopup();
     }
@@ -247,9 +255,14 @@ export class SignaturePadComponent implements AfterViewInit, OnDestroy {
       const reader = new FileReader();
       reader.onload = () => {
         this.signatureImage = reader.result as string;
+        this.onSignatureChange(this.signatureImage);
         this.closePopup();
       };
       reader.readAsDataURL(file);
     }
   }
+  onSignatureChange(signatureData: any): void {
+    this.signatureChange.emit(signatureData);
+  }
+
 }
