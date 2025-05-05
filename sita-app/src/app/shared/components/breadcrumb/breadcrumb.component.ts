@@ -10,8 +10,75 @@ interface Breadcrumb {
 
 @Component({
   selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss'],
+  template: `
+    <nav *ngIf="showBreadcrumbs" class="breadcrumb-nav">
+      <ol class="breadcrumb-list">
+        <li *ngFor="let breadcrumb of breadcrumbs; let last = last" class="breadcrumb-item">
+          <a [routerLink]="breadcrumb.url" class="breadcrumb-link">
+            {{ breadcrumb.label }}
+          </a>
+          <span *ngIf="!last" class="breadcrumb-separator">/</span>
+        </li>
+      </ol>
+    </nav>
+  `,
+  styles: [`
+    .breadcrumb-nav {
+      position: fixed;
+      top: 64px; /* Height of the header */
+      left: 300px; /* Width of the sidebar */
+      right: 0;
+      background: white;
+      padding: 0.75rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: left 0.3s ease;
+    }
+
+    .breadcrumb-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-link {
+      color: var(--primary-color, #1c5ba3);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--primary-dark, #134a82);
+        text-decoration: underline;
+      }
+    }
+
+    .breadcrumb-separator {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-nav {
+        left: 0;
+        padding: 0.5rem 1rem;
+      }
+
+      .breadcrumb-link {
+        font-size: 0.8rem;
+      }
+    }
+  `],
   standalone: true,
   imports: [CommonModule, RouterModule]
 })
