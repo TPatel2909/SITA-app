@@ -11,12 +11,16 @@
     <ng-container *ngIf="!isAuthPage">
       <app-nav-bar></app-nav-bar>
       <div class="main-container">
-        <app-side-bar [currentFeature]="currentFeature"></app-side-bar>
-        <div class="content">
-          <app-breadcrumb></app-breadcrumb>
-          <router-outlet></router-outlet>
-        </div>
-      </div>
+        <app-side-bar *ngIf="!isLandingPage()" [currentFeature]="currentFeature"></app-side-bar>
+        <main class="main-content" [class.hide-sidebar]="isLandingPage()">
+          <app-breadcrumb *ngIf="!isLandingPage()"></app-breadcrumb>
+          <div class="content-area" [class.with-breadcrumb]="!isLandingPage()">
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+      </div> 
+      <app-print-button *ngIf="!isLandingPage() && !isDashboardPage()"></app-print-button>
+      <app-save-button *ngIf="!isLandingPage() && !isDashboardPage()" (saveClicked)="onSaveClicked()"></app-save-button>
     </ng-container>
     <router-outlet *ngIf="isAuthPage"></router-outlet>
   </div>

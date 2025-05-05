@@ -7,6 +7,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { SignaturePadComponent } from './signature-pad/signature-pad.component';
+import { LandingComponent } from './landing/landing.component';
 
 // Import EPMDS feature components
 import {
@@ -41,6 +42,11 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'SignaturePadComponent',
