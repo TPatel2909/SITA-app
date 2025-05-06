@@ -1,7 +1,8 @@
-<!-- Performance Agreement Form -->
-<div class="performance-container">
-  <form [formGroup]="agreementForm" (ngSubmit)="onSubmit()">
-    <!-- Header Section -->
+<div class="content-wrapper">
+  <!-- Performance Agreement Form -->
+  <div class="performance-container">
+    <form [formGroup]="agreementForm" (ngSubmit)="onSubmit()">
+      <!-- Header Section -->
     <mat-card>
       <mat-card-header>
         <mat-card-title>Performance Agreement</mat-card-title>
@@ -20,6 +21,7 @@
               <input matInput formControlName="branchName">
             </mat-form-field>
           </div>
+          
         </section>
 
         <!-- Employee Details -->

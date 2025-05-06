@@ -38,7 +38,7 @@ export class LoginComponent {
       
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/epmds/dashboard']);
+          this.router.navigate(['/landing']);
         },
         error: (err) => {
           this.error = err.message || 'Invalid email or password';
