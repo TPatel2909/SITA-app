@@ -1,24 +1,24 @@
 <div class="signature-capture-area">
-
     <div class="signature-input-section">
       <button (click)="openSignaturePopup()" class="sign-here-button">
         Sign Here
       </button>
-  
+      
       <div *ngIf="signatureImage" class="signature-preview-container">
         <img [src]="signatureImage" alt="Signature Preview" class="signature-preview-image" />
       </div>
     </div>
-  
+    
     <div *ngIf="showModal" class="signature-popup">
       <div class="signature-popup-content">
-  
+        
         <div class="signature-mode-selection">
           <button (click)="setMode('draw')" [class.active]="mode === 'draw'" class="mode-button draw-mode-button">Draw</button>
           <button (click)="setMode('upload')" [class.active]="mode === 'upload'" class="mode-button upload-mode-button">Upload</button>
+          <button (click)="setMode('type')" [class.active]="mode === 'type'" class="mode-button type-mode-button">Type</button>
           <button class="close-popup-button" (click)="closePopup()">×</button>
         </div>
-  
+        
         <div *ngIf="mode === 'draw'" class="draw-mode-container">
           <canvas #canvas class="signature-canvas"></canvas>
           <div class="signature-actions">
@@ -26,9 +26,61 @@
             <button (click)="saveDrawnSignature()" class="save-button">Save</button>
           </div>
         </div>
-  
+        
         <div *ngIf="mode === 'upload'" class="upload-mode-container">
           <input type="file" accept="image/*" (change)="onFileSelected($event)" class="file-input" />
+        </div>
+        
+        <div *ngIf="mode === 'type'" class="type-mode-container">
+          <div class="type-options">
+            <div class="form-group">
+              <label for="typedSignature">Type Your Signature:</label>
+              <input 
+                type="text" 
+                id="typedSignature" 
+                [(ngModel)]="typedSignature" 
+                (ngModelChange)="onTypedSignatureChange()" 
+                class="typed-signature-input" 
+                placeholder="Your Name"
+              />
+            </div>
+            
+            <div class="form-group">
+              <label for="fontSelect">Select Font:</label>
+              <select 
+                id="fontSelect" 
+                [(ngModel)]="typedSignatureFont" 
+                (ngModelChange)="onFontChange()" 
+                class="font-select"
+              >
+                <option *ngFor="let font of availableFonts" [value]="font">{{font}}</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="fontSize">Font Size:</label>
+              <input 
+                type="range" 
+                id="fontSize" 
+                [(ngModel)]="typedSignatureFontSize" 
+                (ngModelChange)="onFontSizeChange()" 
+                min="24" 
+                max="72" 
+                step="2" 
+                class="font-size-slider"
+              />
+              <span class="font-size-value">{{typedSignatureFontSize}}px</span>
+            </div>
+          </div>
+          
+          <div class="typed-signature-preview">
+            <canvas #typedSignatureCanvas class="signature-canvas"></canvas>
+          </div>
+          
+          <div class="signature-actions">
+            <button (click)="clearSignature()" class="clear-button">Clear</button>
+            <button (click)="saveTypedSignature()" class="save-button">Save</button>
+          </div>
         </div>
       </div>
     </div>

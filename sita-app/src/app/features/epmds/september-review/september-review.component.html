@@ -162,10 +162,7 @@
             </mat-form-field>
             <div class="signature-row">
               <div class="signature-field">
-                <mat-form-field appearance="outline">
-                  <mat-label>Signature</mat-label>
-                  <input matInput formControlName="employeeSignature">
-                </mat-form-field>
+                <app-signature-pad #employeeSignaturePad (signatureChange)="reviewForm.patchValue({employeeSignature: $event})"></app-signature-pad>    <!---here-->
               </div>
               <div class="signature-field">
                 <mat-form-field appearance="outline">
@@ -186,10 +183,7 @@
             </mat-form-field>
             <div class="signature-row">
               <div class="signature-field">
-                <mat-form-field appearance="outline">
-                  <mat-label>Signature</mat-label>
-                  <input matInput formControlName="supervisorSignature">
-                </mat-form-field>
+                <app-signature-pad #supervisorSignaturePad (signatureChange)="reviewForm.patchValue({supervisorSignature: $event})"></app-signature-pad>    <!---here-->
               </div>
               <div class="signature-field">
                 <mat-form-field appearance="outline">
