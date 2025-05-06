@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SignaturePadComponent } from '../../../signature-pad/signature-pad.component';
 
 @Component({
   selector: 'app-september-review',
@@ -24,11 +25,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
-  ]
+    MatNativeDateModule,
+    SignaturePadComponent
+]
 })
 export class SeptemberReviewComponent {
   reviewForm: FormGroup;
+  @ViewChild('employeeSignaturePad') employeeSignaturePad!: SignaturePadComponent;
+  @ViewChild('supervisorSignaturePad') supervisorSignaturePad!: SignaturePadComponent;
 
   constructor(private fb: FormBuilder) {
     this.reviewForm = this.fb.group({
@@ -72,8 +76,16 @@ export class SeptemberReviewComponent {
   get gafs(): FormArray {
     return this.reviewForm.get('gafs') as FormArray;
   }
-
+  getSignautes(){
+    // To get the employee signature value
+    const employeeSignature = this.reviewForm.get('employeeSignature')?.value;
+    console.log("employee",employeeSignature);
+    // To get the supervisor signature value
+    const supervisorSignature = this.reviewForm.get('supervisorSignature')?.value;
+    console.log("superviosr",supervisorSignature);
+  }
   onSubmit() {
+    this.getSignautes();
     if (this.reviewForm.valid) {
       console.log(this.reviewForm.value);
       // Add your form submission logic here
