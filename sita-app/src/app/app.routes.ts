@@ -7,6 +7,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { SignaturePadComponent } from './signature-pad/signature-pad.component';
+import { LandingComponent } from './landing/landing.component';
 
 // Import EPMDS feature components
 import {
@@ -25,7 +26,8 @@ import {
   PerformanceRatingScaleComponent,
   KeyResultAreasComponent,
   GenericAssessmentFactorComponent,
-  FinalScoreComponent
+  FinalScoreComponent,
+  AnnualPerformanceAssessmentComponent
 } from './features/epmds/index';
 
 import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
@@ -40,6 +42,11 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'SignaturePadComponent',
@@ -84,6 +91,11 @@ export const routes: Routes = [
         path: 'quarterly-assessment', 
         component: QuarterlyAnnualAssessmentComponent,
         data: { breadcrumb: 'Quarterly/Annual Assessment' }
+      },
+      { 
+        path: 'annual-performance-assessment-instrument', 
+        component: AnnualPerformanceAssessmentComponent,
+        data: { breadcrumb: 'Annual Performance Assessment Instrument' }
       },
       { 
         path: 'elementary', 

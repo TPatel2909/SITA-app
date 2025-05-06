@@ -8,6 +8,8 @@ import { BreadcrumbComponent } from './shared/components/breadcrumb/breadcrumb.c
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { PrintButtonComponent } from './shared/printbutton/print-button.component';
+import { SaveButtonComponent } from './shared/savebutton/save-button.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,9 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     NavBarComponent,
     SideBarComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    PrintButtonComponent,
+    SaveButtonComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -32,6 +36,7 @@ export class AppComponent implements OnDestroy {
   isAuthenticated = false;
   currentFeature = '';
   isAuthPage = false;
+  currentUrl = '';
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -43,6 +48,7 @@ export class AppComponent implements OnDestroy {
         } else if (this.isAuthenticated && this.isAuthPage) {
           // If authenticated and on auth page, redirect to dashboard
           this.router.navigate(['/epmds/dashboard']);
+          this.currentUrl = '/epmds/dashboard';
         }
       });
 
@@ -52,6 +58,7 @@ export class AppComponent implements OnDestroy {
       ).subscribe((event: any) => {
         const path = event.url.split('/')[1];
         this.currentFeature = path ? path.toUpperCase() : '';
+        this.currentUrl = event.url;
         
         // Check if current route is an auth page
         this.isAuthPage = this.checkIfAuthPage(event.url);
@@ -59,7 +66,34 @@ export class AppComponent implements OnDestroy {
         // Ensure any overlays are cleaned up on navigation
         this.cleanupOverlays();
       });
+
+      // Initialize currentUrl with the current route
+      this.currentUrl = this.router.url;
     }
+  }
+
+  isDashboardPage(): boolean {
+    const dashboardPaths = [
+      '/dashboard',
+      '/epmds/dashboard',
+      '/epmds/dashboard/',
+      '/epmds',
+      '/epmds/',
+      '/epmds/overview',
+      '/epmds/overview/'
+    ];
+    
+    return dashboardPaths.includes(this.currentUrl) ||
+           this.currentUrl.startsWith('/dashboard/') ||
+           this.currentUrl.startsWith('/epmds/dashboard/') ||
+           this.currentUrl.startsWith('/epmds/overview/');
+  }
+
+  isLandingPage(): boolean {
+    return this.currentUrl === '/landing' || 
+           this.currentUrl === '/landing/' ||
+           this.router.url === '/landing' ||
+           this.router.url === '/landing/';
   }
 
   ngOnDestroy(): void {
@@ -87,5 +121,10 @@ export class AppComponent implements OnDestroy {
            url.includes('/auth/login') || 
            url.includes('/auth/signup') || 
            url.includes('/auth/forgot-password');
+  }
+
+  onSaveClicked() {
+    // This method will be overridden by child components that need to handle form saving
+    console.log('Save button clicked');
   }
 }
