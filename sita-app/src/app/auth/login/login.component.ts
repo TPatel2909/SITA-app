@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { NgOptimizedImage } from '@angular/common';
+import { AppworksDataService } from '../../dashboard/service/appworks-data.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private appworksService: AppworksDataService
   ) {
     this.loginForm = this.fb.group({
       email: ['testuser@email.com', [Validators.required, Validators.email]],  // Pre-fill test email
@@ -58,4 +60,26 @@ export class LoginComponent {
   navigateToForgotPassword(): void {
     this.router.navigate(['/auth/forgot-password']);
   }
+
+  // Basic fetch with default parameters
+loadData() {
+  this.appworksService.fetchResultItems().subscribe({
+    next: (data) => console.log('Results:', data),
+    error: (err) => console.error('Error:', err)
+  });
+}
+
+// Search with criteria
+searchData() {
+  const criteria = { 
+    // Your search criteria, for example:
+    DocumentType: 'Invoice',
+    Status: 'Active'
+  };
+  
+  this.appworksService.searchResultItems(criteria, 10, 1).subscribe({
+    next: (data) => console.log('Search results:', data),
+    error: (err) => console.error('Search error:', err)
+  });
+}
 } 
