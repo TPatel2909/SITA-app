@@ -486,16 +486,22 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
       --header-height: 64px;
     }
 
-    .page-container {
-      min-height: calc(100vh - var(--header-height));
-      background-color: #f7fafc;
-      padding: 2rem;
-    }
+   .page-container {
+  min-height: calc(100vh - var(--header-height));
+  z-index: 900;
+  max-width: 100%;
+  background-color: #f5f5f5;
+  padding-left: 0.25rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  width: 100%;
+}
 
-    .content-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+.content-wrapper {
+  max-width: 1000px;
+  z-index: 900;
+  margin: 0 auto;
+}
 
     .assessment-container {
       background: white;
