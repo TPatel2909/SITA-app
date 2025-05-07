@@ -37,6 +37,7 @@ export class AppComponent implements OnDestroy {
   currentFeature = '';
   isAuthPage = false;
   currentUrl = '';
+  isSidebarOpen = true;
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -80,13 +81,19 @@ export class AppComponent implements OnDestroy {
       '/epmds',
       '/epmds/',
       '/epmds/overview',
-      '/epmds/overview/'
+      '/epmds/overview/',
+      '/iappms/dashboard',
+      '/ess/dashboard',
+      '/reporting/dashboard'
     ];
     
     return dashboardPaths.includes(this.currentUrl) ||
            this.currentUrl.startsWith('/dashboard/') ||
            this.currentUrl.startsWith('/epmds/dashboard/') ||
-           this.currentUrl.startsWith('/epmds/overview/');
+           this.currentUrl.startsWith('/epmds/overview/') ||
+           this.currentUrl.startsWith('/iappms/dashboard') ||
+           this.currentUrl.startsWith('/ess/dashboard') ||
+           this.currentUrl.startsWith('/reporting/dashboard');
   }
 
   isLandingPage(): boolean {
@@ -126,5 +133,12 @@ export class AppComponent implements OnDestroy {
   onSaveClicked() {
     // This method will be overridden by child components that need to handle form saving
     console.log('Save button clicked');
+  }
+
+  // Add a handler to update sidebar state
+  onSidebarToggled(isOpen: boolean | Event) {
+    if (typeof isOpen === 'boolean') {
+      this.isSidebarOpen = isOpen;
+    }
   }
 }
