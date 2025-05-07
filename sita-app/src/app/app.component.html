@@ -7,13 +7,13 @@
 
 <!-- Main app layout -->
 <ng-container *ngIf="!isAuthPage">
-  <div class="app-container" [class.auth-container]="isAuthPage">
+  <div class="app-container" [class.auth-container]="isAuthPage" [class.sidebar-collapsed]="!isSidebarOpen">
     <ng-container *ngIf="!isAuthPage">
       <app-nav-bar></app-nav-bar>
       <div class="main-container">
-        <app-side-bar *ngIf="!isLandingPage()" [currentFeature]="currentFeature"></app-side-bar>
+        <app-side-bar *ngIf="!isLandingPage()" [currentFeature]="currentFeature" (sidebarToggled)="onSidebarToggled($event)"></app-side-bar>
         <main class="main-content" [class.hide-sidebar]="isLandingPage()">
-          <app-breadcrumb *ngIf="!isLandingPage()"></app-breadcrumb>
+          <app-breadcrumb *ngIf="!isLandingPage() && !isDashboardPage()"></app-breadcrumb>
           <div class="content-area" [class.with-breadcrumb]="!isLandingPage()">
             <router-outlet></router-outlet>
           </div>

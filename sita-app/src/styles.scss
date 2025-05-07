@@ -14,3 +14,7 @@ body {
 .login-container {
   background-color: #ffffff; // or whatever color the login page should be
 }
+
+.sidebar-collapsed .breadcrumb-nav {
+  left: 72px !important;
+}

@@ -4,13 +4,19 @@ import { StrategicMappingComponent } from './components/strategic-mapping/strate
 import { OperationalPlanComponent } from './components/operational-plan/operational-plan.component';
 import { StrategicPlanComponent } from './components/strategic-plan/strategic-plan.component';
 import { AnnualPerformancePlanComponent } from './components/annual-performance-plan/annual-performance-plan.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const IAPPMS_ROUTES: Routes = [
   {
     path: '',
-    redirectTo: 'mtsf',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
     data: { breadcrumb: 'IAPPMS' }
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    data: { breadcrumb: 'IAPPMS Dashboard' }
   },
   {
     path: 'mtsf',
