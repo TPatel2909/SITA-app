@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, PLATFORM_ID, Inject, Output, EventEmitter } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -20,59 +20,45 @@ interface SidebarItem {
     <div class="app-layout">
       <div class="sidebar-wrapper" [class.collapsed]="!isOpen">
         <div class="sidebar" [class.collapsed]="!isOpen">
-          <!-- Expand/Collapse Button -->
-          <button class="expand-button" (click)="toggleSidebar()">
-            <i class="material-icons">{{ isOpen ? 'chevron_left' : 'chevron_right' }}</i>
+          <!-- Expand/Collapse Button (very top of sidebar, only when collapsed) -->
+          <button *ngIf="!isOpen" class="expand-button prominent" (click)="toggleSidebar()">
+            <i class="material-icons">chevron_right</i>
           </button>
-
-          <!-- Floating Expand Button -->
-          <button class="floating-expand-button" *ngIf="!isOpen" (click)="toggleSidebar()">
-            <i class="material-icons">menu</i>
-          </button>
-
-          <!-- Company Header -->
-          <div class="company-header">
-            <img src="assets/logo.jpg" alt="SITA Logo" class="company-logo">
-            <div class="company-info" [class.hidden]="!isOpen">
-              <div class="company-name">SITA App</div>
-            </div>
-          </div>
-
+         
           <!-- Feature Header -->
-          <div class="feature-header" [class.hidden]="!isOpen" (click)="toggleSidebar()">
+          <div class="feature-header modern" [class.hidden]="!isOpen" (click)="toggleSidebar()">
             <h2>{{ currentFeature }}</h2>
             <p>{{ getFeatureDescription() }}</p>
           </div>
-
           <!-- Main Navigation -->
-          <div class="sidebar-content">
-            <div class="menu-section" *ngFor="let item of getCurrentFeatureItems()">
-              <a class="menu-item" 
+          <div class="sidebar-content modern">
+            <div class="menu-section modern" *ngFor="let item of getCurrentFeatureItems()">
+              <a class="menu-item modern" 
                  [routerLink]="item.route" 
                  routerLinkActive="active"
+                 [title]="!isOpen ? item.label : ''"
                  (click)="handleItemClick()">
-                <div class="item-icon">
+                <div class="item-icon modern">
                   <i class="material-icons">{{ item.icon }}</i>
                 </div>
-                <div class="item-content" [class.hidden]="!isOpen">
-                  <div class="item-label">{{ item.label }}</div>
-                  <div class="item-description">{{ item.description }}</div>
+                <div class="item-content modern" [class.hidden]="!isOpen">
+                  <div class="item-label modern">{{ item.label }}</div>
+                  <div class="item-description modern">{{ item.description }}</div>
                 </div>
               </a>
             </div>
           </div>
-
           <!-- User Profile -->
-          <div class="user-profile" [class.collapsed]="!isOpen">
-            <div class="user-avatar">JT</div>
-            <div class="user-info" [class.hidden]="!isOpen">
+          <div class="user-profile modern" [class.collapsed]="!isOpen">
+            <div class="user-avatar modern">JT</div>
+            <div class="user-info modern" [class.hidden]="!isOpen">
               <span class="user-name">John Doe</span>
               <span class="user-email">john.doe&#64;sita.co.za</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="app-content">
+      <div class="app-content" [class.sidebar-collapsed]="!isOpen">
         <ng-content></ng-content>
       </div>
       <!-- Move overlay outside of sidebar -->
@@ -110,20 +96,19 @@ interface SidebarItem {
 
     .app-content {
       flex: 1;
-      margin-left: 250px;
+      margin-left: var(--sidebar-width);
       min-height: 100vh;
       background-color: #f0f2f5;
-      transition: margin-left var(--transition-speed) ease;
+      transition: margin-left var(--transition-speed) ease, width var(--transition-speed) ease;
       padding: 24px;
       padding-top: 88px;
-      width: calc(100% - var(--sidebar-width)) or calc(100% - var(--sidebar-collapsed-width));
+      width: calc(100% - var(--sidebar-width));
       position: relative;
       z-index: 1;
-
-      .sidebar-wrapper.collapsed ~ & {
-        margin-left: var(--sidebar-collapsed-width);
-        width: calc(100% - var(--sidebar-collapsed-width));
-      }
+    }
+    .app-content.sidebar-collapsed {
+      margin-left: var(--sidebar-collapsed-width);
+      width: calc(100% - var(--sidebar-collapsed-width));
     }
 
     .material-icons {
@@ -154,9 +139,9 @@ interface SidebarItem {
 
 
     .expand-button {
-      position: absolute;
-      top: 20px;
-      right: -16px;
+      position: fixed;
+      top: 0;
+      left: var(--sidebar-width);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -167,60 +152,34 @@ interface SidebarItem {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 3000;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: all var(--transition-speed) ease;
-
-      &:hover {
-        background: var(--primary-dark);
-        transform: scale(1.1);
-      }
-
-      .material-icons {
-        font-size: 20px;
-      }
+      transition: left var(--transition-speed) ease, background var(--transition-speed) ease, transform var(--transition-speed) ease;
+    }
+    .expand-button.collapsed {
+      left: var(--sidebar-collapsed-width);
     }
 
     .floating-expand-button {
-      position: fixed;
-      top: 20px;
-      left: var(--sidebar-collapsed-width);
-      width: 32px;
-      height: 32px;
-      background: var(--primary-color);
-      border: none;
-      border-radius: 0 4px 4px 0;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1001;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all var(--transition-speed) ease;
-      transform: translateX(-100%);
-
-      &:hover {
-        background: var(--primary-dark);
-        transform: translateX(-100%) scale(1.1);
-      }
-
-      .material-icons {
-        font-size: 20px;
-      }
+      display: none;
     }
 
     .sidebar-wrapper {
       position: fixed;
-      top: 0;
+      top: 60px;
       left: 0;
       bottom: 0;
       z-index: 100;
       width: var(--sidebar-width);
       transition: width var(--transition-speed) ease;
-
+      background: #f6f8fb;
+ 
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+    
+      overflow: visible;
       &.collapsed {
         width: var(--sidebar-collapsed-width);
+        
       }
     }
 
@@ -250,9 +209,9 @@ interface SidebarItem {
     }
 
     .feature-header {
-      padding: 16px;
+      padding: 16px 24px;
       background: var(--primary-color);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      border-bottom: none;
       transition: opacity var(--transition-speed) ease;
 
       &.hidden {
@@ -264,7 +223,7 @@ interface SidebarItem {
 
       h2 {
         margin: 0;
-        font-size: 15px;
+        font-size: 1rem;
         font-weight: 600;
         color: #ffffff;
         letter-spacing: 0.3px;
@@ -272,7 +231,7 @@ interface SidebarItem {
 
       p {
         margin: 4px 0 0;
-        font-size: 12px;
+        font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.8);
       }
     }
@@ -305,7 +264,7 @@ interface SidebarItem {
       margin: 2px 0;
 
       .sidebar.collapsed & {
-        margin: 2px 0;
+        margin: 0;
       }
     }
 
@@ -321,8 +280,9 @@ interface SidebarItem {
       margin-bottom: 4px;
 
       .sidebar.collapsed & {
-        padding: 10px;
+        padding: 8px;
         justify-content: center;
+        margin-bottom: 2px;
       }
 
       &:hover {
@@ -481,18 +441,229 @@ interface SidebarItem {
     .sidebar {
       width: 100%;
       height: 100%;
-      background: var(--bg-color);
+      background: #fff;
       display: flex;
       flex-direction: column;
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
-      transition: all var(--transition-speed) ease;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow: none;
       position: relative;
       z-index: 100;
-
+      overflow: visible;
       &.collapsed {
         width: var(--sidebar-collapsed-width);
+        border-radius: 16px;
       }
+    }
+
+    .expand-button.prominent {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e9f1fa;
+      color: var(--primary-color);
+      border: none;
+      box-shadow: 0 2px 4px rgba(44, 62, 80, 0.05);
+      left: 50%;
+      top: 16px;
+      transform: translateX(-50%);
+      position: absolute;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .expand-button.prominent .material-icons {
+      font-size: 24px;
+    }
+
+    .company-header.modern {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0 8px 0;
+      background: transparent;
+      border-bottom: none;
+    }
+    .company-logo.modern {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      margin-right: 0;
+    }
+    .company-info {
+      margin-left: 0;
+      transition: opacity var(--transition-speed) ease;
+      &.hidden {
+        opacity: 0;
+        width: 0;
+        padding: 0;
+      }
+    }
+    .company-name.modern {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-left: 8px;
+    }
+    .feature-header.modern {
+      padding: 16px 24px;
+      background: var(--primary-color);
+      border-bottom: none;
+      transition: opacity var(--transition-speed) ease;
+      &.hidden {
+        opacity: 0;
+        height: 0;
+        padding: 0;
+        border: none;
+      }
+      h2 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.3px;
+      }
+      p {
+        margin: 4px 0 0;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+    .sidebar-content.modern {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+      background: transparent;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #e3eaf2;
+        border-radius: 2px;
+      }
+    }
+    .menu-section.modern {
+      margin: 2px 0;
+      .sidebar.collapsed & {
+        margin: 0;
+      }
+    }
+    .menu-item.modern {
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      color: #7b8ca6;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 4px 8px;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      overflow: hidden;
+      &:hover, &.active {
+        background: #e9f1fa;
+        color: var(--primary-color);
+      }
+      .sidebar.collapsed & {
+        padding: 10px;
+        height: 50px;
+        justify-content: center;
+        margin: 5px;
+      }
+    }
+    .item-icon.modern {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      margin-right: 12px;
+      color: #7b8ca6;
+      font-size: 22px;
+      transition: color 0.2s;
+      .sidebar.collapsed & {
+        margin: 0;
+        padding: 0;
+        padding-left: 12px;
+      }
+      .material-icons {
+        font-size: 22px;
+      }
+    }
+    .item-content.modern {
+      flex: 1;
+      min-width: 0;
+      transition: opacity var(--transition-speed) ease;
+      &.hidden {
+        opacity: 0;
+        width: 0;
+        padding: 0;
+      }
+      .item-label.modern {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+      .item-description.modern {
+        font-size: 0.85rem;
+        color: #b0b8c1;
+      }
+    }
+    .user-profile.modern {
+      padding: 16px 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border-top: none;
+      transition: all var(--transition-speed) ease;
+      &.collapsed {
+        justify-content: center;
+        padding: 16px 0;
+      }
+      .user-avatar.modern {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #e9f1fa;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .user-info.modern {
+        transition: opacity var(--transition-speed) ease;
+        margin-left: 8px;
+        &.hidden {
+          opacity: 0;
+          width: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    .sidebar.collapsed .menu-section.modern {
+      margin: 0;
+    }
+    .sidebar.collapsed .menu-item.modern {
+      margin: 0;
+      padding: 2px 0;
+      justify-content: center;
+    }
+    .sidebar.collapsed .item-icon.modern {
+      margin: 0;
+      padding: 0;
+      padding-left: 12px;
+    }
+    .sidebar.collapsed .menu-section.modern:first-child {
+      margin-top: 48px;
+    }
+    .expand-button.prominent {
+      top: 8px;
     }
 
     @media (max-width: 768px) {
@@ -535,11 +706,16 @@ interface SidebarItem {
           margin-left: 0;
         }
       }
+
+      .expand-button, .expand-button.collapsed {
+        left: var(--sidebar-collapsed-width);
+      }
     }
   `]
 })
 export class SideBarComponent implements OnInit, OnDestroy {
   @Input() currentFeature: string = '';
+  @Output() sidebarToggled = new EventEmitter<boolean>();
   isOpen: boolean = true;
   shouldShowSidebar = true;
   isMobile = false;
@@ -583,6 +759,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
  
   toggleSidebar(): void {
     this.isOpen = !this.isOpen;
+    this.sidebarToggled.emit(this.isOpen);
   }
 
   closeSidebar(): void {
@@ -644,6 +821,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
       { label: 'Final Performance Assessment Score Level 1-12', route: '/epmds/final-score', description: 'Final performance assessment', icon: 'calculate' }
     ],
     'IAPPMS': [
+      { label: 'Dashboard', route: '/iappms/dashboard', description: 'IAPPMS Overview', icon: 'dashboard' },
       { label: 'MTSF Implementation', route: '/iappms/mtsf', description: 'Medium Term Strategic Frame...', icon: 'timeline' },
       { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', description: 'Strategic Mapping of P...', icon: 'map' },
       { label: 'Operational Plan', route: '/iappms/operational-plan', description: 'Operational Planning and M...', icon: 'business' },

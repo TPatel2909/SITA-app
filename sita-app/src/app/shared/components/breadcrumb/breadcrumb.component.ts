@@ -23,10 +23,28 @@ interface Breadcrumb {
     </nav>
   `,
   styles: [`
+
+    :host {
+      --primary-color: #1c5ba3;
+      --primary-dark: #134a82;
+      --primary-light: rgba(28, 91, 163, 0.08);
+      --primary-lighter: rgba(28, 91, 163, 0.04);
+      --text-color: #2d3748;
+      --text-light: #718096;
+      --bg-color: #ffffff;
+      --bg-secondary: #f8fafc;
+      --sidebar-width: 300px;
+      --sidebar-collapsed-width: 72px;
+      --transition-speed: 0.3s;
+      --border-radius: 8px;
+      --active-bg: linear-gradient(to right, var(--primary-light), var(--primary-lighter));
+      --hover-bg: var(--bg-secondary);
+    } 
+
     .breadcrumb-nav {
       position: fixed;
       top: 64px; /* Height of the header */
-      left: 300px; /* Width of the sidebar */
+      left: var(--sidebar-width);
       right: 0;
       background: white;
       padding: 0.75rem 2rem;
@@ -34,6 +52,9 @@ interface Breadcrumb {
       z-index: 1000;
       transition: left 0.3s ease;
     }
+      .sidebar-collapsed .breadcrumb-nav {
+        left: var(--sidebar-collapsed-width);
+      }
 
     .breadcrumb-list {
       list-style: none;
