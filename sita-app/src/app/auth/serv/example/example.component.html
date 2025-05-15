@@ -1,0 +1,40 @@
+<h2>User Details List</h2>
+
+<!-- Toggle button -->
+<button (click)="toggleForm()">{{ showForm ? 'View User List' : 'Add New User' }}</button>
+
+<!-- Form to add new user -->
+<div *ngIf="showForm">
+  <form #form="ngForm" (ngSubmit)="addNewRecord()">
+    <label for="fullName">Full Name</label>
+    <input id="fullName" [(ngModel)]="userDetails.FullName" name="FullName" required />
+
+    <label for="position">Position</label>
+    <input id="position" [(ngModel)]="userDetails.Position" name="Position" required />
+
+    <label for="department">Department</label>
+    <input id="department" [(ngModel)]="userDetails.Department" name="Department" required />
+
+    <label for="jobPurpose">Job Purpose</label>
+    <input id="jobPurpose" [(ngModel)]="userDetails.JobPurpose" name="JobPurpose" />
+
+    <label for="representedByPosition">Represented By Position</label>
+    <input id="representedByPosition" [(ngModel)]="userDetails.RepresentedByPosition" name="RepresentedByPosition" />
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<!-- User details list -->
+<div *ngIf="!showForm">
+  <p *ngIf="userDetailsList.length === 0">No users found.</p>
+
+  <div *ngFor="let user of userDetailsList" class="user-card">
+    <h3>{{ user.FullName }}</h3>
+    <p><strong>User ID:</strong> {{ user.UserId }}</p>
+    <p><strong>Department:</strong> {{ user.Department }}</p>
+    <p><strong>Position:</strong> {{ user.Position }}</p>
+    <p><strong>Job Purpose:</strong> {{ user.JobPurpose || 'N/A' }}</p>
+    <p><strong>Represented By Position:</strong> {{ user.RepresentedByPosition || 'N/A' }}</p>
+  </div>
+</div>
