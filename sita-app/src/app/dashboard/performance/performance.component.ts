@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { AppworksDataService } from '../service/appworks-data.service';
 
 interface PerformanceAgreement {
   employerDetails: {
@@ -736,7 +737,7 @@ interface RatingScale {
 export class PerformanceComponent implements OnInit {
   performanceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private appworksService: AppworksDataService) {
     this.performanceForm = this.fb.group({
       employer: this.fb.group({
         name: ['', Validators.required],
@@ -816,6 +817,8 @@ export class PerformanceComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+    this.loadData();
     if (this.performanceForm.valid) {
       console.log('Form submitted:', this.performanceForm.value);
       // TODO: Add API call to save the form
@@ -836,6 +839,28 @@ export class PerformanceComponent implements OnInit {
       } else {
         control.markAsTouched();
       }
+    });
+  }
+
+
+  loadData() {
+    this.appworksService.fetchResultItems().subscribe({
+      next: (data) => console.log('Results:', data),
+      error: (err) => console.error('Error:', err)
+    });
+  }
+  
+  // Search with criteria
+  searchData() {
+    const criteria = { 
+      // Your search criteria, for example:
+      DocumentType: 'Invoice',
+      Status: 'Active'
+    };
+    
+    this.appworksService.searchResultItems(criteria, 10, 1).subscribe({
+      next: (data) => console.log('Search results:', data),
+      error: (err) => console.error('Search error:', err)
     });
   }
 } 
