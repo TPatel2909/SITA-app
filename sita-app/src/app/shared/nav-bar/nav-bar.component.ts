@@ -307,11 +307,11 @@ export class NavBarComponent {
       label: 'IAPPMS',
       route: '/iappms',
       subItems: [
-        { label: 'MTSF Implementation Plan', route: '/iappms/mtsf', icon: '📊', description: 'Medium Term Strategic Framework Implementation Plan' },
-        { label: 'Strategic Mapping', route: '/iappms/strategic-mapping', icon: '🗺️', description: 'Strategic Mapping of Provincial Priorities' },
-        { label: 'Operational Plan', route: '/iappms/operational-plan', icon: '📋', description: 'Operational Planning and Management' },
-        { label: 'Strategic Plan', route: '/iappms/strategic-plan', icon: '🎯', description: 'Strategic Planning and Development' },
-        { label: 'Annual Performance Plan', route: '/iappms/annual', icon: '📅', description: 'Annual Performance Planning and Review' }
+        { label: 'MTSF Implementation Plan', route: '/iappms/mtsf'},
+        { label: 'Strategic Mapping', route: '/iappms/strategic-mapping'},
+        { label: 'Operational Plan', route: '/iappms/operational-plan' },
+        { label: 'Strategic Plan', route: '/iappms/strategic-plan'},
+        { label: 'Annual Performance Plan', route: '/iappms/annual'}
       ]
     },
     {
