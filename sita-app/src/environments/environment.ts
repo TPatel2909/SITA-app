@@ -1,11 +1,12 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: '/api',
+  gatewayurl: '/api/home/SITA/com.eibus.web.soap.Gateway.wcp',
   appWorks: {
-    baseUrl: 'http://eimbpm2.dcxeim.local:81',
+    baseUrl: '/api',
     // SAML authentication is handled by the browser/session
     // No need for API key, client ID, or client secret
     defaultLanguage: 'en-US',
     defaultTimezone: 'Africa/Johannesburg'
   }
-}; 
+};

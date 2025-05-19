@@ -1,0 +1,16 @@
+<div id="my-element">Original Text</div>
+
+
+<div *ngIf="userDetails; else noData">
+    <h3>User Details</h3>
+    <p><strong>ID:</strong> {{ userDetails.UserId }}</p>
+    <p><strong>Name:</strong> {{ userDetails.FullName }}</p>
+    <p><strong>Job Purpose:</strong> {{ userDetails.JobPurpose }}</p>
+    <p><strong>Position:</strong> {{ userDetails.Position }}</p>
+    <p><strong>Department:</strong> {{ userDetails.Department }}</p>
+    <p><strong>Represented By:</strong> {{ userDetails.RepresentedByPosition }}</p>
+  </div>
+  
+  <ng-template #noData>
+    <p>No user data found.</p>
+  </ng-template>  

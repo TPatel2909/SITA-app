@@ -1,0 +1,8 @@
+{
+  "/home": {
+    "target": "http://192.168.0.179:81",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

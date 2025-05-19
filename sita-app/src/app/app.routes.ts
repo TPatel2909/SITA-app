@@ -8,6 +8,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { SignaturePadComponent } from './signature-pad/signature-pad.component';
 import { LandingComponent } from './landing/landing.component';
+import { CordysTestComponent } from './auth/cordys-test/cordys-test.component';
+import { ExampleComponent } from './auth/serv/example/example.component';
+import { UserExampleComponent } from './auth/serv/user-example/user-example.component';
 
 // Import EPMDS feature components
 import {
@@ -30,10 +33,13 @@ import {
   AnnualPerformanceAssessmentComponent
 } from './features/epmds/index';
 
-import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
+//import { MtsfImplementationPlanComponent } from './features/iappms/components/mtsf-implementation-plan/mtsf-implementation-plan.component';
 import { IAPPMS_ROUTES } from './features/iappms/iappms.routes';
 
 export const routes: Routes = [
+  { path: 'cordys-test', component: CordysTestComponent },
+  { path: 'ExampleComponent', component: ExampleComponent },
+  { path: 'UserExampleComponent', component: UserExampleComponent },
   {
     path: '',
     redirectTo: '/login',

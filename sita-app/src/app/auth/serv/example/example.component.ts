@@ -39,7 +39,7 @@ export class ExampleComponent implements OnInit {
   ENTITY_ID = "7e1116a15ce336eca73a9285dfc2b8ac.020025AD005FA1F0881140647627AB0B" ;
 
   ngOnInit() {
-    this.appworksService.getAppworksData(this.ENTITY_ID).subscribe({
+    this.appworksService.getAppWorksData(this.ENTITY_ID).subscribe({
       next: (response) => {
         this.data = response;
         this.userDetailsList = this.data.result.items.map((item: any) => ({
@@ -62,18 +62,44 @@ export class ExampleComponent implements OnInit {
   }
 
   addNewRecord() {
-    this.appworksService.addAppworksData(this.userDetails).subscribe({
+    const payload = {
+      Properties: {
+        FullName: this.userDetails.FullName,
+        Position: this.userDetails.Position,
+        Department: this.userDetails.Department
+      }
+    };
+  
+    /*/ Only add optional properties if they are not null
+    if (this.userDetails.JobPurpose !== null) {
+      payload.Properties['JobPurpose'] = this.userDetails.JobPurpose;
+    }
+  
+    if (this.userDetails.RepresentedByPosition !== null) {
+      payload.Properties['RepresentedByPosition'] = this.userDetails.RepresentedByPosition;
+    }   */
+  
+    this.appworksService.postAppWorksData(this.ENTITY_ID, payload).subscribe({
       next: (response) => {
-        console.log('New record added', response);
+        console.log('User added:', response);
+        this.userDetailsList.push({
+          UserId: response.Identity?.Id ?? 'New',
+          FullName: this.userDetails.FullName,
+          Position: this.userDetails.Position,
+          Department: this.userDetails.Department,
+          JobPurpose: this.userDetails.JobPurpose,
+          RepresentedByPosition: this.userDetails.RepresentedByPosition
+        });
+        this.resetForm();
         this.toggleForm();
-        this.userDetailsList.push({ ...this.userDetails }); // Add to list
-        this.resetForm(); // Optional: Clear form after submission
       },
-      error: (err) => {
-        console.error('Error adding new record', err);
+      error: (error) => {
+        console.error('Error adding user:', error);
       }
     });
   }
+  
+  
 
   resetForm() {
     this.userDetails = {

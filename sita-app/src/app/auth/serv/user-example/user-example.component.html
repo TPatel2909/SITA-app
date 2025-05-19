@@ -1,1 +1,74 @@
-<p>user-example works!</p>
+<div class="container mt-4" *ngIf="userDetails">
+  <h2 class="mb-4">User Details</h2>
+
+  <form>
+    <div class="mb-3">
+      <label for="userId" class="form-label">User ID</label>
+      <input
+        id="userId"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.UserId"
+        name="UserId"
+        readonly
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Full Name</label>
+      <input
+        id="fullName"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.FullName"
+        name="FullName"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="jobPurpose" class="form-label">Job Purpose</label>
+      <input
+        id="jobPurpose"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.JobPurpose"
+        name="JobPurpose"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="position" class="form-label">Position</label>
+      <input
+        id="position"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.Position"
+        name="Position"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="department" class="form-label">Department</label>
+      <input
+        id="department"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.Department"
+        name="Department"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="representedBy" class="form-label">Represented By Position</label>
+      <input
+        id="representedBy"
+        type="text"
+        class="form-control"
+        [(ngModel)]="userDetails.RepresentedByPosition"
+        name="RepresentedByPosition"
+      />
+    </div>
+  </form>
+</div>
+
+
