@@ -46,7 +46,7 @@ interface Breadcrumb {
       top: 64px; /* Height of the header */
       left: var(--sidebar-width);
       right: 0;
-      background: white;
+      background: #f5f5f5;
       padding: 0.75rem 2rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       z-index: 1000;

@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/services/auth.service';
  
 interface SidebarItem {
   label: string;
@@ -18,10 +19,16 @@ interface SidebarItem {
   template: `
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div class="app-layout">
-      <div class="sidebar-wrapper" [class.collapsed]="!isOpen">
+      <!-- Burger menu for mobile -->
+      <button class="burger-menu" *ngIf="isMobile && !isOpen" (click)="toggleSidebar()" aria-label="Open sidebar">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+      <div class="sidebar-wrapper" [class.collapsed]="!isOpen" [class.mobile-open]="isMobile && isOpen">
         <div class="sidebar" [class.collapsed]="!isOpen">
-          <!-- Expand/Collapse Button (very top of sidebar, only when collapsed) -->
-          <button *ngIf="!isOpen" class="expand-button prominent" (click)="toggleSidebar()">
+          <!-- Expand/Collapse Button (very top of sidebar, only when collapsed and not mobile) -->
+          <button *ngIf="!isOpen && !isMobile" class="expand-button prominent" (click)="toggleSidebar()">
             <i class="material-icons">chevron_right</i>
           </button>
          
@@ -49,11 +56,12 @@ interface SidebarItem {
             </div>
           </div>
           <!-- User Profile -->
-          <div class="user-profile modern" [class.collapsed]="!isOpen">
-            <div class="user-avatar modern">JT</div>
+          <div class="user-profile modern" [class.collapsed]="!isOpen" (click)="logout()">
+            <div class="user-icon modern">
+              <i class="material-icons">person</i>
+            </div>
             <div class="user-info modern" [class.hidden]="!isOpen">
-              <span class="user-name">John Doe</span>
-              <span class="user-email">john.doe&#64;sita.co.za</span>
+              <span class="user-name">{{ userName }}</span>
             </div>
           </div>
         </div>
@@ -61,8 +69,8 @@ interface SidebarItem {
       <div class="app-content" [class.sidebar-collapsed]="!isOpen">
         <ng-content></ng-content>
       </div>
-      <!-- Move overlay outside of sidebar -->
-      <div class="sidebar-overlay" [class.active]="!isOpen && isMobile" (click)="toggleSidebar()"></div>
+      <!-- Overlay for mobile -->
+      <div class="sidebar-overlay" [class.active]="isMobile && isOpen" (click)="toggleSidebar()"></div>
     </div>
   `,
   styles: [`
@@ -255,7 +263,7 @@ interface SidebarItem {
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--text-light);
+        background: #4CAF50;
         border-radius: 2px;
       }
     }
@@ -542,7 +550,7 @@ interface SidebarItem {
         background: transparent;
       }
       &::-webkit-scrollbar-thumb {
-        background: #e3eaf2;
+        background: #4CAF50;
         border-radius: 2px;
       }
     }
@@ -619,29 +627,37 @@ interface SidebarItem {
       background: transparent;
       border-top: none;
       transition: all var(--transition-speed) ease;
+      gap: 8px;
+
       &.collapsed {
         justify-content: center;
         padding: 16px 0;
       }
-      .user-avatar.modern {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: #e9f1fa;
-        color: var(--primary-color);
+
+      .user-icon.modern {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 600;
-        font-size: 1.1rem;
+        color: var(--primary-color);
+        
+        .material-icons {
+          font-size: 24px;
+        }
       }
+
       .user-info.modern {
         transition: opacity var(--transition-speed) ease;
-        margin-left: 8px;
+        
         &.hidden {
           opacity: 0;
           width: 0;
           padding: 0;
+        }
+
+        .user-name {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: var(--text-color);
         }
       }
     }
@@ -667,48 +683,100 @@ interface SidebarItem {
     }
 
     @media (max-width: 768px) {
+      .app-layout {
+        width: 100%;
+        margin: 0;
+      }
+      .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 80vw;
+        max-width: 320px;
+        min-width: 220px;
+        z-index: 2000;
+        background: #fff;
+        box-shadow: 2px 0 8px rgba(44, 62, 80, 0.12);
+        transform: translateX(-100%);
+        transition: transform var(--transition-speed) ease;
+      }
+      .sidebar-wrapper.mobile-open {
+        transform: translateX(0);
+      }
+      .sidebar {
+        border-radius: 0;
+        min-width: 0;
+        width: 100%;
+        height: 100vh;
+        box-shadow: none;
+      }
+      .sidebar-content.modern {
+        padding: 12px 0;
+      }
+      .menu-item.modern {
+        min-height: 48px;
+        font-size: 1.1rem;
+        justify-content: center;
+      }
+      .item-icon.modern {
+        font-size: 28px;
+        padding-left: 0;
+      }
+      .user-profile.modern {
+        padding: 16px 0 16px 0;
+        justify-content: center;
+        .user-icon.modern {
+          font-size: 28px;
+        }
+      }
       .burger-menu {
         display: flex;
-      }
-
-      .nav-items {
         position: fixed;
-        top: 56px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 56px);
-        background: var(--primary);
+        top: 16px;
+        left: 16px;
+        z-index: 2100;
         flex-direction: column;
-        padding: 1rem;
-        transition: left 0.3s ease;
-        
-        &.mobile-active {
-          left: 0;
-        }
+        justify-content: space-between;
+        width: 32px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
       }
-
-      .nav-item {
-        padding: 1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-
-      .main-content,
-      .app-content {
-        margin-left: 0;
+      .burger-line {
         width: 100%;
-        z-index: 100;
-        
-        &.with-sidebar {
-          margin-left: 0;
-        }
+        height: 4px;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+        margin: 2px 0;
+        transition: background 0.2s;
       }
-
-      .expand-button, .expand-button.collapsed {
-        left: var(--sidebar-collapsed-width);
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity var(--transition-speed) ease;
+      }
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .app-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 16px 4px 16px 4px;
+      }
+      .app-content.sidebar-collapsed {
+        margin-left: 0 !important;
+        width: 100% !important;
       }
     }
   `]
@@ -721,14 +789,20 @@ export class SideBarComponent implements OnInit, OnDestroy {
   isMobile = false;
   private routerSubscription?: Subscription;
   private coreFeatures = ['epmds', 'iappms', 'ess', 'reporting'];
+  userName = 'Test User';
  
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private authService: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.checkMobile();
       window.addEventListener('resize', () => this.checkMobile());
+      // Set initial state for mobile
+      if (this.isMobile) {
+        this.isOpen = false;
+      }
     }
   }
  
@@ -753,7 +827,14 @@ export class SideBarComponent implements OnInit, OnDestroy {
  
   private checkMobile() {
     if (isPlatformBrowser(this.platformId)) {
+      const wasMobile = this.isMobile;
       this.isMobile = window.innerWidth <= 768;
+      
+      // If switching to mobile, close the sidebar
+      if (!wasMobile && this.isMobile) {
+        this.isOpen = false;
+        this.sidebarToggled.emit(false);
+      }
     }
   }
  
@@ -843,4 +924,9 @@ export class SideBarComponent implements OnInit, OnDestroy {
       { label: 'Analytics Dashboard', route: '/reporting/analytics', description: 'Interactive dashboard', icon: 'dashboard' }
     ]
   };
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
+  }
 }

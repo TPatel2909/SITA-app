@@ -74,26 +74,35 @@ export class AppComponent implements OnDestroy {
   }
 
   isDashboardPage(): boolean {
-    const dashboardPaths = [
+    // Remove trailing slashes for consistent comparison
+    const normalizedUrl = this.currentUrl.replace(/\/$/, '');
+    
+    // Check for exact matches first
+    const exactMatches = [
       '/dashboard',
       '/epmds/dashboard',
-      '/epmds/dashboard/',
       '/epmds',
-      '/epmds/',
       '/epmds/overview',
-      '/epmds/overview/',
       '/iappms/dashboard',
       '/ess/dashboard',
       '/reporting/dashboard'
     ];
-    
-    return dashboardPaths.includes(this.currentUrl) ||
-           this.currentUrl.startsWith('/dashboard/') ||
-           this.currentUrl.startsWith('/epmds/dashboard/') ||
-           this.currentUrl.startsWith('/epmds/overview/') ||
-           this.currentUrl.startsWith('/iappms/dashboard') ||
-           this.currentUrl.startsWith('/ess/dashboard') ||
-           this.currentUrl.startsWith('/reporting/dashboard');
+
+    if (exactMatches.includes(normalizedUrl)) {
+      return true;
+    }
+
+    // Check for path starts with
+    const dashboardPrefixes = [
+      '/dashboard/',
+      '/epmds/dashboard/',
+      '/epmds/overview/',
+      '/iappms/dashboard/',
+      '/ess/dashboard/',
+      '/reporting/dashboard/'
+    ];
+
+    return dashboardPrefixes.some(prefix => normalizedUrl.startsWith(prefix));
   }
 
   isLandingPage(): boolean {
